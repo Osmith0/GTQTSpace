@@ -6,7 +6,7 @@ plugins {
     id 'maven-publish'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.7'
     id 'eclipse'
-    id 'com.gtnewhorizons.retrofuturagradle' version '1.3.27'
+    id 'com.gtnewhorizons.retrofuturagradle' version '1.3.16'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
@@ -34,20 +34,20 @@ configurations {
     embed
     implementation.extendsFrom(embed)
 }
-
+/*
 minecraft {
     mcVersion = '1.12.2'
 
     // MCP Mappings
     mcpMappingChannel = 'stable'
     mcpMappingVersion = '39'
-    
+
     // Set username here, the UUID will be looked up automatically
     username = 'Developer'
-    
+
     // Add any additional tweaker classes here
     // extraTweakClasses.add('org.spongepowered.asm.launch.MixinTweaker')
-    
+
     // Add various JVM arguments here for runtime
     def args = ["-ea:${project.group}"]
     if (project.use_coremod.toBoolean()) {
@@ -62,14 +62,51 @@ minecraft {
 
     // Include and use dependencies' Access Transformer files
     useDependencyAccessTransformers = true
-    
+
     // Add any properties you want to swap out for a dynamic value at build time here
     // Any properties here will be added to a class at build time, the name can be configured below
     // Example:
+    injectedTags.put("VERSION", project.version)
     // injectedTags.put('VERSION', project.version)
     // injectedTags.put('MOD_ID', project.archives_base_name)
 }
+*/
 
+minecraft {
+    mcVersion.set("1.12.2")
+
+    // Username for client run configurations
+    username.set("XB_Asuna")
+
+    // Generate a field named VERSION with the mod version in the injected Tags class
+    injectedTags.put("VERSION", project.version)
+
+    // If you need the old replaceIn mechanism, prefer the injectTags task because it doesn't inject a javac plugin.
+    // tagReplacementFiles.add("RfgExampleMod.java")
+
+    // Enable assertions in the mod's package when running the client or server
+    def args = ["-ea:${project.group}"]
+    if (project.use_coremod.toBoolean()) {
+        args << '-Dfml.coreMods.load=' + coremod_plugin_class_name
+    }
+    if (project.use_mixins.toBoolean()) {
+        args << '-Dmixin.hotSwap=true'
+        args << '-Dmixin.checks.interfaces=true'
+        args << '-Dmixin.debug.export=true'
+    }
+
+    // Mixin args
+    args.add("-Dmixin.hotSwap=true")
+    args.add("-Dmixin.checks.interfaces=true")
+    args.add("-Dmixin.debug.export=true")
+    extraRunJvmArguments.addAll(args)
+
+    // If needed, add extra tweaker classes like for mixins.
+    // extraTweakClasses.add("org.spongepowered.asm.launch.MixinTweaker")
+
+    // Exclude some Maven dependency groups from being automatically included in the reobfuscated runs
+    groupsToExcludeFromAutoReobfMapping.addAll("com.diffplug", "com.diffplug.durian", "net.industrial-craft")
+}
 // Generate a group.archives_base_name.Tags class
 tasks.injectTags.configure {
     // Change Tags class' name here:
@@ -77,6 +114,9 @@ tasks.injectTags.configure {
 }
 
 repositories {
+    maven {
+        url "https://maven.galacticraft.net/repository/legacy/"
+    }
     maven {
         name 'CleanroomMC Maven'
         url 'https://maven.cleanroommc.com'
@@ -105,7 +145,15 @@ dependencies {
 
     // Example of deobfuscating a dependency
     // implementation rfg.deobf('curse.maven:had-enough-items-557549:4543375')
-
+    implementation rfg.deobf("curse.maven:code-chicken-lib-1-8-242818:2779848")
+    implementation rfg.deobf(files("libs/GregicalityMultiblocks-1.2.7.jar"))
+    implementation rfg.deobf(files("libs/gregtech-1.12.2-2.8.7-beta.jar"))
+    implementation rfg.deobf(files("libs/!mixinbooter-8.9.jar"))
+    implementation rfg.deobf(files("libs/gregtechfoodoption-1.12.2-1.11.0.jar"))
+    implementation rfg.deobf(files("libs/jei_1.12.2-4.16.1.1003.jar"))
+    implementation rfg.deobf(files("libs/groovyscript-0.7.0.jar"))
+    implementation rfg.deobf(files("libs/theoneprobe-1.12-1.4.28.jar"))
+    implementation rfg.deobf(files("libs/CTM-MC1.12.2-1.0.2.31.jar"))
     if (project.use_mixins.toBoolean()) {
         // Change your mixin refmap name here:
         String mixin = modUtils.enableMixins('org.spongepowered:mixin:0.8.3', "mixins.${project.archives_base_name}.refmap.json")
@@ -119,7 +167,8 @@ dependencies {
             transitive = false
         }
     }
-
+    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:1.0.0'
+    compileOnly 'com.github.bsideup.jabel:jabel-javac-plugin:1.0.0'
 }
 
 // Adds Access Transformer files to tasks
@@ -131,12 +180,16 @@ if (project.use_access_transformer.toBoolean()) {
         }
     }
 }
+jar {
+    //manifest.attributes('FMLAT': 'gs_at.cfg')
+    manifest.attributes('FMLAT': 'asmodeuscore_at.cfg')
+}
 
 processResources {
     // This will ensure that this task is redone when the versions change
     inputs.property 'version', project.version
     inputs.property 'mcversion', project.minecraft.version
-    
+
     // Replace various properties in mcmod.info and pack.mcmeta if applicable
     filesMatching(['mcmod.info', 'pack.mcmeta']) { fcd ->
         // Replace version and mcversion
@@ -145,7 +198,7 @@ processResources {
                 'mcversion': project.minecraft.version
         )
     }
-    
+
     if (project.use_access_transformer.toBoolean()) {
         rename '(.+_at.cfg)', 'META-INF/$1' // Make sure Access Transformer files are in META-INF folder
     }
@@ -204,4 +257,12 @@ idea {
 
 tasks.named("processIdeaSettings").configure {
     dependsOn("injectTags")
+}
+configure([tasks.compileJava]) {
+    sourceCompatibility = 16 // for the IDE support
+    options.release = 8
+
+    javaCompiler = javaToolchains.compilerFor {languageVersion = JavaLanguageVersion.of(16)
+    }
+
 }

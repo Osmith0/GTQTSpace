@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\keqing",
+    "\\src\\main\\java\\keqing\\gtqtspace",
+    "\\src\\main\\java\\keqing\\gtqtspace\\api",
+    "\\src\\main\\java\\keqing\\gtqtspace\\api\\unifications",
+    "\\src\\main\\java\\keqing\\gtqtspace\\api\\unifications\\materials",
+    "\\src\\main\\resources"
+  ],
+  "SelectedNode": "\\src\\main\\java\\keqing\\gtqtspace\\api\\unifications\\materials\\FirstDegreeMaterials.java",
+  "PreviewInSolutionExplorer": false
+}
