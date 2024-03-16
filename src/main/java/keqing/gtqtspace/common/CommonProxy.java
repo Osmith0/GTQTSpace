@@ -1,6 +1,8 @@
 package keqing.gtqtspace.common;
 
 import gregtech.api.block.VariantItemBlock;
+import keqing.gtqtspace.api.recipes.properties.SEProperty;
+import keqing.gtqtspace.api.recipes.properties.StarProperty;
 import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
@@ -73,5 +75,14 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         GTQTSLog.logger.info("Registering recipes...");
+
+        for(int i=1;i<=7;i++) SEProperty.registeredMotor(i, String.valueOf(i));
+
+        StarProperty.registeredNB(1,"射电望远镜-1级");
+        StarProperty.registeredNB(2,"远轨道卫星探测-2级");
+        StarProperty.registeredNB(3,"大型轨道望远镜-3级");
+        StarProperty.registeredNB(4,"太空探测阵列-4级");
+        StarProperty.registeredNB(5,"引力波探测-5级");
+        StarProperty.registeredNB(6,"不知道-6级");
     }
 }

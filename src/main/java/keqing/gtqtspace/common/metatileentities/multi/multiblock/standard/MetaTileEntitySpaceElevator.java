@@ -217,9 +217,9 @@ public class MetaTileEntitySpaceElevator extends MultiMapMultiblockController im
     @Override
     protected void addDisplayText(List<ITextComponent> textList) {
         super.addDisplayText(textList);
-        textList.add(new TextComponentTranslation("gtqtcore.multiblock.se.motor",motortier,dim,getCoe()));
-        textList.add(new TextComponentTranslation("gtqtcore.multiblock.se.abcdn"));
-        textList.add(new TextComponentTranslation("gtqtcore.multiblock.se.abcd",Atier,Btier,Ctier,Dtier));
+        textList.add(new TextComponentTranslation("gtqtspace.multiblock.se.motor",motortier,dim,getCoe()));
+        textList.add(new TextComponentTranslation("gtqtspace.multiblock.se.abcdn"));
+        textList.add(new TextComponentTranslation("gtqtspace.multiblock.se.abcd",Atier,Btier,Ctier,Dtier));
 
     }
 

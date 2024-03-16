@@ -8,6 +8,7 @@ import keqing.gtqtspace.common.items.GTQTSMetaItems;
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(
@@ -32,7 +33,11 @@ public class GTQTSpace {
     )
     public static CommonProxy proxy;
     public static ClientProxy cproxy;
-
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+        proxy.init();
+    }
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {

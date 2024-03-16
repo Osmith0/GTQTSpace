@@ -79,11 +79,23 @@ gtqtspace.machine.space_elevator.name=太空电梯
 gtqtspace.machine.space_elevator.tooltip.13=我是电梯大王
 recipemap.space_elevator_mining_module.name=太空矿床采集
 recipemap.space_elevator_drilling_module.name=太空气泉采集
-gtqtcore.multiblock.se.motor=轨道加速器: %s 星域: %s 矿机: %s
-gtqtcore.multiblock.se.abcdn=模块项目: 矿机 超频 耗能 并行
-gtqtcore.multiblock.se.abcd=模块等级: %s  %s  %s  %s
-gtqtcore.multiblock.se.threshold_decrement=星域缩小
-gtqtcore.multiblock.se.threshold_increment=星域扩大
+gtqtspace.multiblock.se.motor=轨道加速器: %s 星域: %s 矿机: %s
+gtqtspace.multiblock.se.abcdn=模块项目: 矿机 超频 耗能 并行
+gtqtspace.multiblock.se.abcd=模块等级: %s  %s  %s  %s
+gtqtspace.multiblock.se.threshold_decrement=星域缩小
+gtqtspace.multiblock.se.threshold_increment=星域扩大
+
+
+
+recipemap.star_suvery.name=星球研究
+gtqtspace.machine.cosmic_ray_detector.name=宇宙射线探测器
+gtqtspace.machine.cosmic_ray_detector.tooltip.1=收集来自宇宙的信息和粒子
+gtqtspace.machine.cosmic_ray_detector.tooltip_shift.1=高度由顶端的传感器方块决定
+gtqtspace.machine.cosmic_ray_detector.tooltip_shift.2=传感器上方不能有非透明方块
+gtqtspace.machine.cosmic_ray_detector.altitude=当前高度为：%s
+gtqtspace.machine.cosmic_ray_detector.can_see_sky.false=§c传感器看不到天空
+gtqtspace.machine.cosmic_ray_detector.can_see_sky.true=传感器工作正常
+recipemap.cosmic_ray_detector_recipes.name=射线探测
 
 #
 itemGroup.gtqtspace_core=量子跃迁 | 航空航天
