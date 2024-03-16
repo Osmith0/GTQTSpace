@@ -1,7 +1,10 @@
 package keqing.gtqtspace.common;
 
+import gregtech.api.block.VariantItemBlock;
 import keqing.gtqtspace.api.utils.GTQTSLog;
+import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
+import keqing.gtqtspace.loaders.recipes.GTQTSRecipesManager;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -16,6 +19,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 import java.util.Objects;
 import java.util.function.Function;
 
+import static gregtech.api.GregTechAPI.HEATING_COILS;
+
 @Mod.EventBusSubscriber(
         modid = "gtqtspace"
 )
@@ -27,7 +32,15 @@ public class CommonProxy {
             return GTQTSMetaItems.MINING_DRONE_MAX.getStackForm();
         }
     };
+    public void preLoad(){
 
+    }
+    public void init() {
+
+        GTQTSRecipesManager.init();
+
+
+    }
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         GTQTSLog.logger.info("Registering blocks...");
@@ -38,6 +51,7 @@ public class CommonProxy {
         registry.register(方块实例);
         在注册MetaBlock时用到
         */
+        registry.register(GTQTSMetaBlocks.SPACE_ELEVATOR);
     }
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -49,6 +63,7 @@ public class CommonProxy {
         registry.register(createItemBlock(方块实例, VariantItemBlock::new));
         在注册MetaBlock时用到
         */
+        registry.register(createItemBlock(GTQTSMetaBlocks.SPACE_ELEVATOR, VariantItemBlock::new));
     }
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {
         ItemBlock itemBlock = producer.apply(block);

@@ -13,6 +13,9 @@ import java.util.Random;
 )
 public class EventLoader {
 
+    public EventLoader() {
+    }
+
     @SubscribeEvent(
             priority = EventPriority.HIGH
     )

@@ -49,6 +49,41 @@ metaitem.mining_drone.uiv.tooltip=§2便携苍穹共振仪II
 metaitem.mining_drone.uxv.tooltip=§e便携苍穹共振仪III
 metaitem.mining_drone.opv.tooltip=§9-*创造一个宇宙，然后摧毁它*-
 metaitem.mining_drone.max.tooltip=§c=《༺=☆你的就是我的，我的还是我的☆=༻》=
+#方块
+
+tile.space_elevator_casing.basic_casing.name=线缆锚定基材
+tile.space_elevator_casing.internal_structure.name=主结构支撑器
+tile.space_elevator_casing.support_structure.name=约束支撑器
+tile.space_elevator_casing.floor.name=加固底座
+tile.space_elevator_casing.cable_casing.name=线缆束锚定器
+
+tile.space_elevator_casing.motor_casing_mk1.name=磁轨加速器 Mk I
+tile.space_elevator_casing.motor_casing_mk1.tooltip=无边疆
+tile.space_elevator_casing.motor_casing_mk2.name=磁轨加速器 Mk II
+tile.space_elevator_casing.motor_casing_mk2.tooltip=星辉
+tile.space_elevator_casing.motor_casing_mk3.name=磁轨加速器 Mk III
+tile.space_elevator_casing.motor_casing_mk3.tooltip=无垠夜空
+tile.space_elevator_casing.motor_casing_mk4.name=磁轨加速器 Mk IV
+tile.space_elevator_casing.motor_casing_mk4.tooltip=群星共舞
+tile.space_elevator_casing.motor_casing_mk5.name=磁轨加速器 Mk V
+tile.space_elevator_casing.motor_casing_mk5.tooltip=星河投射
+
+tile.space_elevator_casing.update_casing_mk1.name=分型运算器 Mk I
+tile.space_elevator_casing.update_casing_mk1.tooltip=专业计算
+tile.space_elevator_casing.update_casing_mk2.name=分型运算器 Mk II
+tile.space_elevator_casing.update_casing_mk2.tooltip=高浮点压力
+tile.space_elevator_casing.update_casing_mk3.name=分型运算器 Mk III
+tile.space_elevator_casing.update_casing_mk3.tooltip=量子集群
+#机器
+gtqtspace.machine.space_elevator.name=太空电梯
+gtqtspace.machine.space_elevator.tooltip.13=我是电梯大王
+recipemap.space_elevator_mining_module.name=太空矿床采集
+recipemap.space_elevator_drilling_module.name=太空气泉采集
+gtqtcore.multiblock.se.motor=轨道加速器: %s 星域: %s 矿机: %s
+gtqtcore.multiblock.se.abcdn=模块项目: 矿机 超频 耗能 并行
+gtqtcore.multiblock.se.abcd=模块等级: %s  %s  %s  %s
+gtqtcore.multiblock.se.threshold_decrement=星域缩小
+gtqtcore.multiblock.se.threshold_increment=星域扩大
 
 #
 itemGroup.gtqtspace_core=量子跃迁 | 航空航天
