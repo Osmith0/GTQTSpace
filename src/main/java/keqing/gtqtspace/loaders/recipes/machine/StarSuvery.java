@@ -5,8 +5,7 @@ import gregtech.api.unification.material.MarkerMaterials;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.common.items.MetaItems;
 
-import static gregtech.api.GTValues.HV;
-import static gregtech.api.GTValues.VA;
+import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.ASSEMBLY_LINE_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
@@ -32,7 +31,7 @@ public class StarSuvery {
                 .scannerResearch(b -> b
                         .researchStack(DISK_8.getStackForm())
                         .duration(1200)
-                        .EUt(VA[HV]))
+                        .EUt(VA[MV]))
                 .duration(800).EUt(VA[HV]).buildAndRegister();
 
 
