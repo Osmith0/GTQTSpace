@@ -46,7 +46,7 @@ public class StarSuvery {
                 .NB(1)
                 .CWUt(24)
                 .EUt(480)
-                .duration(20)
+                .duration(2000)
                 .buildAndRegister();
 
         STAR_SURVEY.recipeBuilder()
@@ -58,7 +58,7 @@ public class StarSuvery {
                 .NB(2)
                 .CWUt(96)
                 .EUt(480*4)
-                .duration(20)
+                .duration(2000)
                 .buildAndRegister();
 
         STAR_SURVEY.recipeBuilder()
@@ -70,7 +70,7 @@ public class StarSuvery {
                 .NB(3)
                 .CWUt(384)
                 .EUt(480*16)
-                .duration(20)
+                .duration(2000)
                 .buildAndRegister();
 
         STAR_SURVEY.recipeBuilder()
@@ -82,7 +82,7 @@ public class StarSuvery {
                 .NB(4)
                 .CWUt(1536)
                 .EUt(480*64)
-                .duration(20)
+                .duration(2000)
                 .buildAndRegister();
 
         STAR_SURVEY.recipeBuilder()
@@ -94,7 +94,7 @@ public class StarSuvery {
                 .NB(5)
                 .CWUt(6144)
                 .EUt(480*256)
-                .duration(61440000)
+                .duration(2000)
                 .buildAndRegister();
 
         STAR_SURVEY.recipeBuilder()
@@ -106,6 +106,7 @@ public class StarSuvery {
                 .NB(6)
                 .CWUt(24576)
                 .EUt(480*1024)
+                .duration(2000)
                 .buildAndRegister();
 
     }
