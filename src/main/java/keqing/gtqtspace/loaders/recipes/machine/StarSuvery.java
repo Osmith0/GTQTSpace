@@ -45,8 +45,7 @@ public class StarSuvery {
                 .output(COMPUTERTIER1)
                 .NB(1)
                 .CWUt(24)
-                .totalCWU(240000)
-                .EUt(30)
+                .EUt(480)
                 .duration(20)
                 .buildAndRegister();
 
@@ -58,8 +57,7 @@ public class StarSuvery {
                 .output(COMPUTERTIER2)
                 .NB(2)
                 .CWUt(96)
-                .totalCWU(960000)
-                .EUt(30)
+                .EUt(480*4)
                 .duration(20)
                 .buildAndRegister();
 
@@ -71,8 +69,7 @@ public class StarSuvery {
                 .output(COMPUTERTIER3)
                 .NB(3)
                 .CWUt(384)
-                .totalCWU(3840000)
-                .EUt(30)
+                .EUt(480*16)
                 .duration(20)
                 .buildAndRegister();
 
@@ -84,8 +81,7 @@ public class StarSuvery {
                 .output(COMPUTERTIER4)
                 .NB(4)
                 .CWUt(1536)
-                .totalCWU(15360000)
-                .EUt(30)
+                .EUt(480*64)
                 .duration(20)
                 .buildAndRegister();
 
@@ -97,8 +93,7 @@ public class StarSuvery {
                 .output(COMPUTERTIER5)
                 .NB(5)
                 .CWUt(6144)
-                .totalCWU(514)
-                .EUt(30)
+                .EUt(480*256)
                 .duration(61440000)
                 .buildAndRegister();
 
@@ -110,9 +105,7 @@ public class StarSuvery {
                 .output(COMPUTERTIER6)
                 .NB(6)
                 .CWUt(24576)
-                .totalCWU(514)
-                .EUt(30)
-                .duration(245760000)
+                .EUt(480*1024)
                 .buildAndRegister();
 
     }

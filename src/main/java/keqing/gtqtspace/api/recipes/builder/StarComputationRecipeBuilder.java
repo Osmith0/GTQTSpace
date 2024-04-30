@@ -34,14 +34,6 @@ public class StarComputationRecipeBuilder extends RecipeBuilder<StarComputationR
             this.CWUt(((Number) value).intValue());
             return true;
         }
-        if (key.equals(TotalComputationProperty.KEY)) {
-            this.totalCWU(((Number) value).intValue());
-            return true;
-        }
-        if (key.equals(KQNetProperty.KEY)) {
-            this.totalCWU(((Number) value).intValue());
-            return true;
-        }
         return super.applyProperty(key, value);
     }
 
