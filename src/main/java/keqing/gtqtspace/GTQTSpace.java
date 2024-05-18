@@ -6,6 +6,7 @@ import keqing.gtqtspace.common.CommonProxy;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -41,6 +42,7 @@ public class GTQTSpace {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        OBJLoader.INSTANCE.addDomain(MODID);
         GTQTSMetaTileEntities.initialization();
         GTQTSLog.init(event.getModLog());
         GTQTSMetaItems.initialization();

@@ -49,6 +49,16 @@ metaitem.mining_drone.uiv.tooltip=§2便携苍穹共振仪II
 metaitem.mining_drone.uxv.tooltip=§e便携苍穹共振仪III
 metaitem.mining_drone.opv.tooltip=§9-*创造一个宇宙，然后摧毁它*-
 metaitem.mining_drone.max.tooltip=§c=《༺=☆你的就是我的，我的还是我的☆=༻》=
+
+metaitem.planetidchip.name=星球ID芯片
+metaitem.satelliteidchip.name=卫星ID芯片
+metaitem.stationidchip.name=空间站ID芯片
+metaitem.trackingcircuit.name=探测器ID电路
+metaitem.asteroididchip.name=小行星ID芯片
+metaitem.elevatorchip.name=太空电梯ID芯片
+
+metaitem.combustionengine.name=基础化学能引擎
+metaitem.advcombustionengine.name=高级化学能引擎
 #方块
 
 tile.space_elevator_casing.basic_casing.name=线缆锚定基材

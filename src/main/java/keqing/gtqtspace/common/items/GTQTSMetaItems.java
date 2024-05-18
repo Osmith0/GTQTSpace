@@ -32,6 +32,15 @@ public class GTQTSMetaItems {
     public static MetaItem<?>.MetaValueItem MINING_DRONE_UXV;
     public static MetaItem<?>.MetaValueItem MINING_DRONE_OpV;
     public static MetaItem<?>.MetaValueItem MINING_DRONE_MAX;
+    public static MetaItem<?>.MetaValueItem BASIC_SATELLITE;
+    public static MetaItem<?>.MetaValueItem PLANETIDCHIP;
+    public static MetaItem<?>.MetaValueItem SATELLITEIDCHIP;
+    public static MetaItem<?>.MetaValueItem STATIONIDCHIP;
+    public static MetaItem<?>.MetaValueItem TRACKINGCIRCUIT;
+    public static MetaItem<?>.MetaValueItem ASTEROIDIDCHIP;
+    public static MetaItem<?>.MetaValueItem ELEVATORCHIP;
+    public static MetaItem<?>.MetaValueItem COMBUSTIONENGINE;
+    public static MetaItem<?>.MetaValueItem ADVCOMBUSTIONENGINE;
     public static void initialization()
     {
         GTQTSMetaItem1 item1 = new GTQTSMetaItem1();

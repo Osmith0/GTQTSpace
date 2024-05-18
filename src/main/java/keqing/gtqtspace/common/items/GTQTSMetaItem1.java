@@ -3,6 +3,14 @@ package keqing.gtqtspace.common.items;
 import gregtech.api.GregTechAPI;
 import gregtech.api.items.metaitem.StandardMetaItem;
 import keqing.gtqtspace.common.CommonProxy;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Objects;
 
 public class GTQTSMetaItem1 extends StandardMetaItem {
     public GTQTSMetaItem1() {
@@ -45,5 +53,44 @@ public class GTQTSMetaItem1 extends StandardMetaItem {
         GTQTSMetaItems.MINING_DRONE_OpV = this.addItem(62, "mining_drone.opv").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
         GTQTSMetaItems.MINING_DRONE_MAX = this.addItem(63, "mining_drone.max").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 
+        //卫星 包括卫星升级构建
+
+        //卫星本体
+        GTQTSMetaItems.BASIC_SATELLITE=this.addItem(100, "basic_satellite").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        //注册专业电路
+        GTQTSMetaItems.PLANETIDCHIP=this.addItem(101, "planetidchip").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SATELLITEIDCHIP=this.addItem(102, "satelliteidchip").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.STATIONIDCHIP=this.addItem(103, "stationidchip").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.TRACKINGCIRCUIT=this.addItem(104, "trackingcircuit").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.ASTEROIDIDCHIP=this.addItem(105, "asteroididchip").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.ELEVATORCHIP=this.addItem(106, "elevatorchip").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        //注册推进器
+        GTQTSMetaItems.COMBUSTIONENGINE=this.addItem(107, "combustionengine").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.ADVCOMBUSTIONENGINE=this.addItem(108, "advcombustionengine").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        //注册太阳能电池板
+        //注册传感器
+
+    }
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag tooltipFlag) {
+        super.addInformation(stack, worldIn, tooltip, tooltipFlag);
+        if (stack.getTagCompound() != null && stack.getMetadata() == 100) { // 检查物品是否有NBT数据，以及物品是不是灵气节点
+            tooltip.add(TextFormatting.GRAY + "组件信息:"); // 添加一个标题
+            NBTTagCompound compound = stack.getTagCompound();
+            if (compound != null) {
+                compound.getKeySet().forEach(key -> { // 遍历NBT数据的键
+                    if (Objects.equals(key, "太阳能电池板等级")) {
+                        String value = compound.getString(key); // 获取键对应的值的字符串表示
+                        tooltip.add(TextFormatting.GRAY + key + ": " + value);
+                    } else if (Objects.equals(key, "传感器类型")) {
+                        String value = compound.getString(key); // 获取键对应的值的字符串表示
+                        tooltip.add(TextFormatting.GRAY + key + ": " + value);
+                    } else if (Objects.equals(key, "推进器类型")) {
+                        String value = compound.getString(key); // 获取键对应的值的字符串表示
+                        tooltip.add(TextFormatting.GRAY + key + ": " + value);
+                    }
+                });
+            }
+        }
     }
 }
