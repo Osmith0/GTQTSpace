@@ -1,6 +1,10 @@
 package keqing.gtqtspace.common.items;
 
 import gregtech.api.items.metaitem.MetaItem;
+import keqing.gtqtspace.GTQTSpace;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 
 public class GTQTSMetaItems {
     public static MetaItem<?>.MetaValueItem COMPUTERMINER;
@@ -41,12 +45,18 @@ public class GTQTSMetaItems {
     public static MetaItem<?>.MetaValueItem ELEVATORCHIP;
     public static MetaItem<?>.MetaValueItem COMBUSTIONENGINE;
     public static MetaItem<?>.MetaValueItem ADVCOMBUSTIONENGINE;
+    static GTQTSMetaItem1 item1;
+
     public static void initialization()
     {
-        GTQTSMetaItem1 item1 = new GTQTSMetaItem1();
+        item1 = new GTQTSMetaItem1();
     }
     public static void initSubItems()
     {
         GTQTSMetaItem1.registerItems();
+    }
+
+    public static void registerItemModels() {
+        ModelLoader.setCustomModelResourceLocation(item1, GTQTSMetaItems.BASIC_SATELLITE.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.BASIC_SATELLITE.unlocalizedName), "inventory"));
     }
 }
