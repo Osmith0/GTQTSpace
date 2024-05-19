@@ -36,7 +36,9 @@ public class GTQTSMetaItems {
     public static MetaItem<?>.MetaValueItem MINING_DRONE_UXV;
     public static MetaItem<?>.MetaValueItem MINING_DRONE_OpV;
     public static MetaItem<?>.MetaValueItem MINING_DRONE_MAX;
+    public static MetaItem<?>.MetaValueItem TELESCOPE;
     public static MetaItem<?>.MetaValueItem BASIC_SATELLITE;
+    public static MetaItem<?>.MetaValueItem SATELLITE_ROCKET;
     public static MetaItem<?>.MetaValueItem PLANETIDCHIP;
     public static MetaItem<?>.MetaValueItem SATELLITEIDCHIP;
     public static MetaItem<?>.MetaValueItem STATIONIDCHIP;
@@ -45,6 +47,16 @@ public class GTQTSMetaItems {
     public static MetaItem<?>.MetaValueItem ELEVATORCHIP;
     public static MetaItem<?>.MetaValueItem COMBUSTIONENGINE;
     public static MetaItem<?>.MetaValueItem ADVCOMBUSTIONENGINE;
+    public static MetaItem<?>.MetaValueItem SATELLITEPRIMARYFUNCTION1;
+    public static MetaItem<?>.MetaValueItem SATELLITEPRIMARYFUNCTION2;
+    public static MetaItem<?>.MetaValueItem SATELLITEPRIMARYFUNCTION3;
+    public static MetaItem<?>.MetaValueItem SATELLITEPRIMARYFUNCTION4;
+    public static MetaItem<?>.MetaValueItem SATELLITEPRIMARYFUNCTION5;
+    public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKI;
+    public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKII;
+    public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIII;
+    public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIV;
+    public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKV;
     static GTQTSMetaItem1 item1;
 
     public static void initialization()
@@ -57,6 +69,8 @@ public class GTQTSMetaItems {
     }
 
     public static void registerItemModels() {
+        ModelLoader.setCustomModelResourceLocation(item1, GTQTSMetaItems.SATELLITE_ROCKET.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.SATELLITE_ROCKET.unlocalizedName), "inventory"));
         ModelLoader.setCustomModelResourceLocation(item1, GTQTSMetaItems.BASIC_SATELLITE.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.BASIC_SATELLITE.unlocalizedName), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item1, GTQTSMetaItems.TELESCOPE.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.TELESCOPE.unlocalizedName), "inventory"));
     }
 }

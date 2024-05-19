@@ -50,6 +50,10 @@ metaitem.mining_drone.uxv.tooltip=§e便携苍穹共振仪III
 metaitem.mining_drone.opv.tooltip=§9-*创造一个宇宙，然后摧毁它*-
 metaitem.mining_drone.max.tooltip=§c=《༺=☆你的就是我的，我的还是我的☆=༻》=
 
+metaitem.telescope.name=望远镜
+metaitem.satellite_rocket.name=卫星运载火箭
+metaitem.basic_satellite.name=基础卫星
+
 metaitem.planetidchip.name=星球ID芯片
 metaitem.satelliteidchip.name=卫星ID芯片
 metaitem.stationidchip.name=空间站ID芯片
@@ -59,6 +63,18 @@ metaitem.elevatorchip.name=太空电梯ID芯片
 
 metaitem.combustionengine.name=基础化学能引擎
 metaitem.advcombustionengine.name=高级化学能引擎
+
+metaitem.satelliteprimaryfunction1.name=矿脉传感器
+metaitem.satelliteprimaryfunction2.name=大气传感器
+metaitem.satelliteprimaryfunction3.name=轨道数据采集器
+metaitem.satelliteprimaryfunction4.name=深空数据采集器
+metaitem.satelliteprimaryfunction5.name=宇宙粒子采集器
+
+metaitem.solar_plate_i.name=基础卫星太阳能板
+metaitem.solar_plate_ii.name=进阶卫星太阳能板
+metaitem.solar_plate_iii.name=高级卫星太阳能板
+metaitem.solar_plate_iv.name=精英卫星太阳能板
+metaitem.solar_plate_v.name=终极卫星太阳能板
 #方块
 
 tile.space_elevator_casing.basic_casing.name=线缆锚定基材

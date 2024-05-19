@@ -54,7 +54,8 @@ public class GTQTSMetaItem1 extends StandardMetaItem {
         GTQTSMetaItems.MINING_DRONE_MAX = this.addItem(63, "mining_drone.max").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 
         //卫星 包括卫星升级构建
-
+        GTQTSMetaItems.TELESCOPE=this.addItem(98, "telescope").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SATELLITE_ROCKET=this.addItem(99, "satellite_rocket").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
         //卫星本体
         GTQTSMetaItems.BASIC_SATELLITE=this.addItem(100, "basic_satellite").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
         //注册专业电路
@@ -67,25 +68,35 @@ public class GTQTSMetaItem1 extends StandardMetaItem {
         //注册推进器
         GTQTSMetaItems.COMBUSTIONENGINE=this.addItem(107, "combustionengine").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
         GTQTSMetaItems.ADVCOMBUSTIONENGINE=this.addItem(108, "advcombustionengine").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
-        //注册太阳能电池板
         //注册传感器
+        GTQTSMetaItems.SATELLITEPRIMARYFUNCTION1=this.addItem(109, "satelliteprimaryfunction1").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SATELLITEPRIMARYFUNCTION2=this.addItem(110, "satelliteprimaryfunction2").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SATELLITEPRIMARYFUNCTION3=this.addItem(111, "satelliteprimaryfunction3").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SATELLITEPRIMARYFUNCTION4=this.addItem(112, "satelliteprimaryfunction4").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SATELLITEPRIMARYFUNCTION5=this.addItem(113, "satelliteprimaryfunction5").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        //注册太阳能电池板
+        GTQTSMetaItems.SOLAR_PLATE_MKI=this.addItem(114, "solar_plate_i").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SOLAR_PLATE_MKII=this.addItem(115, "solar_plate_ii").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SOLAR_PLATE_MKIII=this.addItem(116, "solar_plate_iii").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SOLAR_PLATE_MKIV=this.addItem(117, "solar_plate_iv").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+        GTQTSMetaItems.SOLAR_PLATE_MKV=this.addItem(118, "solar_plate_v").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 
     }
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag tooltipFlag) {
         super.addInformation(stack, worldIn, tooltip, tooltipFlag);
-        if (stack.getTagCompound() != null && stack.getMetadata() == 100) { // 检查物品是否有NBT数据，以及物品是不是灵气节点
+        if (stack.getTagCompound() != null && stack.getMetadata() == 100||stack.getMetadata() == 99) { // 检查物品是否有NBT数据，以及物品是不是灵气节点
             tooltip.add(TextFormatting.GRAY + "组件信息:"); // 添加一个标题
             NBTTagCompound compound = stack.getTagCompound();
             if (compound != null) {
                 compound.getKeySet().forEach(key -> { // 遍历NBT数据的键
-                    if (Objects.equals(key, "太阳能电池板等级")) {
+                    if (Objects.equals(key, "SolarTier")) {
+                        int value = compound.getInteger(key); // 获取键对应的值的字符串表示
+                        tooltip.add(TextFormatting.GRAY + key + ": " + value);
+                    } else if (Objects.equals(key, "SeniorTier")) {
                         String value = compound.getString(key); // 获取键对应的值的字符串表示
                         tooltip.add(TextFormatting.GRAY + key + ": " + value);
-                    } else if (Objects.equals(key, "传感器类型")) {
-                        String value = compound.getString(key); // 获取键对应的值的字符串表示
-                        tooltip.add(TextFormatting.GRAY + key + ": " + value);
-                    } else if (Objects.equals(key, "推进器类型")) {
+                    } else if (Objects.equals(key, "GeneratorTier")) {
                         String value = compound.getString(key); // 获取键对应的值的字符串表示
                         tooltip.add(TextFormatting.GRAY + key + ": " + value);
                     }
