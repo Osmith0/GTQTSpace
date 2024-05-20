@@ -123,5 +123,9 @@ gtqtspace.machine.cosmic_ray_detector.can_see_sky.false=§c传感器看不到天
 gtqtspace.machine.cosmic_ray_detector.can_see_sky.true=传感器工作正常
 recipemap.cosmic_ray_detector_recipes.name=射线探测
 
+tile.gui.contained_part=已有部件
+tile.gui.solar_tier=级太阳能板
+tile.gui.will_update=预计更新部件
+
 #
 itemGroup.gtqtspace_core=量子跃迁 | 航空航天

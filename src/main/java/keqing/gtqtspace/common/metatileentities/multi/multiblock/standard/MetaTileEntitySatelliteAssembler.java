@@ -21,6 +21,7 @@ import gregtech.common.blocks.MetaBlocks;
 import keqing.gtqtspace.api.multiblock.SatelliteGenerators;
 import keqing.gtqtspace.api.multiblock.SatelliteSeniorUpdates;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -78,13 +79,13 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 	protected void addDisplayText(List<ITextComponent> textList) {
 		super.addDisplayText(textList);
 		textList.add(new TextComponentTranslation("========刻晴的妙妙工具======="));
-		textList.add(new TextComponentTranslation("已有部件： %s级太阳能板", solarTierTMP));
-		textList.add(new TextComponentTranslation("已有部件： %s", seniorUpdateTMP));
-		textList.add(new TextComponentTranslation("已有部件： %s", generatorTMP));
+		textList.add(new TextComponentTranslation("%s: %s%s", I18n.format("tile.gui.contained_part"), Integer.toString(solarTierTMP), I18n.format("tile.gui.solar_tier")));
+		textList.add(new TextComponentTranslation("%s: %s", I18n.format("tile.gui.contained_part"), seniorUpdateTMP.getName()));
+		textList.add(new TextComponentTranslation("%s: %s", I18n.format("tile.gui.contained_part"), generatorTMP.getName()));
 		textList.add(new TextComponentTranslation("=========================="));
-		textList.add(new TextComponentTranslation("预计更新部件： %s级太阳能板", checkSolar(true)));
-		textList.add(new TextComponentTranslation("预计更新部件： %s", SatelliteSeniorUpdates.getSeniorUpdateFromID(checkSenior(true)).getName()));
-		textList.add(new TextComponentTranslation("预计更新部件： %s", SatelliteGenerators.getGeneratorFromID(checkGenerator(true)).getName()));
+		textList.add(new TextComponentTranslation("%s: %s%s", I18n.format("tile.gui.will_update"), Integer.toString(checkSolar(true)), I18n.format("tile.gui.solar_tier")));
+		textList.add(new TextComponentTranslation("%s: %s", I18n.format("tile.gui.will_update"), SatelliteSeniorUpdates.getSeniorUpdateFromID(checkSenior(true)).getName()));
+		textList.add(new TextComponentTranslation("%s: %s", I18n.format("tile.gui.will_update"), SatelliteGenerators.getGeneratorFromID(checkGenerator(true)).getName()));
 		textList.add(new TextComponentTranslation("=========================="));
 	}
 

@@ -1,14 +1,17 @@
 package keqing.gtqtspace.api.multiblock;
 
+import keqing.gtqtspace.common.items.GTQTSMetaItems;
+import net.minecraft.client.resources.I18n;
+
 public enum SatelliteGenerators {
 	EMPTY (""),
-	BASIC_CHEMICAL_ENGINE("基础化学能引擎"),
-	ADVANCED_CHEMICAL_ENGINE("高级化学能引擎");
+	BASIC_CHEMICAL_ENGINE(GTQTSMetaItems.COMBUSTIONENGINE.unlocalizedName),
+	ADVANCED_CHEMICAL_ENGINE(GTQTSMetaItems.ADVCOMBUSTIONENGINE.unlocalizedName);
 
-	final String name;
+	final String translationKey;
 
-	SatelliteGenerators(String localizedName) {
-		this.name = localizedName;
+	SatelliteGenerators(String unlocalizedName) {
+		this.translationKey = unlocalizedName;
 	}
 
 	public static SatelliteGenerators getGeneratorFromID(int id) {
@@ -16,7 +19,7 @@ public enum SatelliteGenerators {
 	}
 
 	public String getName() {
-		return this.name;
+		return I18n.format(translationKey);
 	}
 
 	public int getID() {

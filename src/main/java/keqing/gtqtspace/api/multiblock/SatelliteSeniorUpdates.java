@@ -1,17 +1,20 @@
 package keqing.gtqtspace.api.multiblock;
 
+import keqing.gtqtspace.common.items.GTQTSMetaItems;
+import net.minecraft.client.resources.I18n;
+
 public enum SatelliteSeniorUpdates {
 	EMPTY (""),
-	VEIN_SENSOR("矿脉传感器"),
-	ATMOSPHERE_SENSOR("大气传感器"),
-	ORBIT_SENSOR("轨道数据采集器"),
-	DEEP_SKY_SENSOR("深空数据采集器"),
-	COSMIC_PARTICLES_SENSOR("宇宙粒子采集器");
+	VEIN_SENSOR(GTQTSMetaItems.SATELLITEPRIMARYFUNCTION1.unlocalizedName),
+	ATMOSPHERE_SENSOR(GTQTSMetaItems.SATELLITEPRIMARYFUNCTION2.unlocalizedName),
+	ORBIT_SENSOR(GTQTSMetaItems.SATELLITEPRIMARYFUNCTION3.unlocalizedName),
+	DEEP_SKY_SENSOR(GTQTSMetaItems.SATELLITEPRIMARYFUNCTION4.unlocalizedName),
+	COSMIC_PARTICLES_SENSOR(GTQTSMetaItems.SATELLITEPRIMARYFUNCTION5.unlocalizedName);
 
-	final String name;
+	final String translationKey;
 
-	SatelliteSeniorUpdates(String localizedName) {
-		this.name = localizedName;
+	SatelliteSeniorUpdates(String unlocalizedName) {
+		this.translationKey = unlocalizedName;
 	}
 
 	public static SatelliteSeniorUpdates getSeniorUpdateFromID(int id) {
@@ -19,7 +22,7 @@ public enum SatelliteSeniorUpdates {
 	}
 
 	public String getName() {
-		return this.name;
+		return I18n.format(translationKey);
 	}
 
 	public int getID() {
