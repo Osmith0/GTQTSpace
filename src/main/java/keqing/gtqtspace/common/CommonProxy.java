@@ -6,6 +6,7 @@ import keqing.gtqtspace.api.recipes.properties.StarProperty;
 import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
+import keqing.gtqtspace.common.items.PosBindingCardItem;
 import keqing.gtqtspace.loaders.recipes.GTQTSRecipesManager;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -68,6 +69,7 @@ public class CommonProxy {
         在注册MetaBlock时用到
         */
 		registry.register(createItemBlock(GTQTSMetaBlocks.SPACE_ELEVATOR, VariantItemBlock::new));
+		registry.register(new PosBindingCardItem().setRegistryName("pos_binding_card"));
 	}
 
 	private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {

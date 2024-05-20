@@ -3,8 +3,11 @@ package keqing.gtqtspace.common.items;
 import gregtech.api.items.metaitem.MetaItem;
 import keqing.gtqtspace.GTQTSpace;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GTQTSMetaItems {
 	public static MetaItem<?>.MetaValueItem COMPUTERMINER;
@@ -58,6 +61,9 @@ public class GTQTSMetaItems {
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIV;
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKV;
 	public static GTQTSMetaItem1 GTQTS_META_ITEM;
+
+	@GameRegistry.ObjectHolder("gtqtspace:pos_binding_card")
+	public static final Item POS_BINDING_CARD = Items.AIR;
 
 	public static void initialization() {
 		GTQTS_META_ITEM = new GTQTSMetaItem1();
