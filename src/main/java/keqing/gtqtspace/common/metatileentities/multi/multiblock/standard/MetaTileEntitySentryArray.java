@@ -24,11 +24,14 @@ import gregtech.common.blocks.BlockGlassCasing;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.metatileentities.MetaTileEntities;
 import keqing.gtqtspace.api.multiblock.Satellite;
+import keqing.gtqtspace.api.multiblock.SatelliteGenerators;
+import keqing.gtqtspace.api.multiblock.SatelliteSeniorUpdates;
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -39,7 +42,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import gregtech.api.GTValues;
 import keqing.gtqtcore.api.pattern.GTQTTraceabilityPredicate;
@@ -51,17 +53,41 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 	int process, maxProcess;
 	int circuit;
 	int Upgrade;
-	int value1;
-	String value2;
-	String value3;
+	int solarTierTMP;
+	SatelliteSeniorUpdates seniorUpdateTMP;
+	SatelliteGenerators generatorTMP;
 
 	@Override
 	protected void updateFormedValid() {
 		if (checkSatellite(false) && satellite[circuit] == null) {
-			satellite[circuit] = new Satellite(circuit, value1, value2, value3);
-			value1 = 0;
-			value2 = "null";
-			value3 = "null";
+			satellite[circuit] = new Satellite(circuit, solarTierTMP, seniorUpdateTMP, generatorTMP);
+			solarTierTMP = 0;
+			seniorUpdateTMP = SatelliteSeniorUpdates.EMPTY;
+			generatorTMP = SatelliteGenerators.EMPTY;
+		}
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound data) {
+		data = super.writeToNBT(data);
+		NBTTagList list = new NBTTagList();
+		for (Satellite satellite1 : satellite) {
+			list.appendTag(satellite1.serialize());
+		}
+		data.setTag("satellites", list);
+		return data;
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound data) {
+		super.readFromNBT(data);
+		if (data.hasKey("satellites")) {
+			NBTTagList satellites = data.getTagList("satellites", 0);
+			final int[] it = {0};
+			satellites.iterator().forEachRemaining(s -> {
+				this.satellite[it[0]] = Satellite.deserialize((NBTTagCompound) s);
+				++it[0];
+			});
 		}
 	}
 
@@ -71,16 +97,10 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
 			if (item.getDisplayName().equals("基础卫星")) {
 				NBTTagCompound compound = item.getTagCompound();
-				if (compound != null) {
-					compound.getKeySet().forEach(key -> { // 遍历NBT数据的键
-						if (Objects.equals(key, "SolarTier")) {
-							value1 = compound.getInteger(key); // 获取键对应的值的字符串表示
-						} else if (Objects.equals(key, "SeniorTier")) {
-							value2 = compound.getString(key); // 获取键对应的值的字符串表示
-						} else if (Objects.equals(key, "GeneratorTier")) {
-							value3 = compound.getString(key); // 获取键对应的值的字符串表示
-						}
-					});
+				if (compound != null && compound.hasKey("solarTier") && compound.hasKey("seniorTier") && compound.hasKey("generatorTier")) {
+					solarTierTMP = compound.getInteger("solarTier");
+					seniorUpdateTMP = SatelliteSeniorUpdates.getSeniorUpdateFromID(compound.getInteger("seniorTier"));
+					generatorTMP = SatelliteGenerators.getGeneratorFromID(compound.getInteger("generatorTier"));
 				}
 				this.getInputInventory().extractItem(i, 1, sim);
 				return true;
@@ -207,7 +227,7 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 	@Override
 	public List<MultiblockShapeInfo> getMatchingShapes() {
 		ArrayList<MultiblockShapeInfo> shapeInfo = new ArrayList<>();
-		MultiblockShapeInfo.Builder builder = null;
+		MultiblockShapeInfo.Builder builder;
 		if (Blocks.AIR != null) {
 			builder = MultiblockShapeInfo.builder()
 					.aisle("                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "             M             ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ", "                           ")
@@ -339,8 +359,8 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 		ItemStack Satellite = new ItemStack(GTQTSMetaItems.BASIC_SATELLITE.getMetaItem(), 1, 100);
 		NBTTagCompound nodeTagCompound = new NBTTagCompound();
 		nodeTagCompound.setInteger("SolarTier", this.satellite[circuit].getSolarTier());
-		nodeTagCompound.setString("SeniorTier", this.satellite[circuit].getSeniorTier());
-		nodeTagCompound.setString("GeneratorTier", this.satellite[circuit].getGeneratorTier());
+		nodeTagCompound.setInteger("SeniorTier", this.satellite[circuit].getSeniorTier().getID());
+		nodeTagCompound.setInteger("GeneratorTier", this.satellite[circuit].getGeneratorTier().getID());
 		Satellite.setTagCompound(nodeTagCompound);
 		return Satellite;
 	}
