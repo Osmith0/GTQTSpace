@@ -11,24 +11,29 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTQTSMetaBlocks {
-    public static GTQTSpaceElevator SPACE_ELEVATOR;
-    private GTQTSMetaBlocks() {}
-    public static void init() {
-        SPACE_ELEVATOR = new GTQTSpaceElevator();
-        SPACE_ELEVATOR.setRegistryName("space_elevator");
-    }
-    @SideOnly(Side.CLIENT)
-    public static void registerItemModels() {
-        registerItemModel(SPACE_ELEVATOR);
+	public static GTQTSpaceElevator SPACE_ELEVATOR;
 
-    }
-    @SideOnly(Side.CLIENT)
-    private static void registerItemModel(Block block) {
-        for (IBlockState state : block.getBlockState().getValidStates()) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block),
-                    block.getMetaFromState(state),
-                    new ModelResourceLocation(block.getRegistryName(),
-                            MetaBlocks.statePropertiesToString(state.getProperties())));
-        }
-    }
+	private GTQTSMetaBlocks() {
+	}
+
+	public static void init() {
+		SPACE_ELEVATOR = new GTQTSpaceElevator();
+		SPACE_ELEVATOR.setRegistryName("space_elevator");
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void registerItemModels() {
+		registerItemModel(SPACE_ELEVATOR);
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	private static void registerItemModel(Block block) {
+		for (IBlockState state : block.getBlockState().getValidStates()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block),
+					block.getMetaFromState(state),
+					new ModelResourceLocation(block.getRegistryName(),
+							MetaBlocks.statePropertiesToString(state.getProperties())));
+		}
+	}
 }

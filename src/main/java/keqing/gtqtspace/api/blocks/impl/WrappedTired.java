@@ -4,14 +4,14 @@ import net.minecraft.util.IStringSerializable;
 
 public class WrappedTired implements ITired {
 
-    private final IStringSerializable inner;
+	private final IStringSerializable inner;
 
-    public WrappedTired(IStringSerializable inner) {
-        this.inner = inner;
-    }
+	public WrappedTired(IStringSerializable inner) {
+		this.inner = inner;
+	}
 
-    @Override
-    public String getName() {
-        return inner.getName();
-    }
+	@Override
+	public String getName() {
+		return inner.getName();
+	}
 }

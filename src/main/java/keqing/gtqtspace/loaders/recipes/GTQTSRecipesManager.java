@@ -4,13 +4,15 @@ import keqing.gtqtspace.loaders.recipes.machine.SEloader;
 import keqing.gtqtspace.loaders.recipes.machine.StarSuvery;
 
 public class GTQTSRecipesManager {
-    private GTQTSRecipesManager() {
+	private GTQTSRecipesManager() {
 
-    }
-    public static void load() {
-    }
-    public static void init() {
-        SEloader.init();
-        StarSuvery.init();
-    }
+	}
+
+	public static void load() {
+	}
+
+	public static void init() {
+		SEloader.init();
+		StarSuvery.init();
+	}
 }

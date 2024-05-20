@@ -15,23 +15,21 @@ import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber({Side.CLIENT})
 public class ClientProxy extends CommonProxy {
-    public ClientProxy() {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+	public ClientProxy() {
+		MinecraftForge.EVENT_BUS.register(this);
+	}
 
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event)
-    {
-        OBJLoader.INSTANCE.addDomain(GTQTSpace.MODID);
-        GTQTSMetaBlocks.registerItemModels();
-        GTQTSMetaItems.registerItemModels();
-    }
+	@SubscribeEvent
+	public static void registerModels(ModelRegistryEvent event) {
+		OBJLoader.INSTANCE.addDomain(GTQTSpace.MODID);
+		GTQTSMetaBlocks.registerItemModels();
+		GTQTSMetaItems.registerItemModels();
+	}
 
-    public void preLoad()
-    {
-        super.preLoad();
-        GTQTSTextures.init();
-        GTQTSTextures.preInit();
-    }
+	public void preLoad() {
+		super.preLoad();
+		GTQTSTextures.init();
+		GTQTSTextures.preInit();
+	}
 
 }
