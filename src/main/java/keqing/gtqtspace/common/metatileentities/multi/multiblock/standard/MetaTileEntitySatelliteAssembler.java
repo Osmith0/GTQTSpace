@@ -40,12 +40,13 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 	int process, maxProcess;
 	int time;
 	int solarTierTMP;
-	SatelliteSeniorUpdates seniorUpdateTMP = SatelliteSeniorUpdates.EMPTY;
-
-	SatelliteGenerators generatorTMP = SatelliteGenerators.EMPTY;
+	SatelliteSeniorUpdates seniorUpdateTMP;
+	SatelliteGenerators generatorTMP;
 
 	public MetaTileEntitySatelliteAssembler(ResourceLocation metaTileEntityId) {
 		super(metaTileEntityId);
+		this.seniorUpdateTMP = SatelliteSeniorUpdates.EMPTY;
+		this.generatorTMP = SatelliteGenerators.EMPTY;
 	}
 
 	public MetaTileEntity createMetaTileEntity(IGregTechTileEntity iGregTechTileEntity) {

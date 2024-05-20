@@ -5,8 +5,8 @@ import net.minecraft.client.resources.I18n;
 
 public enum SatelliteGenerators {
 	EMPTY (""),
-	BASIC_CHEMICAL_ENGINE(GTQTSMetaItems.COMBUSTIONENGINE.unlocalizedName),
-	ADVANCED_CHEMICAL_ENGINE(GTQTSMetaItems.ADVCOMBUSTIONENGINE.unlocalizedName);
+	BASIC_CHEMICAL_ENGINE("metaitem.combustionengine.name"),
+	ADVANCED_CHEMICAL_ENGINE("metaitem.advcombustionengine.name");
 
 	final String translationKey;
 

@@ -75,6 +75,8 @@ metaitem.solar_plate_ii.name=进阶卫星太阳能板
 metaitem.solar_plate_iii.name=高级卫星太阳能板
 metaitem.solar_plate_iv.name=精英卫星太阳能板
 metaitem.solar_plate_v.name=终极卫星太阳能板
+
+item.pos_binding_card.name=坐标绑定卡
 #方块
 
 tile.space_elevator_casing.basic_casing.name=线缆锚定基材
@@ -126,6 +128,9 @@ recipemap.cosmic_ray_detector_recipes.name=射线探测
 tile.gui.contained_part=已有部件
 tile.gui.solar_tier=级太阳能板
 tile.gui.will_update=预计更新部件
+
+item.info.pos_binding.no_data=无数据
+item.info.pos_binding.stored_pos=存储坐标
 
 #
 itemGroup.gtqtspace_core=量子跃迁 | 航空航天
