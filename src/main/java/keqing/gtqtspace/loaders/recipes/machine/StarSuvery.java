@@ -28,10 +28,6 @@ public class StarSuvery {
                 .input(OrePrefix.plate, StainlessSteel, 4)
                 .fluidInputs(Polyethylene.getFluid(GTValues.L * 4))
                 .output(COSMIC_RAY_DETECTOR)
-                .scannerResearch(b -> b
-                        .researchStack(DISK_8.getStackForm())
-                        .duration(1200)
-                        .EUt(VA[MV]))
                 .duration(800).EUt(VA[HV]).buildAndRegister();
 
 

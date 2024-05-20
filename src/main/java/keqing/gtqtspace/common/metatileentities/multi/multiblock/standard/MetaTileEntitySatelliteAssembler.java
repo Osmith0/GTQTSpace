@@ -3,14 +3,19 @@ package keqing.gtqtspace.common.metatileentities.multi.multiblock.standard;
 import gregicality.multiblocks.api.render.GCYMTextures;
 import gregicality.multiblocks.common.block.GCYMMetaBlocks;
 import gregicality.multiblocks.common.block.blocks.BlockLargeMultiblockCasing;
+import gregtech.api.gui.GuiTextures;
+import gregtech.api.gui.resources.TextureArea;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
+import gregtech.api.metatileentity.multiblock.IProgressBarMultiblock;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.util.GTTransferUtils;
+import gregtech.api.util.TextComponentUtil;
+import gregtech.api.util.TextFormattingUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import gregtech.common.blocks.BlockGlassCasing;
@@ -20,21 +25,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import static gregicality.multiblocks.api.metatileentity.GCYMRecipeMapMultiblockController.tieredCasing;
+import static gregtech.api.unification.material.Materials.Lubricant;
 import static gregtech.api.util.RelativeDirection.*;
 import static java.lang.Math.min;
 import static keqing.gtqtspace.common.items.GTQTSMetaItems.BASIC_SATELLITE;
 import static net.minecraft.util.math.MathHelper.abs;
 import static net.minecraft.util.math.MathHelper.ceil;
 
-public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithControl {
-
+public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithControl implements IProgressBarMultiblock {
+    int time;
     int value1;
     String value2="null" ;
 
@@ -59,10 +67,29 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
         //首先自检
 
         if (checkSatellite(true)) {
-            GTTransferUtils.insertItem(this.outputInventory, setSatellite(checkSolar(), checkSenior(), checkGenerator()), false);
-            checkSatellite(false);
-            value1=0;value2="null";value3="null";
+            if(time<1000)time++;
+            else{
+                GTTransferUtils.insertItem(this.outputInventory, setSatellite(checkSolar(false), checkSenior(false), checkGenerator(false)), false);
+                checkSatellite(false);
+                value1 = 0;
+                value2 = "null";
+                value3 = "null";
+                time = 0;
+            }
         }
+    }
+    @Override
+    protected void addDisplayText(List<ITextComponent> textList) {
+        super.addDisplayText(textList);
+        textList.add(new TextComponentTranslation("========刻晴的妙妙工具======="));
+        textList.add(new TextComponentTranslation("已有部件： %s级太阳能板", value1));
+        textList.add(new TextComponentTranslation("已有部件： %s", value2));
+        textList.add(new TextComponentTranslation("已有部件： %s", value3));
+        textList.add(new TextComponentTranslation("=========================="));
+        textList.add(new TextComponentTranslation("预计更新部件： %s级太阳能板", checkSolar(true)));
+        textList.add(new TextComponentTranslation("预计更新部件： %s", getSenior(checkSenior(true))));
+        textList.add(new TextComponentTranslation("预计更新部件： %s", getGenerator(checkGenerator(true))));
+        textList.add(new TextComponentTranslation("=========================="));
     }
     public boolean checkSatellite(boolean sim)
     {
@@ -88,73 +115,73 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
         }
         return false;
     }
-    public int checkSolar()
+    public int checkSolar(boolean sim)
     {
         var slots = this.getInputInventory().getSlots();
         for (int i = 0; i < slots; i++) {
             ItemStack item = this.getInputInventory().getStackInSlot(i);
             if (item.getDisplayName().equals("基础卫星太阳能板")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 1;
             }
             if (item.getDisplayName().equals("进阶卫星太阳能板")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 2;
             }
             if (item.getDisplayName().equals("高级卫星太阳能板")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 3;
             }
             if (item.getDisplayName().equals("精英卫星太阳能板")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 4;
             }
             if (item.getDisplayName().equals("终极卫星太阳能板")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 5;
             }
         }
         return 0;
     }
-    public int checkSenior()
+    public int checkSenior(boolean sim)
     {
         var slots = this.getInputInventory().getSlots();
         for (int i = 0; i < slots; i++) {
             ItemStack item = this.getInputInventory().getStackInSlot(i);
             if (item.getDisplayName().equals("矿脉传感器")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 1;
             }
             if (item.getDisplayName().equals("大气传感器")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 2;
             }
             if (item.getDisplayName().equals("轨道数据采集器")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 3;
             }
             if (item.getDisplayName().equals("深空数据采集器")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 4;
             }
             if (item.getDisplayName().equals("宇宙粒子采集器")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 5;
             }
         }
         return 0;
     }
-    public int checkGenerator()
+    public int checkGenerator(boolean sim)
     {
         var slots = this.getInputInventory().getSlots();
         for (int i = 0; i < slots; i++) {
             ItemStack item = this.getInputInventory().getStackInSlot(i);
             if (item.getDisplayName().equals("基础化学能引擎")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 1;
             }
             if (item.getDisplayName().equals("高级化学能引擎")) {
-                this.getInputInventory().extractItem(i, 1, false);
+                this.getInputInventory().extractItem(i, 1, sim);
                 return 2;
             }
         }
@@ -168,7 +195,8 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
             case (2):return "大气传感器";
             case (3):return "轨道数据采集器";
             case (4):return "深空数据采集器";
-            default:return "宇宙粒子采集器";
+            case (5):return "宇宙粒子采集器";
+            default:return "null";
         }
     }
     public String getGenerator(int i)
@@ -176,7 +204,8 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
         switch (i)
         {
             case (1):return "基础化学能引擎";
-            default:return "高级化学能引擎";
+            case (2):return "高级化学能引擎";
+            default:return "null";
         }
     }
     public ItemStack setSatellite(int solar,int senior,int generator){
@@ -234,5 +263,32 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
     @Override
     public List<ITextComponent> getDataInfo() {
         return Collections.emptyList();
+    }
+
+    @Override
+    public int getNumProgressBars() {
+        return 1;
+    }
+
+
+    @Override
+    public double getFillPercentage(int index) {
+        return  (double) time /1000;
+    }
+
+    @Override
+    public TextureArea getProgressBarTexture(int index) {
+        return GuiTextures.PROGRESS_BAR_HPCA_COMPUTATION;
+    }
+
+    @Override
+    public void addBarHoverText(List<ITextComponent> hoverList, int index) {
+        ITextComponent cwutInfo = TextComponentUtil.stringWithColor(
+                TextFormatting.AQUA,
+                time+ " / " + 1000);
+        hoverList.add(TextComponentUtil.translationWithColor(
+                TextFormatting.GRAY,
+                "安装进度：%s",
+                cwutInfo));
     }
 }
