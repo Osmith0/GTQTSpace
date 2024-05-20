@@ -18,6 +18,8 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import gregtech.common.blocks.BlockGlassCasing;
 import gregtech.common.blocks.MetaBlocks;
+import keqing.gtqtspace.api.multiblock.SatelliteGenerators;
+import keqing.gtqtspace.api.multiblock.SatelliteSeniorUpdates;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,7 +30,6 @@ import net.minecraft.util.text.TextFormatting;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import gregicality.multiblocks.api.metatileentity.GCYMRecipeMapMultiblockController;
 import gregtech.api.util.RelativeDirection;
@@ -37,10 +38,10 @@ import keqing.gtqtspace.common.items.GTQTSMetaItems;
 public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithControl implements IProgressBarMultiblock {
 	int process, maxProcess;
 	int time;
-	int value1;
-	String value2 = "null";
+	int solarTierTMP;
+	SatelliteSeniorUpdates seniorUpdateTMP = SatelliteSeniorUpdates.EMPTY;
 
-	String value3 = "null";
+	SatelliteGenerators generatorTMP = SatelliteGenerators.EMPTY;
 
 	public MetaTileEntitySatelliteAssembler(ResourceLocation metaTileEntityId) {
 		super(metaTileEntityId);
@@ -65,9 +66,9 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 			else {
 				GTTransferUtils.insertItem(this.outputInventory, setSatellite(checkSolar(false), checkSenior(false), checkGenerator(false)), false);
 				checkSatellite(false);
-				value1 = 0;
-				value2 = "null";
-				value3 = "null";
+				solarTierTMP = 0;
+				seniorUpdateTMP = SatelliteSeniorUpdates.EMPTY;
+				generatorTMP = SatelliteGenerators.EMPTY;
 				time = 0;
 			}
 		}
@@ -77,13 +78,13 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 	protected void addDisplayText(List<ITextComponent> textList) {
 		super.addDisplayText(textList);
 		textList.add(new TextComponentTranslation("========刻晴的妙妙工具======="));
-		textList.add(new TextComponentTranslation("已有部件： %s级太阳能板", value1));
-		textList.add(new TextComponentTranslation("已有部件： %s", value2));
-		textList.add(new TextComponentTranslation("已有部件： %s", value3));
+		textList.add(new TextComponentTranslation("已有部件： %s级太阳能板", solarTierTMP));
+		textList.add(new TextComponentTranslation("已有部件： %s", seniorUpdateTMP));
+		textList.add(new TextComponentTranslation("已有部件： %s", generatorTMP));
 		textList.add(new TextComponentTranslation("=========================="));
 		textList.add(new TextComponentTranslation("预计更新部件： %s级太阳能板", checkSolar(true)));
-		textList.add(new TextComponentTranslation("预计更新部件： %s", getSenior(checkSenior(true))));
-		textList.add(new TextComponentTranslation("预计更新部件： %s", getGenerator(checkGenerator(true))));
+		textList.add(new TextComponentTranslation("预计更新部件： %s", SatelliteSeniorUpdates.getSeniorUpdateFromID(checkSenior(true)).getName()));
+		textList.add(new TextComponentTranslation("预计更新部件： %s", SatelliteGenerators.getGeneratorFromID(checkGenerator(true)).getName()));
 		textList.add(new TextComponentTranslation("=========================="));
 	}
 
@@ -91,18 +92,12 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getDisplayName().equals("基础卫星")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.BASIC_SATELLITE.getMetaValue()) {
 				NBTTagCompound compound = item.getTagCompound();
-				if (compound != null) {
-					compound.getKeySet().forEach(key -> { // 遍历NBT数据的键
-						if (Objects.equals(key, "SolarTier")) {
-							value1 = compound.getInteger(key); // 获取键对应的值的字符串表示
-						} else if (Objects.equals(key, "SeniorTier")) {
-							value2 = compound.getString(key); // 获取键对应的值的字符串表示
-						} else if (Objects.equals(key, "GeneratorTier")) {
-							value3 = compound.getString(key); // 获取键对应的值的字符串表示
-						}
-					});
+				if (compound != null && compound.hasKey("solarTier") && compound.hasKey("seniorTier") && compound.hasKey("generatorTier")) {
+					solarTierTMP = compound.getInteger("solarTier");
+					seniorUpdateTMP = SatelliteSeniorUpdates.getSeniorUpdateFromID(compound.getInteger("seniorTier"));
+					generatorTMP = SatelliteGenerators.getGeneratorFromID(compound.getInteger("generatorTier"));
 				}
 				this.getInputInventory().extractItem(i, 1, sim);
 				return true;
@@ -115,23 +110,23 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getDisplayName().equals("基础卫星太阳能板")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SOLAR_PLATE_MKI.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 1;
 			}
-			if (item.getDisplayName().equals("进阶卫星太阳能板")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SOLAR_PLATE_MKII.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 2;
 			}
-			if (item.getDisplayName().equals("高级卫星太阳能板")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SOLAR_PLATE_MKIII.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 3;
 			}
-			if (item.getDisplayName().equals("精英卫星太阳能板")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SOLAR_PLATE_MKIV.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 4;
 			}
-			if (item.getDisplayName().equals("终极卫星太阳能板")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SOLAR_PLATE_MKV.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 5;
 			}
@@ -143,23 +138,23 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getDisplayName().equals("矿脉传感器")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SATELLITEPRIMARYFUNCTION1.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 1;
 			}
-			if (item.getDisplayName().equals("大气传感器")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SATELLITEPRIMARYFUNCTION2.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 2;
 			}
-			if (item.getDisplayName().equals("轨道数据采集器")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SATELLITEPRIMARYFUNCTION3.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 3;
 			}
-			if (item.getDisplayName().equals("深空数据采集器")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SATELLITEPRIMARYFUNCTION4.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 4;
 			}
-			if (item.getDisplayName().equals("宇宙粒子采集器")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.SATELLITEPRIMARYFUNCTION5.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 5;
 			}
@@ -171,11 +166,11 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getDisplayName().equals("基础化学能引擎")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.COMBUSTIONENGINE.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 1;
 			}
-			if (item.getDisplayName().equals("高级化学能引擎")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.ADVCOMBUSTIONENGINE.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return 2;
 			}
@@ -183,31 +178,12 @@ public class MetaTileEntitySatelliteAssembler extends MetaTileEntityBaseWithCont
 		return 0;
 	}
 
-	public String getSenior(int i) {
-		return switch (i) {
-			case (1) -> "矿脉传感器";
-			case (2) -> "大气传感器";
-			case (3) -> "轨道数据采集器";
-			case (4) -> "深空数据采集器";
-			case (5) -> "宇宙粒子采集器";
-			default -> "null";
-		};
-	}
-
-	public String getGenerator(int i) {
-		return switch (i) {
-			case (1) -> "基础化学能引擎";
-			case (2) -> "高级化学能引擎";
-			default -> "null";
-		};
-	}
-
 	public ItemStack setSatellite(int solar, int senior, int generator) {
 		ItemStack Satellite = new ItemStack(GTQTSMetaItems.BASIC_SATELLITE.getMetaItem(), 1, 100);
 		NBTTagCompound nodeTagCompound = new NBTTagCompound();
-		nodeTagCompound.setInteger("SolarTier", solar == 0 ? value1 : solar);
-		nodeTagCompound.setString("SeniorTier", senior == 0 ? value2 : getSenior(senior));
-		nodeTagCompound.setString("GeneratorTier", generator == 0 ? value3 : getGenerator(generator));
+		nodeTagCompound.setInteger("solarTier", solar == 0 ? solarTierTMP : solar);
+		nodeTagCompound.setInteger("seniorTier", senior);
+		nodeTagCompound.setInteger("generatorTier", generator);
 		Satellite.setTagCompound(nodeTagCompound);
 		return Satellite;
 	}

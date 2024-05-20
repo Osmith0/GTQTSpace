@@ -32,6 +32,7 @@ import keqing.gtqtspace.api.utils.GTQTSUtil;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
+import keqing.gtqtspace.common.items.GTQTSMetaItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -90,46 +91,46 @@ public class MetaTileEntitySpaceElevator extends MultiMapMultiblockController im
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getDisplayName().equals("轨道采集器（§7LV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_LV.getMetaValue()) {
 				return 1;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§bMV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_MV.getMetaValue()) {
 				return 2;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§6HV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_HV.getMetaValue()) {
 				return 3;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§5EV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_EV.getMetaValue()) {
 				return 4;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§1IV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_IV.getMetaValue()) {
 				return 5;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§dLuV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_LuV.getMetaValue()) {
 				return 6;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§cZPM§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_ZPM.getMetaValue()) {
 				return 7;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§3UV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_UV.getMetaValue()) {
 				return 8;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§4UHV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_UHV.getMetaValue()) {
 				return 9;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§aUEV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_UEV.getMetaValue()) {
 				return 10;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§2UIV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_UIV.getMetaValue()) {
 				return 11;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§eUXV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_UXV.getMetaValue()) {
 				return 12;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§9OpV§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_OpV.getMetaValue()) {
 				return 13;
 			}
-			if (item.getDisplayName().equals("轨道采集器（§c§lMAX§r）")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.MINING_DRONE_MAX.getMetaValue()) {
 				return 14;
 			}
 		}

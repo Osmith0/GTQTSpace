@@ -57,10 +57,10 @@ public class GTQTSMetaItems {
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIII;
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIV;
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKV;
-	static GTQTSMetaItem1 item1;
+	public static GTQTSMetaItem1 GTQTS_META_ITEM;
 
 	public static void initialization() {
-		item1 = new GTQTSMetaItem1();
+		GTQTS_META_ITEM = new GTQTSMetaItem1();
 	}
 
 	public static void initSubItems() {
@@ -68,8 +68,8 @@ public class GTQTSMetaItems {
 	}
 
 	public static void registerItemModels() {
-		ModelLoader.setCustomModelResourceLocation(item1, GTQTSMetaItems.SATELLITE_ROCKET.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.SATELLITE_ROCKET.unlocalizedName), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(item1, GTQTSMetaItems.BASIC_SATELLITE.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.BASIC_SATELLITE.unlocalizedName), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(item1, GTQTSMetaItems.TELESCOPE.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.TELESCOPE.unlocalizedName), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(GTQTS_META_ITEM, GTQTSMetaItems.SATELLITE_ROCKET.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.SATELLITE_ROCKET.unlocalizedName), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(GTQTS_META_ITEM, GTQTSMetaItems.BASIC_SATELLITE.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.BASIC_SATELLITE.unlocalizedName), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(GTQTS_META_ITEM, GTQTSMetaItems.TELESCOPE.getMetaValue(), new ModelResourceLocation(new ResourceLocation(GTQTSpace.MODID, GTQTSMetaItems.TELESCOPE.unlocalizedName), "inventory"));
 	}
 }

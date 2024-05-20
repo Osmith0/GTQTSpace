@@ -95,7 +95,7 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getDisplayName().equals("基础卫星")) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.BASIC_SATELLITE.getMetaValue()) {
 				NBTTagCompound compound = item.getTagCompound();
 				if (compound != null && compound.hasKey("solarTier") && compound.hasKey("seniorTier") && compound.hasKey("generatorTier")) {
 					solarTierTMP = compound.getInteger("solarTier");
@@ -356,13 +356,13 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 	}
 
 	public ItemStack setSatellite() {
-		ItemStack Satellite = new ItemStack(GTQTSMetaItems.BASIC_SATELLITE.getMetaItem(), 1, 100);
+		ItemStack satellite = new ItemStack(GTQTSMetaItems.BASIC_SATELLITE.getMetaItem(), 1, 100);
 		NBTTagCompound nodeTagCompound = new NBTTagCompound();
-		nodeTagCompound.setInteger("SolarTier", this.satellite[circuit].getSolarTier());
-		nodeTagCompound.setInteger("SeniorTier", this.satellite[circuit].getSeniorTier().getID());
-		nodeTagCompound.setInteger("GeneratorTier", this.satellite[circuit].getGeneratorTier().getID());
-		Satellite.setTagCompound(nodeTagCompound);
-		return Satellite;
+		nodeTagCompound.setInteger("solarTier", this.satellite[circuit].getSolarTier());
+		nodeTagCompound.setInteger("seniorTier", this.satellite[circuit].getSeniorTier().getID());
+		nodeTagCompound.setInteger("generatorTier", this.satellite[circuit].getGeneratorTier().getID());
+		satellite.setTagCompound(nodeTagCompound);
+		return satellite;
 	}
 
 	@Override
