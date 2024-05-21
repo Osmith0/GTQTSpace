@@ -60,10 +60,9 @@ public class GTQTSMetaItems {
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIII;
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIV;
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKV;
+	public static MetaItem<?>.MetaValueItem POS_BINDING_CARD;
 	public static GTQTSMetaItem1 GTQTS_META_ITEM;
 
-	@GameRegistry.ObjectHolder("gtqtspace:pos_binding_card")
-	public static final Item POS_BINDING_CARD = Items.AIR;
 
 	public static void initialization() {
 		GTQTS_META_ITEM = new GTQTSMetaItem1();

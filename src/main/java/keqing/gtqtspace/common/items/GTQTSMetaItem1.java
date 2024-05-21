@@ -2,7 +2,9 @@ package keqing.gtqtspace.common.items;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.items.metaitem.StandardMetaItem;
+import keqing.gtqtcore.common.items.behaviors.MillBallBehavior;
 import keqing.gtqtspace.common.CommonProxy;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -54,6 +56,7 @@ public class GTQTSMetaItem1 extends StandardMetaItem {
 		GTQTSMetaItems.MINING_DRONE_OpV = this.addItem(62, "mining_drone.opv").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 		GTQTSMetaItems.MINING_DRONE_MAX = this.addItem(63, "mining_drone.max").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 
+		GTQTSMetaItems.POS_BINDING_CARD = this.addItem(97, "pos_binding_card").setMaxStackSize(1).addComponents(new PosBindingCardBehaviors()).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 		//卫星 包括卫星升级构建
 		GTQTSMetaItems.TELESCOPE = this.addItem(98, "telescope").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 		GTQTSMetaItems.SATELLITE_ROCKET = this.addItem(99, "satellite_rocket").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
@@ -100,6 +103,28 @@ public class GTQTSMetaItem1 extends StandardMetaItem {
 						tooltip.add(TextFormatting.GRAY + key + ": " + value);
 					} else if (Objects.equals(key, "GeneratorTier")) {
 						String value = compound.getString(key); // 获取键对应的值的字符串表示
+						tooltip.add(TextFormatting.GRAY + key + ": " + value);
+					}
+				});
+			}
+		}
+		if (stack.getTagCompound() != null && stack.getMetadata() == 97) {
+			tooltip.add(I18n.format("右键下蹲获取对应方块坐标，右键清空物品缓存坐标"));
+			tooltip.add(I18n.format("-------------------"));
+			NBTTagCompound compound = stack.getTagCompound();
+			if (!stack.hasTagCompound() || !stack.getTagCompound().getBoolean("hasPos")) {
+				tooltip.add(I18n.format("item.info.pos_binding.no_data"));
+			} else {
+				tooltip.add(I18n.format("item.info.pos_binding.stored_pos"));
+				compound.getKeySet().forEach(key -> { // 遍历NBT数据的键
+					if (Objects.equals(key, "x")) {
+						int value = compound.getInteger(key); // 获取键对应的值的字符串表示
+						tooltip.add(TextFormatting.GRAY + key + ": " + value);
+					} else if (Objects.equals(key, "y")) {
+						int value = compound.getInteger(key); // 获取键对应的值的字符串表示
+						tooltip.add(TextFormatting.GRAY + key + ": " + value);
+					} else if (Objects.equals(key, "z")) {
+						int value = compound.getInteger(key); // 获取键对应的值的字符串表示
 						tooltip.add(TextFormatting.GRAY + key + ": " + value);
 					}
 				});
