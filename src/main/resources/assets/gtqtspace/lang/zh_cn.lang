@@ -49,7 +49,7 @@ metaitem.mining_drone.uiv.tooltip=§2便携苍穹共振仪II
 metaitem.mining_drone.uxv.tooltip=§e便携苍穹共振仪III
 metaitem.mining_drone.opv.tooltip=§9-*创造一个宇宙，然后摧毁它*-
 metaitem.mining_drone.max.tooltip=§c=《༺=☆你的就是我的，我的还是我的☆=༻》=
-
+metaitem.pos_binding_card.name=数据卡
 metaitem.telescope.name=望远镜
 metaitem.satellite_rocket.name=卫星运载火箭
 metaitem.basic_satellite.name=基础卫星
@@ -129,8 +129,8 @@ tile.gui.contained_part=已有部件
 tile.gui.solar_tier=级太阳能板
 tile.gui.will_update=预计更新部件
 
-item.info.pos_binding.no_data=无数据
-item.info.pos_binding.stored_pos=存储坐标
+item.info.pos_binding.no_data=无数据 QAQ
+item.info.pos_binding.stored_pos=存储坐标：
 
 #
 itemGroup.gtqtspace_core=量子跃迁 | 航空航天
