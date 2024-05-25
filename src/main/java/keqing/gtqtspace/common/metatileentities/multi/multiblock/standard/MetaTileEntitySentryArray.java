@@ -23,6 +23,7 @@ import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import gregtech.common.blocks.BlockGlassCasing;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.metatileentities.MetaTileEntities;
+import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.api.multiblock.Satellite;
 import keqing.gtqtspace.api.multiblock.SatelliteGenerators;
 import keqing.gtqtspace.api.multiblock.SatelliteSeniorUpdates;
@@ -47,6 +48,8 @@ import gregtech.api.GTValues;
 import keqing.gtqtcore.api.pattern.GTQTTraceabilityPredicate;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
 
+import static keqing.gtqtspace.api.multiblock.SatelliteSeniorUpdates.EMPTY;
+
 public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 	private final Satellite[] satellite = new Satellite[26];
 	private int maxNumber;
@@ -62,7 +65,7 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 		if (checkSatellite(false) && satellite[circuit] == null) {
 			satellite[circuit] = new Satellite(circuit, solarTierTMP, seniorUpdateTMP, generatorTMP);
 			solarTierTMP = 0;
-			seniorUpdateTMP = SatelliteSeniorUpdates.EMPTY;
+			seniorUpdateTMP = EMPTY;
 			generatorTMP = SatelliteGenerators.EMPTY;
 		}
 	}
@@ -373,5 +376,28 @@ public class MetaTileEntitySentryArray extends MetaTileEntityBaseWithControl {
 	@Override
 	public int getMaxProgress() {
 		return maxProcess;
+	}
+	//这里写一个方法来找卫星
+	public boolean findSatellite(int solarTierTMP,SatelliteSeniorUpdates seniorUpdateTMP,SatelliteGenerators generatorTMP)
+	{
+		for(int i=0;i<maxNumber;i++)
+		{
+			if(seniorUpdateTMP==SatelliteSeniorUpdates.EMPTY) {
+				if (this.satellite[circuit + i].getSolarTier() >= solarTierTMP) {
+					this.satellite[circuit + i].setUsing(true);
+					return true;
+				}
+			}
+			else
+			{
+				if (this.satellite[circuit + i].getSeniorTier() == seniorUpdateTMP) {
+					if (this.satellite[circuit + i].getSolarTier() >= solarTierTMP) {
+						this.satellite[circuit + i].setUsing(true);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

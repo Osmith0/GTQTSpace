@@ -15,6 +15,7 @@ import static keqing.gtqtcore.common.items.GTQTMetaItems.DISK_8;
 import static keqing.gtqtspace.api.recipes.GTQTScoreRecipeMaps.*;
 import static keqing.gtqtspace.common.items.GTQTSMetaItems.*;
 import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.COSMIC_RAY_DETECTOR;
+import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.SATELLITE_SUVERY;
 
 public class StarSuvery {
     public static void init() {
@@ -29,6 +30,17 @@ public class StarSuvery {
                 .fluidInputs(Polyethylene.getFluid(GTValues.L * 4))
                 .output(COSMIC_RAY_DETECTOR)
                 .duration(800).EUt(VA[HV]).buildAndRegister();
+
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(HULL[4],16)
+                .inputs(MetaItems.FIELD_GENERATOR_EV.getStackForm(16))
+                .inputs(MetaItems.SENSOR_EV.getStackForm(16))
+                .input(OrePrefix.circuit, MarkerMaterials.Tier.EV, 4)
+                .input(OrePrefix.pipeSmallFluid, StainlessSteel, 4)
+                .input(OrePrefix.plate, Platinum, 4)
+                .fluidInputs(Polyethylene.getFluid(GTValues.L * 4))
+                .output(SATELLITE_SUVERY)
+                .duration(800).EUt(VA[EV]).buildAndRegister();
 
 
         //test

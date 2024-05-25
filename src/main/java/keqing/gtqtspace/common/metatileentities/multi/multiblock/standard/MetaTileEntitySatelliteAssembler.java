@@ -18,6 +18,7 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import gregtech.common.blocks.BlockGlassCasing;
 import gregtech.common.blocks.MetaBlocks;
+import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.api.multiblock.SatelliteGenerators;
 import keqing.gtqtspace.api.multiblock.SatelliteSeniorUpdates;
 import net.minecraft.block.state.IBlockState;
