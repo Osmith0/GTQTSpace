@@ -17,6 +17,7 @@ import gregtech.api.unification.material.Materials;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.BlockMetalCasing;
+import gregtech.common.blocks.BlockTurbineCasing;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.core.sound.GTSoundEvents;
 import keqing.gtqtcore.common.block.GTQTMetaBlocks;
@@ -82,35 +83,35 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 
 	protected BlockPattern createStructurePattern() {
 		return FactoryBlockPattern.start(RIGHT, FRONT, UP)
-				.aisle(" CCSCCF", "PCP PCP")
-				.aisle(" CFCFCF", "PCP PCP")
-				.aisle(" CFCFCF", "PCP PCP")
-				.aisle(" CFCFCF", "PPP PPP")
-				.aisle(" CFCFCF", "  P   P")
-				.aisle(" CCCCCF", "  P   P")
-				.aisle("  FFFFF", "  P   P")
-				.aisle("  FF FF", "  P   P")
-				.aisle("  FF FF", "  P   P")
-				.aisle("  FF FF", "  P   P")
-				.aisle("  FF FF", "       ")
-				.aisle("  FF FF", "       ")
+				.aisle(" CCSCCF", "PCP PCP", "PCP PCP", "PCP PCP"," CFCFCF")
+				.aisle(" CFCFCF", "PCP PCP", "PCP PCP", "PCP PCP"," CFCFCF")
+				.aisle(" CFCFCF", "PCP PCP", "PCP PCP", "PCP PCP"," CFCFCF")
+				.aisle(" CFCFCF", "PPP PPP", "PPP PPP", "PPP PPP"," CFCFCF")
+				.aisle(" CFCFCF", "  P   P", "  P   P", "  P   P"," CFCFCF")
+				.aisle(" CCCCCF", "  P   P", "  P   P", "  P   P"," CFCFCF")
+				.aisle("  FFFFF", "  P   P", "  P   P", "  P   P","  FFFFF")
+				.aisle("  FF FF", "  P   P", "  P   P", "  P   P","  FF FF")
+				.aisle("  FF FF", "  P   P", "  P   P", "  P   P","  FF FF")
+				.aisle("  FF FF", "  P   P", "  P   P", "  P   P","  FF FF")
+				.aisle("  FF FF", "       ", "       ", "       ","  FF FF")
+				.aisle("  FF FF", "       ", "       ", "       ","  FF FF")
 				.where('S', this.selfPredicate())
 				.where('P', states(this.getPipeCasingState()))
 				.where('F', states(this.getFrameState()))
-				.where('C', states(this.getCasingState()).setMinGlobalLimited(15).or(this.autoAbilities()))
+				.where('C', states(this.getCasingState()).setMinGlobalLimited(50).or(this.autoAbilities()))
 				.build();
 	}
 	public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-		return Textures.CLEAN_STAINLESS_STEEL_CASING;
+		return Textures.STABLE_TITANIUM_CASING;
 	}
 	protected IBlockState getFrameState() {
-		return MetaBlocks.FRAMES.get(Materials.StainlessSteel).getBlock(Materials.StainlessSteel);
+		return MetaBlocks.FRAMES.get(Materials.Titanium).getBlock(Materials.Titanium);
 	}
 	protected IBlockState getCasingState() {
-		return MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.STAINLESS_CLEAN);
+		return MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.TITANIUM_STABLE);
 	}
 	protected IBlockState getPipeCasingState() {
-		return GTQTMetaBlocks.TURBINE_CASING1.getState(AL_TURBINE_CASING);
+		return MetaBlocks.TURBINE_CASING.getState(BlockTurbineCasing.TurbineCasingType.TITANIUM_TURBINE_CASING);
 	}
 
 	public IOpticalComputationProvider getComputationProvider() {
