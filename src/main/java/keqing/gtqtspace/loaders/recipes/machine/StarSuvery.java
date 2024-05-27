@@ -22,8 +22,8 @@ public class StarSuvery {
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(HULL[3],16)
-                .inputs(MetaItems.FIELD_GENERATOR_HV.getStackForm(16))
-                .inputs(MetaItems.SENSOR_HV.getStackForm(16))
+                .inputs(MetaItems.FIELD_GENERATOR_MV.getStackForm(16))
+                .inputs(MetaItems.SENSOR_MV.getStackForm(16))
                 .input(OrePrefix.circuit, MarkerMaterials.Tier.HV, 4)
                 .input(OrePrefix.pipeSmallFluid, Aluminium, 4)
                 .input(OrePrefix.plate, StainlessSteel, 4)
@@ -33,8 +33,8 @@ public class StarSuvery {
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(HULL[4],16)
-                .inputs(MetaItems.FIELD_GENERATOR_EV.getStackForm(16))
-                .inputs(MetaItems.SENSOR_EV.getStackForm(16))
+                .inputs(MetaItems.FIELD_GENERATOR_HV.getStackForm(16))
+                .inputs(MetaItems.SENSOR_HV.getStackForm(16))
                 .input(OrePrefix.circuit, MarkerMaterials.Tier.EV, 4)
                 .input(OrePrefix.pipeSmallFluid, StainlessSteel, 4)
                 .input(OrePrefix.plate, Platinum, 4)
