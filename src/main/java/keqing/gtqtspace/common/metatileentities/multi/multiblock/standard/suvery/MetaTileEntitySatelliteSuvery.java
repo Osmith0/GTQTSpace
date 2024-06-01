@@ -83,7 +83,7 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 
 	protected BlockPattern createStructurePattern() {
 		return FactoryBlockPattern.start(RIGHT, FRONT, UP)
-				.aisle(" CCSCCF", "PCP PCP", "PCP PCP", "PCP PCP"," CFCFCF")
+				.aisle(" CCSHCF", "PCP PCP", "PCP PCP", "PCP PCP"," CFCFCF")
 				.aisle(" CFCFCF", "PCP PCP", "PCP PCP", "PCP PCP"," CFCFCF")
 				.aisle(" CFCFCF", "PCP PCP", "PCP PCP", "PCP PCP"," CFCFCF")
 				.aisle(" CFCFCF", "PPP PPP", "PPP PPP", "PPP PPP"," CFCFCF")
@@ -97,6 +97,7 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 				.aisle("  FF FF", "       ", "       ", "       ","  FF FF")
 				.where('S', this.selfPredicate())
 				.where('P', states(this.getPipeCasingState()))
+				.where('H', abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION))
 				.where('F', states(this.getFrameState()))
 				.where('C', states(this.getCasingState()).setMinGlobalLimited(50).or(this.autoAbilities()))
 				.build();
