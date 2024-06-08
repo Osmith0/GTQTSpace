@@ -167,10 +167,5 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 		public CosmicRayDetectorLogic(RecipeMapMultiblockController tileEntity) {
 			super(tileEntity, ComputationType.SPORADIC);
 		}
-
-		@Override
-		protected boolean canProgressRecipe() {
-			return super.canProgressRecipe();
-		}
 	}
 }
