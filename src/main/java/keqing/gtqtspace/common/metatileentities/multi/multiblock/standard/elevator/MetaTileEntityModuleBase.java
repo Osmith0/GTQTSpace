@@ -91,7 +91,8 @@ public abstract class MetaTileEntityModuleBase extends MultiblockWithDisplayBase
                 .aisle("C","C","C","C","C")
                 .aisle("C","C","C","S","C")
                 .where('S', selfPredicate())
-                .where('C', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities().setPreviewCount(2).setMaxGlobalLimited(2)))
+                .where('C', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                        .or(abilities().setPreviewCount(2).setMaxGlobalLimited(2)))
                 .build();
     }
 

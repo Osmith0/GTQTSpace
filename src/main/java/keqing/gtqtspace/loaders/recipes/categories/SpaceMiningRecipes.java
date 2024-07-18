@@ -5,6 +5,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import keqing.gtqtspace.api.utils.GTQTSLog;
 import net.minecraft.item.ItemStack;
 import org.eclipse.xtext.xbase.lib.Pair;
 
@@ -13,7 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static gregtech.api.GTValues.IV;
+import static gregtech.api.GTValues.VA;
 import static gregtech.api.unification.material.Materials.*;
+import static keqing.gtqtcore.api.unification.GTQTMaterials.Infinity;
 import static keqing.gtqtcore.api.unification.GTQTMaterials.Lignite;
 import static keqing.gtqtspace.common.items.GTQTSMetaItems.*;
 
@@ -30,36 +34,59 @@ public class SpaceMiningRecipes {
 
     public static void init() {
 
+        Material []material={Steel,Titanium,TungstenSteel,Naquadah,NaquadahAlloy,Neutronium,Infinity};
 
-        addNewRecipesForDroneAndMaterial(1, Steel,
+        //T1-T8 对着维度填就行，参数不要修改
+        addNewRecipesForDroneAndMaterial(1, material[0],
                 Arrays.asList(
-                        new SpaceMiningRecipePartTwo(Arrays.asList(new Pair<>(Coal, 70), new Pair<>(Lignite, 10), new Pair<>(Graphite, 20)),
-                                1920, 20, 200, 30,120, 200, 1,40, 1),
-
-                        new SpaceMiningRecipePartTwo(generateListOfPairs(Salt, 40, RockSalt, 20, Saltpeter, 40),
-                                1920, 20, 300, 30, 120, 200, 1, 250, 1),
-
-                        new SpaceMiningRecipePartTwo(generateListOfPairs(Iron, 40, Gold, 20, Magnetite, 10, Pyrite, 10, BasalticMineralSand, 5, GraniticMineralSand, 5),
-                                1920, 10, 600, 30, 150, 200, 1, 180, 1),
-
-                        new SpaceMiningRecipePartTwo(generateListOfPairs(Copper, 50, Chalcopyrite, 30, Malachite, 20),
-                                1920, 10, 500, 30,150,200, 3, 12, 1),
-
-                        new SpaceMiningRecipePartTwo(generateListOfPairs(Lead, 30, Arsenic, 25, Barium, 25, Lepidolite, 20),
-                                1920, 20, 220, 30, 100, 500, 5,150, 1),
-
-                        makeSpaceMiningRecipePart(7680, 50, 1, 2, 100, 50, 200, 10, 400, Cassiterite, 20, CassiteriteSand, 15, Tin, 60, Asbestos, 5),
-
-                        makeSpaceMiningRecipePart(7680, 50, 1, 5, 20, 20,40,20,170, Nickel, 40, Pentlandite, 30, Garnierite, 30),
-
-                        makeSpaceMiningRecipePart(7680, 800, 1, 20, 100, 30, 60, 30, 200, Clay, 100),
-
-                        makeSpaceMiningRecipePart(30720, 100, 1, 17,40,30,160,60,180, Ruby, 30, Emerald, 30, Sapphire, 30, GreenSapphire, 30, Diamond, 15, Opal, 15, Topaz, 20, BlueTopaz, 10, Bauxite, 10, Gold, 8, NetherStar, 1),
-
-                        makeSpaceMiningRecipePart(30720, 500, 1, 60, 200, 30, 70, 120, 100, Tungsten, 30, Titanium, 30, Neodymium, 20, Molybdenum, 15, Tungstate, 5)
+                        makeSpaceMiningRecipePart(VA[IV], 1200, 1, 2, 100, 50, 200, 100, 400, Iron, 20)
                 ));
 
-        addNewRecipesForDroneAndMaterial(2, Steel, upTierAllRecipes(1, Steel, 1));
+        addNewRecipesForDroneAndMaterial(3, material[0],
+                Arrays.asList(
+                        makeSpaceMiningRecipePart(VA[IV+1], 1200, 1, 2, 200, 100, 200, 200, 400, Copper, 20)
+                ));
+
+        addNewRecipesForDroneAndMaterial(5, material[0],
+                Arrays.asList(
+                        makeSpaceMiningRecipePart(VA[IV+2], 1200, 2, 2, 400, 150, 200, 400, 400, Tin, 20)
+                ));
+
+        addNewRecipesForDroneAndMaterial(7, material[0],
+                Arrays.asList(
+                        makeSpaceMiningRecipePart(VA[IV+3], 1200, 2, 2, 600, 200, 200, 600, 400, Lead, 20)
+                ));
+
+        addNewRecipesForDroneAndMaterial(9, material[0],
+                Arrays.asList(
+                        makeSpaceMiningRecipePart(VA[IV+4], 1200, 2, 2, 800, 250, 200, 800, 400, Nickel,20)
+                ));
+
+        addNewRecipesForDroneAndMaterial(11, material[0],
+                Arrays.asList(
+                        makeSpaceMiningRecipePart(VA[IV+5], 1200, 3, 2, 1200, 300, 200, 1000, 400, Aluminium,20)
+                ));
+
+        addNewRecipesForDroneAndMaterial(13, material[0],
+                Arrays.asList(
+                        makeSpaceMiningRecipePart(VA[IV+6], 1200, 3, 2, 1600, 350, 200, 1200, 400, Coal,20)
+                ));
+
+        addNewRecipesForDroneAndMaterial(14, material[0],
+                Arrays.asList(
+                        makeSpaceMiningRecipePart(VA[IV+7], 1200, 3, 2, 2000, 400, 200, 1400, 400, Diamond,20)
+                ));
+
+
+        //无人机升级 材料升级 多方块不变
+        for(int j=2;j<15;j++)
+           addNewRecipesForDroneAndMaterial(j, material[0], upTierAllRecipes(j - 1, material[0], j));
+
+
+        for(int j=2;j<=15;j++)
+            for (int i = 1; i < material.length; i++)
+                addNewRecipesForDroneAndMaterial(j-1, material[i], upTierAllRecipes(j-1, material[i - 1], i));
+
     }
 
     public static SpaceMiningRecipePartTwo makeSpaceMiningRecipePart(int EUt, int duration, int minModuleTier, int minDistance, int maxDistance, int minSize, int maxSize, int CWUt, int weight, Object... outputsAndWeights) {
@@ -227,7 +254,7 @@ public class SpaceMiningRecipes {
         }
 
         public SpaceMiningRecipePartTwo copyAndUpTierRecipe(int tier) {
-            return new SpaceMiningRecipePartTwo(this.outputs, this.EUt, this.computation, this.weight, this.minSize + tier * 4, this.maxSize + tier * 8, (int) (this.duration - (this.duration * .1 * tier)), this.minDistance, this.maxDistance, this.minModuleTier);
+            return new SpaceMiningRecipePartTwo(this.outputs, this.EUt, this.computation, this.weight, this.minSize + tier * 4, this.maxSize + tier * 8, (int) (this.duration *(30.0-tier)/30), this.minDistance, this.maxDistance, this.minModuleTier);
         }
 
 

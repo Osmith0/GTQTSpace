@@ -1,9 +1,11 @@
 package keqing.gtqtspace.jei.category;
 
+import com.cleanroommc.groovyscript.Tags;
 import gregtech.api.GTValues;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.util.GTUtility;
 import gregtech.integration.jei.basic.BasicRecipeCategory;
+import keqing.gtqtspace.GTQTSpace;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.jei.SpaceMiningInfo;
 import mezz.jei.api.IGuiHelper;
@@ -181,9 +183,8 @@ public class SpaceMiningCategory extends BasicRecipeCategory<SpaceMiningInfo, Sp
         };
     }
 
-
     @Override
-    public String getModName() {
-        return "gtqtspace";
+    public  String getModName() {
+        return Tags.MODID;
     }
 }

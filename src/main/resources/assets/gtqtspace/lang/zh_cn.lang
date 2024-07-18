@@ -222,7 +222,5 @@ tile.gtqtspace_elevator_casing_tiered.elevator_motor_3.name=Space Elevator Motor
 tile.gtqtspace_elevator_casing_tiered.elevator_motor_4.name=Space Elevator Motor MK-IV
 tile.gtqtspace_elevator_casing_tiered.elevator_motor_5.name=Space Elevator Motor MK-V
 
-
-
 #
 itemGroup.gtqtspace_core=量子跃迁 | 航空航天
