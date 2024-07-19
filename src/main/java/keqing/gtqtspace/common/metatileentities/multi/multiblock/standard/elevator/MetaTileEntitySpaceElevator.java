@@ -37,16 +37,22 @@ import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
+
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -145,8 +151,10 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                     .where('E', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.SUPPORT_STRUCTURE)))
                     .where('A', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.FLOOR)))
                     .where('B', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.CABLE_CASING)))
-                    .where('H', frames(TungstenSteel))
-                    .where('X', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities(MultiblockAbility.INPUT_ENERGY, MultiblockAbility.INPUT_LASER).setExactLimit(1))) //abilities?
+                    .where('H', frames(Naquadah))
+                    .where('X', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                            .or(abilities(MultiblockAbility.INPUT_ENERGY, MultiblockAbility.INPUT_LASER).setExactLimit(1))
+                            .or(abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1)))
                     .where('C', TiredTraceabilityPredicate.CP_SE_CASING)
                     .where('I', modulePredicate())
                     .where('V', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities(MultiblockAbility.IMPORT_ITEMS,MultiblockAbility.IMPORT_FLUIDS,MultiblockAbility.EXPORT_FLUIDS,MultiblockAbility.EXPORT_ITEMS).setPreviewCount(0)))
@@ -209,8 +217,10 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                     .where('E', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.SUPPORT_STRUCTURE)))
                     .where('A', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.FLOOR)))
                     .where('B', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.CABLE_CASING)))
-                    .where('H', frames(TungstenSteel))
-                    .where('X', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities(MultiblockAbility.INPUT_ENERGY, MultiblockAbility.INPUT_LASER).setExactLimit(1))) //abilities?
+                    .where('H', frames(Naquadah))
+                    .where('X', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                            .or(abilities(MultiblockAbility.INPUT_ENERGY, MultiblockAbility.INPUT_LASER).setExactLimit(1))
+                            .or(abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1)))
                     .where('C', TiredTraceabilityPredicate.CP_SE_CASING)
                     .where('I', modulePredicate())
                     .where('V', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities(MultiblockAbility.IMPORT_ITEMS,MultiblockAbility.IMPORT_FLUIDS,MultiblockAbility.EXPORT_FLUIDS,MultiblockAbility.EXPORT_ITEMS).setPreviewCount(0)))
@@ -458,5 +468,11 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
     @Override
     public IOpticalComputationProvider getComputationProvider() {
         return this.computationProvider;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, world, tooltip, advanced);
+        tooltip.add(I18n.format("需要所有拓展槽都安装模块控制器后才成型"));
     }
 }

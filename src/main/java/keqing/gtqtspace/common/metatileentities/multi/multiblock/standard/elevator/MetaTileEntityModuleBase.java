@@ -18,6 +18,8 @@ import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
@@ -26,6 +28,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 
 public abstract class MetaTileEntityModuleBase extends MultiblockWithDisplayBase implements ISpaceElevatorReceiver, IWorkable {
@@ -274,5 +279,9 @@ public abstract class MetaTileEntityModuleBase extends MultiblockWithDisplayBase
     public int getProgressPercent() {
         return (int) ((1.0F * getProgress() / getMaxProgress()) * 100);
     }
-
+    @Override
+    public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, world, tooltip, advanced);
+        tooltip.add(I18n.format("需要插入太空电梯插槽后才成型"));
+    }
 }

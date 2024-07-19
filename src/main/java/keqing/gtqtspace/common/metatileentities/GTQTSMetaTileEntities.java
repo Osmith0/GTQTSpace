@@ -3,6 +3,7 @@ package keqing.gtqtspace.common.metatileentities;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.MetaTileEntitySatelliteAssembler;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.MetaTileEntitySentryArray;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.MetaTileEntitySpaceElevator;
+import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.MetaTileEntitySpaceElevatorExtendView;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityAssemblerModule;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityMiningModule;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityPumpingModule;
@@ -23,6 +24,7 @@ public class GTQTSMetaTileEntities {
 
 	///////////////////////////////////////////////////
 	public static MetaTileEntitySpaceElevator SPACE_ELEVATOR;
+	public static MetaTileEntitySpaceElevatorExtendView VIEW_SPACE_ELEVATOR;
 	public static MetaTileEntityPumpingModule[] PUMP_MODULE = new MetaTileEntityPumpingModule[3];
 	public static MetaTileEntityMiningModule[] MINING_MODULE = new MetaTileEntityMiningModule[3];
 	public static MetaTileEntityAssemblerModule[] ASSEMBLER_MODULE = new MetaTileEntityAssemblerModule[3];
@@ -35,6 +37,7 @@ public class GTQTSMetaTileEntities {
 		SENTRY_ARRAY = registerMetaTileEntity(5004, new MetaTileEntitySentryArray(gtqtspaceId("sentry_array")));
 
 		SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevator(gtqtspaceId("space_elevator")));
+		VIEW_SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevatorExtendView(gtqtspaceId("view_space_elevator")));
 		PUMP_MODULE[0] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_1"), 9,1,2));
 		PUMP_MODULE[1] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_2"), 11,2,3));
 		PUMP_MODULE[2] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_3"), 13,3,4));

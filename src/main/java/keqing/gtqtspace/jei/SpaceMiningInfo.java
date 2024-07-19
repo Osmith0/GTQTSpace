@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static gregtech.api.unification.material.Materials.*;
+import static keqing.gtqtcore.api.unification.GTQTMaterials.*;
 
 //TODO add bucket stuff
 public class SpaceMiningInfo implements IRecipeWrapper {
@@ -42,7 +43,7 @@ public class SpaceMiningInfo implements IRecipeWrapper {
             this.groupedOutputsAsItemStacks.add(Collections.singletonList(OreDictUnifier.get(OrePrefix.ore, pair.getKey(), pair.getValue())));
         }
 
-        this.fluidList.addAll(Arrays.asList(Arrays.asList(Helium.getPlasma(1000), Iron.getPlasma(500), Oxygen.getPlasma(300))));
+        this.fluidList.addAll(Arrays.asList(Arrays.asList(RocketFuel.getFluid(1000), RP1RocketFuel.getFluid(500), DenseHydrazineMixtureFuel.getFluid(300), MethylhydrazineNitrateRocketFuel.getFluid(100))));
     }
 
 

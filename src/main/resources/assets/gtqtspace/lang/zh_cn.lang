@@ -134,93 +134,94 @@ tile.gui.will_update=预计更新部件
 item.info.pos_binding.no_data=无数据 QAQ
 item.info.pos_binding.stored_pos=存储坐标：
 
-gtqtspace.machine.space_elevator.name=§dSpace Elevator
-gtqtspace.machine.space_elevator.max_modules=Maximum Installed Modules: %s
-gtqtspace.machine.space_elevator.total_modules=Modules Installed Total: %s
-gtqtspace.machine.space_elevator.modules.none=No Modules Installed!
-gtqtspace.machine.space_elevator.modules=Modules Installed:
-gtqtspace.machine.space_elevator.motor_tier=Motor Tier: %s
-gtqtspace.gui.multiblock.space_elevator_extended=Extension Toggle
-gtqtspace.gui.multiblock.space_elevator_teleport=Travel
-gtqtspace.gui.multiblock.space_elevator.enable_all_modules=Enable All Modules
-gtqtspace.gui.multiblock.space_elevator.disable_all_modules=Disable All Modules
+gtqtspace.machine.space_elevator.name=§d太空电梯
+gtqtspace.machine.view_space_elevator.name=§d太空电梯拓展模式预览
+gtqtspace.machine.space_elevator.max_modules=最大安装模块数：%s
+gtqtspace.machine.space_elevator.total_modules=已安装的模块总数：%s
+gtqtspace.machine.space_elevator.modules.none=未安装模块！
+gtqtspace.machine.space_elevator.modules=已安装的模块：
+gtqtspace.machine.space_elevator.motor_tier=磁轨加速器等级：%s
+gtqtspace.gui.multiblock.space_elevator_extended=扩展切换
+gtqtspace.gui.multiblock.space_elevator_teleport=折跃
+gtqtspace.gui.multiblock.space_elevator.enable_all_modules=启用所有模块
+gtqtspace.gui.multiblock.space_elevator.disable_all_modules=禁用所有模块
 
 
-gtqtspace.multiblock.pump_module.planet=Planet:
-gtqtspace.multiblock.pump_module.fluid=Fluid:
-space_pump.name=Space Pumping
+gtqtspace.multiblock.pump_module.planet=星球：
+gtqtspace.multiblock.pump_module.fluid=流体：
+space_pump.name=空间流体钻机
 
 
-gtqtspace.machine.pump_module_1.name=Space Pumping Module MK-I
-gtqtspace.machine.pump_module_2.name=Space Pumping Module MK-II
-gtqtspace.machine.pump_module_3.name=Space Pumping Module MK-III
+gtqtspace.machine.pump_module_1.name=空间流体钻机MK-I
+gtqtspace.machine.pump_module_2.name=空间流体钻机MK-II
+gtqtspace.machine.pump_module_3.name=空间流体钻机MK-III
 
-gtqtspace.jei.space_pump_planet_name=Planet: %s
-gtqtspace.jei.space_pump_planet_number=Planet #: %s
-gtqtspace.jei.space_pump_fluid_number=Fluid #: %s
-gtqtspace.jei.space_pump_fluid_amount=Amount: %s
+gtqtspace.jei.space_pump_planet_name=行星：%s
+gtqtspace.jei.space_pump_planet_number=行星号：%s
+gtqtspace.jei.space_pump_fluid_number=流体编号：%s
+gtqtspace.jei.space_pump_fluid_amount=数量：%s
 
-gtqtspace.machine.pump_module_1.display_count=   Space Pumping Module MK-I x%s
-gtqtspace.machine.pump_module_2.display_count=   Space Pumping Module MK-II x%s
-gtqtspace.machine.pump_module_3.display_count=   Space Pumping Module MK-III x%s
+gtqtspace.machine.pump_module_1.display_count=空间流体钻机MK-I x%s
+gtqtspace.machine.pump_module_2.display_count=空间流体钻机MK-II x%s
+gtqtspace.machine.pump_module_3.display_count=空间流体钻机MK-III x%s
 
-gtqtspace.machine.mining_module_1.name=Space Mining Module MK-I
-gtqtspace.machine.mining_module_2.name=Space Mining Module MK-II
-gtqtspace.machine.mining_module_3.name=Space Mining Module MK-III
+gtqtspace.machine.mining_module_1.name=空间采矿模块MK-I
+gtqtspace.machine.mining_module_2.name=太空采矿舱MK-II
+gtqtspace.machine.mining_module_3.name=太空采矿舱MK-III
 
-space_mining.name=Space Mining
-gtqtspace.jei.space_miner.total_eu=Total: %s
-gtqtspace.jei.space_miner.eut=Usage: %s EU/t (%s)
-gtqtspace.jei.space_miner.duration=Duration: %s secs
-gtqtspace.jei.space_miner.tier=Needs MK-%s Module
-gtqtspace.jei.space_miner.distance=Distance: %s-%s
-gtqtspace.jei.space_miner.size=Size: %s-%s
-gtqtspace.jei.space_miner.cwut=Min. Computation: %s CWU/t
-gtqtspace.jei.space_miner.weight=Weight: %s
+space_mining.name=太空采矿
+gtqtspace.jei.space_miner.total_eu=总计：%s EU
+gtqtspace.jei.space_miner.eut=耗能：%s EU/t（%s）
+gtqtspace.jei.space_miner.duration=持续时间：%s 秒
+gtqtspace.jei.space_miner.tier=需要MK-%s模块
+gtqtspace.jei.space_miner.distance=距离：%s-%s
+gtqtspace.jei.space_miner.size=大小：%s-%s
+gtqtspace.jei.space_miner.cwut=最小计算量：%s CWU/t
+gtqtspace.jei.space_miner.weight=权重：%s
 
-gtqtspace.gui.mining_module.distance=Distance:
-gtqtspace.gui.mining_module.range=Range:
-gtqtspace.gui.mining_module.step=Step:
-gtqtspace.gui.mining_module.cycle=Steps Through Distance per Operation by set Step
-gtqtspace.gui.mining_module.parallel=Parallel:
-gtqtspace.gui.mining_module.blank_name=<Material to Add>
-gtqtspace.gui.mining_module.blank_name_remove=<Material to Remove>
-gtqtspace.gui.mining_module.whitelist=Whitelist:
-gtqtspace.gui.mining_module.blacklist=Blacklist:
-gtqtspace.gui.mining_module.remove=Remove:
-gtqtspace.gui.mining_module.whitelist_empty=Whitelist Empty!
-gtqtspace.gui.mining_module.blacklist_empty=Blacklist Empty!
-gtqtspace.gui.mining_module.whitelist_cleared=Whitelist Cleared!
-gtqtspace.gui.mining_module.blacklist_cleared=Blacklist Cleared!
-gtqtspace.gui.mining_module.print_whitelist_or_clear=Shows Current Whitelist/Blacklist, Shift-Click to Clear the List
-gtqtspace.gui.mining_module.change_whitelist_mode=Changes Between Whitelist/Blacklist Modes
+gtqtspace.gui.mining_module.distance=距离：
+gtqtspace.gui.mining_module.range=范围：
+gtqtspace.gui.mining_module.step=步骤：
+gtqtspace.gui.mining_module.cycle=按设定步数计算每次操作的步数
+gtqtspace.gui.mining_module.parallel=并行：
+gtqtspace.gui.mining_module.blank_name=<要添加的材料>
+gtqtspace.gui.mining_module.blank_name_remove=<要删除的材料>
+gtqtspace.gui.mining_module.whitelist=白名单：
+gtqtspace.gui.mining_module.blacklist=黑名单：
+gtqtspace.gui.mining_module.remove=删除：
+gtqtspace.gui.mining_module.whitelist_empty=白名单为空！
+gtqtspace.gui.mining_module.blacklist_empty=黑名单为空！
+gtqtspace.gui.mining_module.whitelist_cleared=白名单已清除！
+gtqtspace.gui.mining_module.blacklist_cleared=黑名单已清除！
+gtqtspace.gui.mining_module.print_whitelist_or_clear=显示当前白名单/黑名单，按住Shift键并单击以清除列表
+gtqtspace.gui.mining_module.change_whitelist_mode=白名单/黑名单模式之间的更改
 
-gtqtspace.gui.mining_module.min_distance=Min Distance: %s
-gtqtspace.gui.mining_module.max_distance=Max Distance: %s
+gtqtspace.gui.mining_module.min_distance=最小距离：%s
+gtqtspace.gui.mining_module.max_distance=最大距离：%s
 
-gtqtspace.machine.mining_module_1.display_count=   Space Mining Module MK-I x%s
-gtqtspace.machine.mining_module_2.display_count=   Space Mining Module MK-II x%s
-gtqtspace.machine.mining_module_3.display_count=   Space Mining Module MK-III x%s
+gtqtspace.machine.mining_module_1.display_count=空间采矿模块MK-I x%s
+gtqtspace.machine.mining_module_2.display_count=空间采矿模块MK-II x%s
+gtqtspace.machine.mining_module_3.display_count=空间采矿模块MK-III x%s
 
-gtqtspace.machine.assembler_module_1.name=Space Assembler Module MK-I
-gtqtspace.machine.assembler_module_2.name=Space Assembler Module MK-II
-gtqtspace.machine.assembler_module_3.name=Space Assembler Module MK-III
+gtqtspace.machine.assembler_module_1.name=空间组装模块MK-I
+gtqtspace.machine.assembler_module_2.name=空间组装模块MK-II
+gtqtspace.machine.assembler_module_3.name=空间组装模块MK-III
 
-gtqtspace.machine.assembler_module_1.display_count=   Space Assembler Module MK-I x%s
-gtqtspace.machine.assembler_module_2.display_count=   Space Assembler Module MK-II x%s
-gtqtspace.machine.assembler_module_3.display_count=   Space Assembler Module MK-III x%s
+gtqtspace.machine.assembler_module_1.display_count=空间组装器模块MK-I x%s
+gtqtspace.machine.assembler_module_2.display_count=空间组装器模块MK-II x%s
+gtqtspace.machine.assembler_module_3.display_count=空间组装器模块MK-III x%s
 
-tile.gtqtspace_elevator_casing.concrete_strong.name=Ultra High Strength Concrete Floor
-tile.gtqtspace_elevator_casing.elevator_base.name=Space Elevator Base Casing
-tile.gtqtspace_elevator_casing.elevator_internal.name=Space Elevator Internal Structure
-tile.gtqtspace_elevator_casing.elevator_support.name=Space Elevator Support Structure
-tile.gtqtspace_elevator_casing.elevator_cable.name=Space Elevator Cable
+tile.gtqtspace_elevator_casing.concrete_strong.name=超高强混凝土楼板
+tile.gtqtspace_elevator_casing.elevator_base.name=太空电梯底座外壳
+tile.gtqtspace_elevator_casing.elevator_internal.name=太空电梯内部结构
+tile.gtqtspace_elevator_casing.elevator_support.name=太空电梯支撑结构
+tile.gtqtspace_elevator_casing.elevator_cable.name=太空电梯电缆
 
-tile.gtqtspace_elevator_casing_tiered.elevator_motor_1.name=Space Elevator Motor MK-I
-tile.gtqtspace_elevator_casing_tiered.elevator_motor_2.name=Space Elevator Motor MK-II
-tile.gtqtspace_elevator_casing_tiered.elevator_motor_3.name=Space Elevator Motor MK-III
-tile.gtqtspace_elevator_casing_tiered.elevator_motor_4.name=Space Elevator Motor MK-IV
-tile.gtqtspace_elevator_casing_tiered.elevator_motor_5.name=Space Elevator Motor MK-V
+tile.gtqtspace_elevator_casing_tiered.elevator_motor_1.name=太空电梯电机MK-I
+tile.gtqtspace_elevator_casing_tiered.elevator_motor_2.name=太空电梯电机MK-II
+tile.gtqtspace_elevator_casing_tiered.elevator_motor_3.name=太空电梯电机MK-III
+tile.gtqtspace_elevator_casing_tiered.elevator_motor_4.name=太空电梯电机MK-IV
+tile.gtqtspace_elevator_casing_tiered.elevator_motor_5.name=太空电梯电机MK-V
 
 #
 itemGroup.gtqtspace_core=量子跃迁 | 航空航天
