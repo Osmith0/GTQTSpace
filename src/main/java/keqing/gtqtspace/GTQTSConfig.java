@@ -80,7 +80,7 @@ public class GTQTSConfig {
 
         @Config.Comment({"List of Planet Names. These are mapped to an ID. Starting Index is 1."})
         @Config.RequiresMcRestart
-        public String[] planetNames = {"Jupiter", "Saturn", "Uranus", "Neptune"};
+        public String[] planetNames = {"月球" ,"火星" ,"金星" ,"木星", "土星", "天王星", "海王星"};
 
     }
 }

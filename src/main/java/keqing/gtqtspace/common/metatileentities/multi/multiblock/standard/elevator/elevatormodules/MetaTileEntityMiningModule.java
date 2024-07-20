@@ -53,6 +53,7 @@ import java.util.function.BooleanSupplier;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.Materials.Radon;
+import static keqing.gtqtcore.api.unification.GTQTMaterials.*;
 import static keqing.gtqtspace.common.items.GTQTSMetaItems.*;
 import static keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes.*;
 
@@ -369,32 +370,40 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
 
     private Fluid checkFluidInventory(boolean simulate) {
 
-        FluidStack canDrainHelium = getInputFluidInventory().drain(Helium.getPlasma(1000 * this.parallel), false);
-        FluidStack canDrainBismuth = getInputFluidInventory().drain(Bismuth.getPlasma(500 * this.parallel), false);
-        FluidStack canDrainRadon = getInputFluidInventory().drain(Radon.getPlasma(300 * this.parallel), false);
+        FluidStack canDrainFuel1 = getInputFluidInventory().drain(RocketFuel.getFluid(1000 * this.parallel), false);
+        FluidStack canDrainFuel2 = getInputFluidInventory().drain(RP1RocketFuel.getFluid(500 * this.parallel), false);
+        FluidStack canDrainFuel3 = getInputFluidInventory().drain(DenseHydrazineMixtureFuel.getFluid(300 * this.parallel), false);
+        FluidStack canDrainFuel4 = getInputFluidInventory().drain(MethylhydrazineNitrateRocketFuel.getFluid(100 * this.parallel), false);
 
-        if (canDrainHelium != null || canDrainBismuth != null || canDrainRadon != null) {
+        if (canDrainFuel1 != null || canDrainFuel2 != null || canDrainFuel3 != null || canDrainFuel4 != null) {
 
-            if (canDrainHelium != null && canDrainHelium.isFluidStackIdentical(Helium.getPlasma(1000 * this.parallel))) {
+            if (canDrainFuel1 != null && canDrainFuel1.isFluidStackIdentical(RocketFuel.getFluid(1000 * this.parallel))) {
                 if (!simulate) {
-                    getInputFluidInventory().drain(Helium.getPlasma(1000 * this.parallel), true);
+                    getInputFluidInventory().drain(RocketFuel.getFluid(1000 * this.parallel), true);
                 }
-                return Helium.getFluid();
+                return RocketFuel.getFluid();
             }
 
-            if (canDrainBismuth != null && canDrainBismuth.isFluidStackIdentical(Bismuth.getPlasma(500 * this.parallel))) {
+            if (canDrainFuel2 != null && canDrainFuel2.isFluidStackIdentical(RP1RocketFuel.getFluid(500 * this.parallel))) {
                 if (!simulate) {
-                    getInputFluidInventory().drain(Bismuth.getPlasma(500 * this.parallel), true);
+                    getInputFluidInventory().drain(RP1RocketFuel.getFluid(500 * this.parallel), true);
                 }
 
-                return Bismuth.getFluid();
+                return RP1RocketFuel.getFluid();
             }
 
-            if (canDrainRadon != null && canDrainRadon.isFluidStackIdentical(Radon.getPlasma(300 * this.parallel))) {
+            if (canDrainFuel3 != null && canDrainFuel3.isFluidStackIdentical(DenseHydrazineMixtureFuel.getFluid(300 * this.parallel))) {
                 if (!simulate) {
-                    getInputFluidInventory().drain(Radon.getPlasma(300 * this.parallel), true);
+                    getInputFluidInventory().drain(DenseHydrazineMixtureFuel.getFluid(300 * this.parallel), true);
                 }
-                return Radon.getFluid();
+                return DenseHydrazineMixtureFuel.getFluid();
+            }
+
+            if (canDrainFuel4 != null && canDrainFuel4.isFluidStackIdentical(MethylhydrazineNitrateRocketFuel.getFluid(100 * this.parallel))) {
+                if (!simulate) {
+                    getInputFluidInventory().drain(MethylhydrazineNitrateRocketFuel.getFluid(100 * this.parallel), true);
+                }
+                return MethylhydrazineNitrateRocketFuel.getFluid();
             }
 
         }

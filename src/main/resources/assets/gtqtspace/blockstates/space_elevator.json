@@ -36,7 +36,7 @@
       "cable_casing": {
         "model": "minecraft:cube_all",
         "textures": {
-          "all": "gregtech:blocks/multiblock/casings/motor_top"
+          "all": "gregtech:blocks/multiblock/casings/cable"
         }
       },
       "motor_casing_mk1": {
