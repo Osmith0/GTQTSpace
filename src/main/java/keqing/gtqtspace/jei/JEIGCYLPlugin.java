@@ -2,6 +2,9 @@ package keqing.gtqtspace.jei;
 
 import com.cleanroommc.groovyscript.Tags;
 
+import gregtech.common.items.MetaItems;
+import keqing.gtqtspace.api.worldgen.VirtualOreDepositDefinition;
+import keqing.gtqtspace.api.worldgen.WorldGenRegister;
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
 import keqing.gtqtspace.jei.category.SpaceMiningCategory;
 import keqing.gtqtspace.jei.category.SpacePumpCategory;
@@ -47,6 +50,22 @@ public class JEIGCYLPlugin implements IModPlugin {
     public void register(IModRegistry registry) {
         itemBlacklist = registry.getJeiHelpers().getIngredientBlacklist();
         iItemRegistry = registry.getIngredientRegistry();
+
+        /*
+        //VIRTUAL ORES
+        List<VirtualOreDepositDefinition> virtualVeins = WorldGenRegister.getVirtualOreDepositDefinitions();
+        List<VirtualOresInfo> virtualOresInfos = new ArrayList<>();
+        for(VirtualOreDepositDefinition definition : virtualVeins) {
+            virtualOresInfos.add(new VirtualOresInfo(definition));
+        }
+
+        String virtualVeinSpawnID = Tags.MODID + ":" + "virtual_ores";
+        registry.addRecipes(virtualOresInfos, virtualVeinSpawnID);
+        registry.addRecipeCatalyst(MetaItems.PROSPECTOR_LV.getStackForm(), virtualVeinSpawnID);
+        registry.addRecipeCatalyst(MetaItems.PROSPECTOR_HV.getStackForm(), virtualVeinSpawnID);
+        registry.addRecipeCatalyst(MetaItems.PROSPECTOR_LUV.getStackForm(), virtualVeinSpawnID);
+*/
+
 
         String spaceMineID = Tags.MODID + ":" + "space_mining";
         List<SpaceMiningInfo> spaceMiningInfo1 = new ArrayList<>();

@@ -19,12 +19,13 @@ public class GTQTSMetaBlocks {
 	public static void init() {
 		SPACE_ELEVATOR = new GTQTSpaceElevator();
 		SPACE_ELEVATOR.setRegistryName("space_elevator");
+
+
 	}
 
 	@SideOnly(Side.CLIENT)
 	public static void registerItemModels() {
 		registerItemModel(SPACE_ELEVATOR);
-
 	}
 
 	@SideOnly(Side.CLIENT)

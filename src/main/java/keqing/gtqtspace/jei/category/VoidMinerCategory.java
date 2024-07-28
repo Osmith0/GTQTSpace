@@ -1,6 +1,7 @@
 package keqing.gtqtspace.jei.category;
 
 
+import com.cleanroommc.groovyscript.Tags;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.util.GTStringUtils;
 import gregtech.integration.jei.basic.BasicRecipeCategory;
@@ -66,7 +67,7 @@ public class VoidMinerCategory extends BasicRecipeCategory<VoidMinerInfo, VoidMi
 
     @Override
     public  String getModName() {
-        return "gtqtspace";
+        return Tags.MODID;
     }
 
     private String getNameByTier(int tier) {

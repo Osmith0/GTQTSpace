@@ -4,6 +4,7 @@ import gregtech.api.block.VariantItemBlock;
 import keqing.gtqtspace.api.recipes.properties.SEProperty;
 import keqing.gtqtspace.api.recipes.properties.StarProperty;
 import keqing.gtqtspace.api.utils.GTQTSLog;
+import keqing.gtqtspace.api.worldgen.WorldGenRegister;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
 import keqing.gtqtspace.loaders.recipes.GTQTSRecipesManager;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -39,8 +41,8 @@ public class CommonProxy {
 
 	}
 
-	public void init() {
-
+	public void init() throws IOException {
+		//WorldGenRegister.init();
 		GTQTSRecipesManager.init();
 
 

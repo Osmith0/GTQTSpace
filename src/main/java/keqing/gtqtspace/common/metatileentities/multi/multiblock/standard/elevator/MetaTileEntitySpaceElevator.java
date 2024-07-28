@@ -35,6 +35,7 @@ import keqing.gtqtspace.api.utils.GTQTSUtil;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
+import keqing.gtqtspace.world.WorldTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -48,6 +49,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -342,6 +344,10 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                 .setClickHandler(this::handleDisplayClick));
 
 
+        builder.widget(new ClickButtonWidget(173, 150, 18, 18, "", data -> transport(entityPlayer))
+                .setButtonTexture(GTQTSTextures.BUTTON_DISABLE_STATIC)
+                .setTooltipText("gtqtspace.gui.multiblock.space_elevator.disable_all_modules"));
+
         // Extend Button
         builder.widget(new ImageCycleButtonWidget(173, 213, 18, 18, GTQTSTextures.BUTTON_ELEVATOR_EXTENSION,
                 this::isExtended, this::setExtended).setTooltipHoverString("gtqtspace.gui.multiblock.space_elevator_extended"));
@@ -359,6 +365,10 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
 
         builder.bindPlayerInventory(entityPlayer.inventory, 155);
         return builder;
+    }
+
+    private void transport(EntityPlayer entityPlayer) {
+        FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().transferPlayerToDimension((EntityPlayerMP) entityPlayer, 50, new WorldTeleporter(entityPlayer.getServer().getWorld(50)));
     }
 
     @Override
