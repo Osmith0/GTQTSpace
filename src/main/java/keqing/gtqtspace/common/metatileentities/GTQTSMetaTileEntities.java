@@ -7,6 +7,7 @@ import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevat
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityAssemblerModule;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityMiningModule;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityPumpingModule;
+import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.single.MetaTileEntityTransport;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.suvery.MetaTileEntityCosmicRayDetector;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.suvery.MetaTileEntitySatelliteSuvery;
 
@@ -20,6 +21,7 @@ public class GTQTSMetaTileEntities {
 	public static MetaTileEntitySatelliteAssembler SATELLITE_ASSEMBLER;
 	public static MetaTileEntitySentryArray SENTRY_ARRAY;
 	public static MetaTileEntitySatelliteSuvery SATELLITE_SUVERY;
+	public static MetaTileEntityTransport TRANSPORT;
 
 
 	///////////////////////////////////////////////////
@@ -35,6 +37,7 @@ public class GTQTSMetaTileEntities {
 		SATELLITE_SUVERY = registerMetaTileEntity(5002, new MetaTileEntitySatelliteSuvery(gtqtspaceId("satellite_suvery")));
 		SATELLITE_ASSEMBLER = registerMetaTileEntity(5003, new MetaTileEntitySatelliteAssembler(gtqtspaceId("satellite_assembler")));
 		SENTRY_ARRAY = registerMetaTileEntity(5004, new MetaTileEntitySentryArray(gtqtspaceId("sentry_array")));
+		TRANSPORT = registerMetaTileEntity(5005, new MetaTileEntityTransport(gtqtspaceId("transport")));
 
 		SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevator(gtqtspaceId("space_elevator")));
 		VIEW_SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevatorExtendView(gtqtspaceId("view_space_elevator")));

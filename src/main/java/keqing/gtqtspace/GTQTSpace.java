@@ -4,6 +4,7 @@ import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.client.ClientProxy;
 import keqing.gtqtspace.common.CommonProxy;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
+import keqing.gtqtspace.common.block.blocks.BlockPortal;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
 import keqing.gtqtspace.world.VoidWorldProvider;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.IOException;
+
 
 @Mod(
 		modid = "gtqtspace",
