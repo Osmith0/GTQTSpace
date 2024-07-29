@@ -20,7 +20,6 @@ import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.BlockTurbineCasing;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.core.sound.GTSoundEvents;
-import keqing.gtqtcore.common.block.GTQTMetaBlocks;
 import keqing.gtqtspace.api.recipes.GTQTScoreRecipeMaps;
 import keqing.gtqtspace.api.recipes.properties.StarProperty;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
@@ -38,13 +37,12 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 import static gregtech.api.util.RelativeDirection.*;
-import static keqing.gtqtcore.common.block.blocks.GTQTTurbineCasing1.TurbineCasingType.AL_TURBINE_CASING;
 
-public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController implements IOpticalComputationReceiver {
-	int tier = 2;
+public class MetaTileEntitySatelliteStation extends RecipeMapMultiblockController implements IOpticalComputationReceiver {
+	int tier = 3;
 	private IOpticalComputationProvider computationProvider;
 
-	public MetaTileEntitySatelliteSuvery(ResourceLocation metaTileEntityId) {
+	public MetaTileEntitySatelliteStation(ResourceLocation metaTileEntityId) {
 		super(metaTileEntityId, GTQTScoreRecipeMaps.STAR_SURVEY);
 		this.recipeMapWorkable = new CosmicRayDetectorLogic(this);
 	}
@@ -69,7 +67,7 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.BASIC_SATELLITE.getMetaValue()) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.TELESCOPE.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return true;
 			}
@@ -78,7 +76,7 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 	}
 	@Override
 	public MetaTileEntity createMetaTileEntity(IGregTechTileEntity tileEntity) {
-		return new MetaTileEntitySatelliteSuvery(metaTileEntityId);
+		return new MetaTileEntitySatelliteStation(metaTileEntityId);
 	}
 
 	protected BlockPattern createStructurePattern() {
@@ -103,16 +101,16 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 				.build();
 	}
 	public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
-		return Textures.STABLE_TITANIUM_CASING;
+		return Textures.ROBUST_TUNGSTENSTEEL_CASING;
 	}
 	protected IBlockState getFrameState() {
-		return MetaBlocks.FRAMES.get(Materials.Titanium).getBlock(Materials.Titanium);
+		return MetaBlocks.FRAMES.get(Materials.TungstenSteel).getBlock(Materials.TungstenSteel);
 	}
 	protected IBlockState getCasingState() {
-		return MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.TITANIUM_STABLE);
+		return MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.TUNGSTENSTEEL_ROBUST);
 	}
 	protected IBlockState getPipeCasingState() {
-		return MetaBlocks.TURBINE_CASING.getState(BlockTurbineCasing.TurbineCasingType.TITANIUM_TURBINE_CASING);
+		return MetaBlocks.TURBINE_CASING.getState(BlockTurbineCasing.TurbineCasingType.TUNGSTENSTEEL_TURBINE_CASING);
 	}
 
 	public IOpticalComputationProvider getComputationProvider() {
@@ -154,7 +152,7 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 	@Override
 	public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
 		super.addInformation(stack, world, tooltip, advanced);
-		tooltip.add(I18n.format("塞入卫星开始工作"));
+		tooltip.add(I18n.format("塞入望远镜开始工作"));
 	}
 
 	protected class CosmicRayDetectorLogic extends ComputationRecipeLogic {

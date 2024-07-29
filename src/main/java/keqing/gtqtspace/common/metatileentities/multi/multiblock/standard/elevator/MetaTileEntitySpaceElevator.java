@@ -344,9 +344,9 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                 .setClickHandler(this::handleDisplayClick));
 
 
-        builder.widget(new ClickButtonWidget(173, 150, 18, 18, "", data -> transport(entityPlayer))
+        builder.widget(new ClickButtonWidget(173, 155, 18, 18, "", data -> transport(entityPlayer))
                 .setButtonTexture(GTQTSTextures.BUTTON_DISABLE_STATIC)
-                .setTooltipText("gtqtspace.gui.multiblock.space_elevator.disable_all_modules"));
+                .setTooltipText("空间站折跃"));
 
         // Extend Button
         builder.widget(new ImageCycleButtonWidget(173, 213, 18, 18, GTQTSTextures.BUTTON_ELEVATOR_EXTENSION,

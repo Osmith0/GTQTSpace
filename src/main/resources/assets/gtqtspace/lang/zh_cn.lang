@@ -122,7 +122,7 @@ gtqtspace.machine.cosmic_ray_detector.altitude=当前高度为：%s
 gtqtspace.machine.cosmic_ray_detector.can_see_sky.false=§c传感器看不到天空
 gtqtspace.machine.cosmic_ray_detector.can_see_sky.true=传感器工作正常
 recipemap.cosmic_ray_detector_recipes.name=射线探测
-
+gtqtspace.machine.satellite_station.name=大型轨道望远镜监控站
 gtqtspace.machine.satellite_suvery.name=卫星数据监控站
 gtqtspace.machine.satellite_assembler.name=卫星组装机
 gtqtspace.machine.sentry_array.name=中央控制基站

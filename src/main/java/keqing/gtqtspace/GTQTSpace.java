@@ -6,11 +6,14 @@ import keqing.gtqtspace.common.CommonProxy;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.BlockPortal;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
+
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
 import keqing.gtqtspace.world.VoidWorldProvider;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

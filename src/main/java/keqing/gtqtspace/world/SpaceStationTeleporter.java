@@ -23,6 +23,7 @@ public class SpaceStationTeleporter extends Teleporter {
     public void placeInPortal(Entity entityIn, float rotationYaw) {
 
             pos = new BlockPos(pos.getX()/8, 250, pos.getZ()/8);
+            /*
             for(int i=0;i<250;i++)
                 if(world.getBlockState(pos.add(0,-i,0))!=Blocks.AIR.getDefaultState())
                 {
@@ -32,7 +33,10 @@ public class SpaceStationTeleporter extends Teleporter {
                     entityIn.motionZ = 0.0D;
                     break;
                 }
-
-
+*/
+        entityIn.setLocationAndAngles((double) pos.getX() + 0.5, (double) pos.getY() + 1, (double) pos.getZ() + 0.5, entityIn.rotationYaw, 0.0F);
+        entityIn.motionX = 0.0D;
+        entityIn.motionY = 0.0D;
+        entityIn.motionZ = 0.0D;
     }
 }

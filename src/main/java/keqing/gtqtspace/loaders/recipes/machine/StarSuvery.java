@@ -11,11 +11,11 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.HULL;
+import static keqing.gtqtcore.api.unification.GTQTMaterials.Zylon;
 import static keqing.gtqtcore.common.items.GTQTMetaItems.DISK_8;
 import static keqing.gtqtspace.api.recipes.GTQTScoreRecipeMaps.*;
 import static keqing.gtqtspace.common.items.GTQTSMetaItems.*;
-import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.COSMIC_RAY_DETECTOR;
-import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.SATELLITE_SUVERY;
+import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.*;
 
 public class StarSuvery {
     public static void init() {
@@ -42,7 +42,16 @@ public class StarSuvery {
                 .output(SATELLITE_SUVERY)
                 .duration(800).EUt(VA[EV]).buildAndRegister();
 
-
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(HULL[5],16)
+                .inputs(MetaItems.FIELD_GENERATOR_EV.getStackForm(16))
+                .inputs(MetaItems.SENSOR_EV.getStackForm(16))
+                .input(OrePrefix.circuit, MarkerMaterials.Tier.IV, 4)
+                .input(OrePrefix.pipeSmallFluid, TungstenSteel, 4)
+                .input(OrePrefix.plate, NiobiumTitanium, 4)
+                .fluidInputs(Zylon.getFluid(GTValues.L * 4))
+                .output(SATELLITE_STATION)
+                .duration(800).EUt(VA[IV]).buildAndRegister();
         //test
 
         STAR_SURVEY.recipeBuilder()

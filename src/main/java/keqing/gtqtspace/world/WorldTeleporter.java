@@ -45,7 +45,6 @@ public class WorldTeleporter extends Teleporter {
                     }
                 }
 
-                world.setBlockState(pos,portal.getDefaultState());
                 for(EnumFacing facing : EnumFacing.HORIZONTALS){
                     world.setBlockState(pos.up().offset(facing), Blocks.TORCH.getDefaultState());
                 }
