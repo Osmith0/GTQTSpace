@@ -126,7 +126,7 @@ gtqtspace.machine.satellite_station.name=大型轨道望远镜监控站
 gtqtspace.machine.satellite_suvery.name=卫星数据监控站
 gtqtspace.machine.satellite_assembler.name=卫星组装机
 gtqtspace.machine.sentry_array.name=中央控制基站
-
+gtqtspace.machine.transport.name=太空站折跃器
 tile.gui.contained_part=已有部件
 tile.gui.solar_tier=级太阳能板
 tile.gui.will_update=预计更新部件
