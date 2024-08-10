@@ -7,9 +7,15 @@ public class GTQTSConfig {
     @Config.Comment("Config options for space")
     public static Space space = new Space();
     public static Multis multis = new Multis();
-
+    public static View view = new View();
     public static class Multis {
         public VoidMiner voidMiner = new VoidMiner();
+    }
+    public static class View {
+        @Config.Comment("预览.")
+        @Config.RequiresMcRestart
+        @Config.Name("Enable MetaTileEntitySpaceElevator extend View")
+        public boolean viewMetaTileEntitySpaceElevator = false;
     }
     public static class VoidMiner {
         @Config.Comment("The maximum temperature the void miner can reach before overheating. Every second the void miner will generate 10 different ores with amount between 1 and (temperature/1000)^2 ores. default: [9000]")

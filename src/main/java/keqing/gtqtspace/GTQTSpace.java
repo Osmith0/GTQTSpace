@@ -1,5 +1,6 @@
 package keqing.gtqtspace;
 
+import keqing.gtqtspace.api.GTQTSAPI;
 import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.client.ClientProxy;
 import keqing.gtqtspace.common.CommonProxy;
@@ -56,11 +57,11 @@ public class GTQTSpace {
 
 		type = DimensionType.register("simplevoidworld", "void", 50, VoidWorldProvider.class, false);
 		DimensionManager.registerDimension(50, type);
-
 		GTQTSMetaTileEntities.initialization();
 		GTQTSLog.init(event.getModLog());
 		GTQTSMetaItems.initialization();
 		GTQTSMetaBlocks.init();
+		GTQTSAPI.init();
 		proxy.preLoad();
 	}
 

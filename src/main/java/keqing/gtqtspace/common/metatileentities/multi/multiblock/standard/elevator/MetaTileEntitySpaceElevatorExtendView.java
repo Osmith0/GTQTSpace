@@ -26,7 +26,6 @@ import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-import keqing.gtqtspace.api.blocks.impl.WrappedIntTired;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.api.predicate.TiredTraceabilityPredicate;
@@ -157,7 +156,7 @@ public class MetaTileEntitySpaceElevatorExtendView extends MultiblockWithDisplay
                 .where('X', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
                         .or(abilities(MultiblockAbility.INPUT_ENERGY, MultiblockAbility.INPUT_LASER).setExactLimit(1))
                         .or(abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1)))
-                .where('C', TiredTraceabilityPredicate.CP_SE_CASING)
+                .where('C', TiredTraceabilityPredicate.CP_SE_CASING.get())
                 .where('I', modulePredicate())
                 .where('V', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)))
                 .build();
