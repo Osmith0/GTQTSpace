@@ -258,7 +258,7 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
         initializeAbilities();
-        Object motorTier = context.get("SETiredStats");
+        Object motorTier = context.get("SETieredStats");
         this.motorTier = GTQTSUtil.getOrDefault(() -> motorTier instanceof WrappedIntTired,
                 () -> ((WrappedIntTired) motorTier).getIntTier(),
                 0);
