@@ -1,5 +1,8 @@
 package keqing.gtqtspace.loaders.recipes.machine;
 
+import gregtech.api.metatileentity.multiblock.CleanroomType;
+import gregtech.api.unification.material.MarkerMaterials;
+import keqing.gtqtcore.api.unification.MaterialHelper;
 import keqing.gtqtcore.common.block.GTQTMetaBlocks;
 import keqing.gtqtspace.GTQTSpace;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
@@ -12,14 +15,16 @@ import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.*;
-import static keqing.gtqtcore.api.unification.GCYSMaterials.CarbonNanotube;
+import static keqing.gtqtcore.api.unification.GCYSMaterials.*;
 import static keqing.gtqtcore.api.unification.GTQTMaterials.*;
 import static keqing.gtqtcore.api.unification.GTQTMaterials.*;
+import static keqing.gtqtcore.api.utils.GTQTUtil.CWT;
 import static keqing.gtqtcore.common.block.blocks.GTQTParticleAccelerator.MachineType.*;
 import static keqing.gtqtcore.common.items.GTQTMetaItems.*;
 import static keqing.gtqtcore.common.metatileentities.GTQTMetaTileEntities.PARTICLE_ACCELERATOR;
 import static keqing.gtqtspace.api.recipes.GTQTScoreRecipeMaps.*;
 import static keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator.ElevatorCasingType.*;
+import static keqing.gtqtspace.common.items.GTQTSMetaItems.*;
 import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.*;
 
 public class SEloader {
@@ -28,8 +33,290 @@ public class SEloader {
         mining();
         drilling();
         motor();
+        DroneRecipes();
     }
+    private static void DroneRecipes() {
 
+        //  LV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_I,8)
+                .input(toolHeadDrill, Steel,16)
+                .input(frameGt, Steel,16)
+                .input(circuit, MarkerMaterials.Tier.LV,16)
+                .input(ROBOT_ARM_LV, 8)
+                .input(SENSOR_LV, 8)
+                .input(wireGtSingle, MaterialHelper.Superconductor[0], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[0], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L))
+                .output(MINING_DRONE_LV)
+                .EUt(VA[IV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(TELESCOPE.getStackForm())
+                        .EUt(VA[EV])
+                        .CWUt(CWT[EV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  MV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_I,8)
+                .input(toolHeadDrill, Aluminium,16)
+                .input(frameGt, Aluminium,16)
+                .input(circuit, MarkerMaterials.Tier.LV,16)
+                .input(circuit, MarkerMaterials.Tier.MV,16)
+                .input(ROBOT_ARM_MV, 2)
+                .input(SENSOR_MV, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[1], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[1], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L))
+                .output(MINING_DRONE_MV)
+                .EUt(VA[IV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_LV.getStackForm())
+                        .EUt(VA[EV])
+                        .CWUt(CWT[EV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  HV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_I,8)
+                .input(toolHeadDrill, StainlessSteel,16)
+                .input(frameGt, StainlessSteel,16)
+                .input(circuit, MarkerMaterials.Tier.LV,16)
+                .input(circuit, MarkerMaterials.Tier.MV,16)
+                .input(circuit, MarkerMaterials.Tier.HV,16)
+                .input(ROBOT_ARM_HV, 2)
+                .input(SENSOR_HV, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[2], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[2], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L))
+                .output(MINING_DRONE_HV)
+                .EUt(VA[IV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_MV.getStackForm())
+                        .EUt(VA[EV])
+                        .CWUt(CWT[EV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  EV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_II,8)
+                .input(toolHeadDrill, Titanium,16)
+                .input(frameGt, Titanium,16)
+                .input(circuit, MarkerMaterials.Tier.MV,16)
+                .input(circuit, MarkerMaterials.Tier.HV,16)
+                .input(circuit, MarkerMaterials.Tier.EV,16)
+                .input(ROBOT_ARM_EV, 2)
+                .input(SENSOR_EV, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[3], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[3], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L))
+                .output(MINING_DRONE_EV)
+                .EUt(VA[IV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_HV.getStackForm())
+                        .EUt(VA[EV])
+                        .CWUt(CWT[EV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  IV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_II,8)
+                .input(toolHeadDrill, TungstenSteel,16)
+                .input(frameGt, TungstenSteel,16)
+                .input(circuit, MarkerMaterials.Tier.HV,16)
+                .input(circuit, MarkerMaterials.Tier.EV,16)
+                .input(circuit, MarkerMaterials.Tier.IV,16)
+                .input(ROBOT_ARM_IV, 2)
+                .input(SENSOR_IV, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[4], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[4], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L))
+                .output(MINING_DRONE_IV)
+                .EUt(VA[IV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_EV.getStackForm())
+                        .EUt(VA[EV])
+                        .CWUt(CWT[EV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  LuV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_II,8)
+                .input(toolHeadDrill, BlackTitanium,16)
+                .input(frameGt, BlackTitanium,16)
+                .input(circuit, MarkerMaterials.Tier.EV,16)
+                .input(circuit, MarkerMaterials.Tier.IV,16)
+                .input(circuit, MarkerMaterials.Tier.LuV,16)
+                .input(ROBOT_ARM_LuV, 2)
+                .input(SENSOR_LuV, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[5], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[5], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L * 4))
+                .fluidInputs(Cupronickel.getFluid(L))
+                .output(MINING_DRONE_LuV)
+                .EUt(VA[LuV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_IV.getStackForm())
+                        .EUt(VA[IV])
+                        .CWUt(CWT[IV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  ZPM
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_III,8)
+                .input(toolHeadDrill, NaquadahAlloy,16)
+                .input(frameGt, NaquadahAlloy,16)
+                .input(circuit, MarkerMaterials.Tier.IV,16)
+                .input(circuit, MarkerMaterials.Tier.LuV,16)
+                .input(circuit, MarkerMaterials.Tier.ZPM,16)
+                .input(ROBOT_ARM_ZPM, 2)
+                .input(SENSOR_ZPM, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[6], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[6], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L * 4))
+                .fluidInputs(Kanthal.getFluid(L))
+                .output(MINING_DRONE_ZPM)
+                .EUt(VA[ZPM])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_LuV.getStackForm())
+                        .EUt(VA[LuV])
+                        .CWUt(CWT[LuV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  UV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_III,8)
+                .input(toolHeadDrill, Neutronium,16)
+                .input(frameGt, Neutronium,16)
+                .input(circuit, MarkerMaterials.Tier.LuV,16)
+                .input(circuit, MarkerMaterials.Tier.ZPM,16)
+                .input(circuit, MarkerMaterials.Tier.UV,16)
+                .input(ROBOT_ARM_UV, 2)
+                .input(SENSOR_UV, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[7], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[7], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L * 4))
+                .fluidInputs(Nichrome.getFluid(L))
+                .output(MINING_DRONE_UV)
+                .EUt(VA[UV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_ZPM.getStackForm())
+                        .EUt(VA[ZPM])
+                        .CWUt(CWT[ZPM]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  UHV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_III,8)
+                .input(toolHeadDrill, Orichalcum,16)
+                .input(frameGt, Orichalcum,16)
+                .input(circuit, MarkerMaterials.Tier.ZPM,16)
+                .input(circuit, MarkerMaterials.Tier.UV,16)
+                .input(circuit, MarkerMaterials.Tier.UHV,16)
+                .input(ROBOT_ARM_UHV, 2)
+                .input(SENSOR_UHV, 2)
+                .input(wireGtSingle, MaterialHelper.Superconductor[8], 64)
+                .input(wireGtSingle, MaterialHelper.Superconductor[8], 64)
+                .fluidInputs(SolderingAlloy.getFluid(L * 4))
+                .fluidInputs(RTMAlloy.getFluid(L))
+                .output(MINING_DRONE_UHV)
+                .EUt(VA[UHV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_UV.getStackForm())
+                        .EUt(VA[UV])
+                        .CWUt(CWT[UV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        /*
+        //  UEV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_IV,8)
+                .input(toolHeadDrill, Adamantium,16)
+                .input(frameGt, Adamantium,16)
+                .input(circuit, MarkerMaterials.Tier.UV,16)
+                .input(circuit, MarkerMaterials.Tier.UHV,16)
+                .input(circuit, MarkerMaterials.Tier.UEV,16)
+                .input(ROBOT_ARM_UEV, 2)
+                .input(SENSOR_UEV, 2)
+                .input(cableGtSingle, PedotTMA, 2)
+                .fluidInputs(SolderingAlloy.getFluid(L * 4))
+                .fluidInputs(HSSG.getFluid(L))
+                .output(MINING_DRONE_UEV)
+                .EUt(VA[UEV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_UHV.getStackForm())
+                        .EUt(VA[UHV])
+                        .CWUt(CWT[UHV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  UIV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_IV,8)
+                .input(toolHeadDrill, Infinity,16)
+                .input(frameGt, Infinity,16)
+                .input(circuit, MarkerMaterials.Tier.UHV,16)
+                .input(circuit, MarkerMaterials.Tier.UEV,16)
+                .input(circuit, MarkerMaterials.Tier.UIV,16)
+                .input(ROBOT_ARM_UIV, 2)
+                .input(SENSOR_UIV, 2)
+                .input(cableGtSingle, Solarium, 2)
+                .fluidInputs(SolderingAlloy.getFluid(L * 4))
+                .fluidInputs(Naquadah.getFluid(L))
+                .output(MINING_DRONE_UIV)
+                .EUt(VA[UIV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_UEV.getStackForm())
+                        .EUt(VA[UEV])
+                        .CWUt(CWT[UEV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        //  UXV
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_IV,8)
+                .input(toolHeadDrill, CosmicNeutronium,16)
+                .input(frameGt, CosmicNeutronium,16)
+                .input(circuit, MarkerMaterials.Tier.UEV,16)
+                .input(circuit, MarkerMaterials.Tier.UIV,16)
+                .input(circuit, MarkerMaterials.Tier.UXV,16)
+                .input(ROBOT_ARM_UXV, 2)
+                .input(SENSOR_UXV, 2)
+                .input(cableGtSingle, Hypogen, 2)
+                .fluidInputs(SolderingAlloy.getFluid(L * 4))
+                .fluidInputs(Trinium.getFluid(L))
+                .output(MINING_DRONE_UXV)
+                .EUt(VA[UXV])
+                .duration(2000)
+                .stationResearch(b -> b
+                        .researchStack(MINING_DRONE_UIV.getStackForm())
+                        .EUt(VA[UIV])
+                        .CWUt(CWT[UIV]))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+         */
+    }
     private static void motor() {
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(CIRCUIT_GOOD_I)

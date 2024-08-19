@@ -20,6 +20,8 @@ import net.minecraft.client.resources.I18n;
 
 import java.util.List;
 
+import static keqing.gtqtspace.GTQTSpace.MODID;
+
 public class VirtualOresCategory extends BasicRecipeCategory<VirtualOresInfo, VirtualOresInfo> {
     private static final int TEXT_START_X = 18;
     private static final int START_POS_Y = 50;
@@ -109,6 +111,6 @@ public class VirtualOresCategory extends BasicRecipeCategory<VirtualOresInfo, Vi
 
     @Override
     public  String getModName() {
-        return Tags.MODID;
+        return MODID;
     }
 }

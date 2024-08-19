@@ -11,6 +11,7 @@ import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.Widget;
 import gregtech.api.gui.resources.TextureArea;
 import gregtech.api.gui.widgets.*;
+import gregtech.api.items.metaitem.MetaItem;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
@@ -23,7 +24,9 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.TextComponentUtil;
 import gregtech.common.ConfigHolder;
+import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
+import keqing.gtqtspace.common.items.GTQTSMetaItems;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.MetaTileEntityModuleBase;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.MetaTileEntityModuleRecipeBase;
 import keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes;
@@ -131,6 +134,7 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
             return;
         }
 
+
         if (!drainEnergy(true, this.totalEUt) || this.computationProvider.requestCWUt(this.totalComputation, true) != this.totalComputation) {
             if (this.progressTime >= 2) {
                 if (ConfigHolder.machines.recipeProgressLowEnergy) this.progressTime = 1;
@@ -157,6 +161,7 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
             if (progressTime == 0) {
 
                 List<SpaceMiningRecipes.SpaceMiningRecipePartTwo> recipes = checkRecipes(false);
+
                 Fluid fluid = checkFluidInventory(false);
 
                 int averageProgress = 0;
@@ -211,12 +216,14 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
                     }
 
                     if (x == this.parallel - 1) {
-                        if (fluid == Helium.getFluid()) {
+                        if (fluid == RocketFuel.getFluid()) {
                             setMaxProgress(averageProgress / this.parallel);
-                        } else if (fluid == Bismuth.getFluid()) {
+                        } else if (fluid == RP1RocketFuel.getFluid()) {
                             setMaxProgress(averageProgress / this.parallel / 2);
-                        } else if (fluid == Radon.getFluid()) {
+                        } else if (fluid == DenseHydrazineMixtureFuel.getFluid()) {
                             setMaxProgress(averageProgress / this.parallel / 4);
+                        } else if (fluid == MethylhydrazineNitrateRocketFuel.getFluid()) {
+                            setMaxProgress(averageProgress / this.parallel / 8);
                         }
                     }
                 }
@@ -224,6 +231,7 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
 
             if (this.randomRecipe == null || this.randomOutput == null) {
                 progressTime = 0;
+                GTQTSLog.logger.info("deal null randomRecipe");
                 return;
             }
 
@@ -260,25 +268,24 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
         final int neededSticks = STICK_INPUT_STACK_SIZE * this.parallel;
         final int neededDrills = DRILL_HEAD_INPUT_STACK_SIZE * this.parallel;
 
-        for (int i = 0; i < getInputInventory().getSlots(); i++) {
+
+        if(getInputInventory()==null) {
+            return null;
+        }
+        MetaItem<?>.MetaValueItem[] Drone={MINING_DRONE_LV,MINING_DRONE_MV,MINING_DRONE_HV,MINING_DRONE_EV,MINING_DRONE_IV,MINING_DRONE_LuV,MINING_DRONE_ZPM,MINING_DRONE_UV,MINING_DRONE_UHV,MINING_DRONE_UEV,MINING_DRONE_UIV,MINING_DRONE_UXV,MINING_DRONE_OpV,MINING_DRONE_MAX};
+        for (int i = 0; i < getInputInventory().getSlots(); i++)
+        {
+
             ItemStack slot = getInputInventory().getStackInSlot(i);
-            if (ItemStack.areItemStacksEqual(slot, MINING_DRONE_LV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_MV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_HV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_EV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_IV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_LuV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_ZPM.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_UV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_UHV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_UEV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_UIV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_UXV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_OpV.getStackForm())
-                    || ItemStack.areItemStacksEqual(slot, MINING_DRONE_MAX.getStackForm())) {
-                item = slot;
-                continue;
+
+            for (MetaItem<?>.MetaValueItem metaValueItem : Drone) {
+
+                if (slot !=null&&slot.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && slot.getMetadata() == metaValueItem.getMetaValue()) {
+                    item = slot;
+                    break;
+                }
             }
+
             if (OreDictUnifier.getPrefix(slot) == OrePrefix.stick) {
                 if (matStick != null && matStick != Objects.requireNonNull(OreDictUnifier.getMaterial(slot)).material) {
                     return null;
@@ -287,7 +294,6 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
                 stickCount += slot.getCount();
                 continue;
             }
-
             if (OreDictUnifier.getPrefix(slot) == OrePrefix.toolHeadDrill) {
                 if (matDrill != null && matDrill != Objects.requireNonNull(OreDictUnifier.getMaterial(slot)).material) {
                     return null;
@@ -300,6 +306,7 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
                 break;
         }
 
+
         if (stickCount < neededSticks || drillCount < neededDrills) {
             return null;
         } else {
@@ -310,29 +317,33 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
         if (matStick != matDrill || matStick == null)
             return null;
 
+
         List<SpaceMiningRecipes.SpaceMiningRecipePartTwo> recipesBeforeCheck = SPACE_MINING_RECIPES.get(new SpaceMiningRecipes.SpaceMiningRecipePartOne(item, matStick).hashCode());
 
         if (recipesBeforeCheck == null) return null;
 
         List<SpaceMiningRecipes.SpaceMiningRecipePartTwo> recipesAfterCheck = new ArrayList<>();
 
+
         for (SpaceMiningRecipes.SpaceMiningRecipePartTwo recipe : recipesBeforeCheck) {
             if (recipe != null) {
+
                 if (this.moduleTier < recipe.getMinModuleTier()) {
                     continue;
                 }
-
+                GTQTSLog.logger.info("moduleTier success");
                 if (!(this.minDistance <= recipe.getMaxDistance() && recipe.getMinDistance() <= this.maxDistance)) {
                     continue;
                 }
-
+                GTQTSLog.logger.info("Distance success");
                 if (!drainEnergy(true, recipe.getEUt() * this.parallel)) {
                     continue;
                 }
-
+                GTQTSLog.logger.info("drainEnergy success");
                 if (this.computationProvider.requestCWUt(recipe.getComputation() * this.parallel, true) != recipe.getComputation() * this.parallel) {
                     continue;
                 }
+                GTQTSLog.logger.info("requestCWUt success");
 
                 recipesAfterCheck.add(recipe);
 
@@ -340,6 +351,7 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
                     return recipesAfterCheck;
             }
         }
+
         if (recipesAfterCheck.isEmpty())
             return null;
         else {

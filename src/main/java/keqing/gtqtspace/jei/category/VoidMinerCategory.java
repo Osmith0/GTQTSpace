@@ -15,6 +15,8 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 
+import static keqing.gtqtspace.GTQTSpace.MODID;
+
 
 public class VoidMinerCategory extends BasicRecipeCategory<VoidMinerInfo, VoidMinerInfo> {
 
@@ -67,7 +69,7 @@ public class VoidMinerCategory extends BasicRecipeCategory<VoidMinerInfo, VoidMi
 
     @Override
     public  String getModName() {
-        return Tags.MODID;
+        return MODID;
     }
 
     private String getNameByTier(int tier) {

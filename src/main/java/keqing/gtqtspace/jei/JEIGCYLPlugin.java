@@ -1,10 +1,5 @@
 package keqing.gtqtspace.jei;
 
-import com.cleanroommc.groovyscript.Tags;
-
-import gregtech.common.items.MetaItems;
-import keqing.gtqtspace.api.worldgen.VirtualOreDepositDefinition;
-import keqing.gtqtspace.api.worldgen.WorldGenRegister;
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
 import keqing.gtqtspace.jei.category.SpaceMiningCategory;
 import keqing.gtqtspace.jei.category.SpacePumpCategory;
@@ -21,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static keqing.gtqtspace.GTQTSpace.MODID;
 import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.MINING_MODULE;
 import static keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes.HASH_TO_ITEMS;
 import static keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes.SPACE_MINING_RECIPES;
@@ -67,7 +63,7 @@ public class JEIGCYLPlugin implements IModPlugin {
 */
 
 
-        String spaceMineID = Tags.MODID + ":" + "space_mining";
+        String spaceMineID = MODID + ":" + "space_mining";
         List<SpaceMiningInfo> spaceMiningInfo1 = new ArrayList<>();
         List<SpaceMiningInfo> spaceMiningInfo2 = new ArrayList<>();
         List<SpaceMiningInfo> spaceMiningInfo3 = new ArrayList<>();
@@ -124,14 +120,14 @@ public class JEIGCYLPlugin implements IModPlugin {
         }
 
 
-        String spacePumpID = Tags.MODID + ":" + "space_pump_fluids";
+        String spacePumpID = MODID + ":" + "space_pump_fluids";
         registry.addRecipes(spacePumpInfos, spacePumpID);
         registry.addRecipeCatalyst(GTQTSMetaTileEntities.PUMP_MODULE[0].getStackForm(), spacePumpID);
         registry.addRecipeCatalyst(GTQTSMetaTileEntities.PUMP_MODULE[1].getStackForm(), spacePumpID);
         registry.addRecipeCatalyst(GTQTSMetaTileEntities.PUMP_MODULE[2].getStackForm(), spacePumpID);
 
 
-        String voidMinerID = Tags.MODID + ":" + "void_miner_ores";
+        String voidMinerID = MODID + ":" + "void_miner_ores";
         List<VoidMinerInfo> voidMinerInfo1 = new ArrayList<>();
         List<VoidMinerInfo> voidMinerInfo2 = new ArrayList<>();
         List<VoidMinerInfo> voidMinerInfo3 = new ArrayList<>();

@@ -1,11 +1,9 @@
 package keqing.gtqtspace.jei.category;
 
-import com.cleanroommc.groovyscript.Tags;
 import gregtech.api.GTValues;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.util.GTUtility;
 import gregtech.integration.jei.basic.BasicRecipeCategory;
-import keqing.gtqtspace.GTQTSpace;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.jei.SpaceMiningInfo;
 import mezz.jei.api.IGuiHelper;
@@ -17,6 +15,8 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+
+import static keqing.gtqtspace.GTQTSpace.MODID;
 
 
 public class SpaceMiningCategory extends BasicRecipeCategory<SpaceMiningInfo, SpaceMiningInfo> {
@@ -53,6 +53,7 @@ public class SpaceMiningCategory extends BasicRecipeCategory<SpaceMiningInfo, Sp
 
         this.fluidSlot = guiHelper.drawableBuilder(GuiTextures.FLUID_SLOT.imageLocation, 0, 0, 18, 18).setTextureSize(18,18)
                 .build();
+
 
         this.progressBar = guiHelper.drawableBuilder(GTQTSTextures.PROGRESS_BAR_MINING_MODULE.imageLocation, 0, 0, 23,63).setTextureSize(23,63)
                 .build();
@@ -185,6 +186,6 @@ public class SpaceMiningCategory extends BasicRecipeCategory<SpaceMiningInfo, Sp
 
     @Override
     public  String getModName() {
-        return Tags.MODID;
+        return MODID;
     }
 }

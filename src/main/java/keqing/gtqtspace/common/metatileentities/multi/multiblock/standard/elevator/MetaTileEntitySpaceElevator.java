@@ -13,6 +13,7 @@ import gregtech.api.gui.widgets.AdvancedTextWidget;
 import gregtech.api.gui.widgets.ClickButtonWidget;
 import gregtech.api.gui.widgets.ImageCycleButtonWidget;
 import gregtech.api.gui.widgets.ImageWidget;
+import gregtech.api.metatileentity.IFastRenderMetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -24,10 +25,20 @@ import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.util.Mods;
+import gregtech.api.util.RelativeDirection;
 import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
+import gregtech.client.renderer.IRenderSetup;
 import gregtech.client.renderer.texture.Textures;
+import gregtech.client.shader.postprocessing.BloomEffect;
+import gregtech.client.shader.postprocessing.BloomType;
+import gregtech.client.utils.BloomEffectUtil;
+import gregtech.client.utils.EffectRenderContext;
+import gregtech.client.utils.IBloomEffect;
+import gregtech.client.utils.RenderBufferHelper;
+import gregtech.common.ConfigHolder;
 import keqing.gtqtcore.api.blocks.impl.WrappedIntTired;
+import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.star.MetaTileEntityDimensionallyBiomimeticFactory;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.api.predicate.TiredTraceabilityPredicate;
@@ -38,6 +49,11 @@ import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
 import keqing.gtqtspace.world.WorldTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -45,7 +61,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -53,6 +71,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -63,8 +82,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.util.RelativeDirection.*;
+import static net.minecraft.util.EnumFacing.Axis.*;
+import static net.minecraft.util.EnumFacing.Axis.Z;
 
-public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase implements ISpaceElevatorProvider {
+public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase implements ISpaceElevatorProvider, IBloomEffect, IFastRenderMetaTileEntity {
     protected IOpticalComputationProvider computationProvider;
 
     protected IEnergyContainer energyContainer;
@@ -84,9 +105,23 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
         return new MetaTileEntitySpaceElevator(metaTileEntityId);
     }
 
+    int updatetime;
     @Override
     public void update() {
         super.update();
+
+        if(updatetime<200)updatetime++;
+        else updatetime=0;
+        if (!backA) if (RadomTime <= 10) RadomTime++;
+        if (backA) if (RadomTime >= -10) RadomTime--;
+        if (RadomTime == 10) {
+            backA = true;
+        }
+        if (RadomTime == -10) {
+            backA = false;
+        }
+        setFusionRingColor(0xFF000000 + RadomTime * 1250 * 50);
+
         if(!isStructureFormed())
             this.spaceElevatorReceivers.forEach(ISpaceElevatorReceiver::sentWorkingDisabled);
     }
@@ -159,7 +194,8 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                             .or(abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1)))
                     .where('C', TiredTraceabilityPredicate.CP_SE_CASING.get())
                     .where('I', modulePredicate())
-                    .where('V', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities(MultiblockAbility.IMPORT_ITEMS,MultiblockAbility.IMPORT_FLUIDS,MultiblockAbility.EXPORT_FLUIDS,MultiblockAbility.EXPORT_ITEMS).setPreviewCount(0)))
+                    .where('V', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                            .or(abilities(MultiblockAbility.IMPORT_ITEMS,MultiblockAbility.IMPORT_FLUIDS,MultiblockAbility.EXPORT_FLUIDS,MultiblockAbility.EXPORT_ITEMS).setPreviewCount(0)))
                     .build();
         }
         else {
@@ -485,5 +521,177 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
     public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
         super.addInformation(stack, world, tooltip, advanced);
         tooltip.add(I18n.format("需要所有拓展槽都安装模块控制器后才成型"));
+    }
+    protected static final int NO_COLOR = 0;
+    private int fusionRingColor = NO_COLOR;
+    private boolean registeredBloomRenderTicket;
+
+    @Override
+    protected boolean shouldShowVoidingModeButton() {
+        return false;
+    }
+
+    protected int getFusionRingColor() {
+        return this.fusionRingColor;
+    }
+
+    protected boolean hasFusionRingColor() {
+        return true;
+    }
+
+    protected void setFusionRingColor(int fusionRingColor) {
+        if (this.fusionRingColor != fusionRingColor) {
+            this.fusionRingColor = fusionRingColor;
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderMetaTileEntity(double x, double y, double z, float partialTicks) {
+        if (this.hasFusionRingColor() && !this.registeredBloomRenderTicket) {
+            this.registeredBloomRenderTicket = true;
+            BloomEffectUtil.registerBloomRender(MetaTileEntitySpaceElevator.FusionBloomSetup.INSTANCE, getBloomType(), this, this);
+        }
+    }
+
+    private static BloomType getBloomType() {
+        ConfigHolder.FusionBloom fusionBloom = ConfigHolder.client.shader.fusionBloom;
+        return BloomType.fromValue(fusionBloom.useShader ? fusionBloom.bloomStyle : -1);
+    }
+
+    boolean backA;
+    int RadomTime;
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderBloomEffect(BufferBuilder buffer, EffectRenderContext context) {
+        int color = this.getFusionRingColor();
+
+
+        float a = (float) (color >> 24 & 255) / 255.0F;
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
+        EnumFacing relativeBack = RelativeDirection.BACK.getRelativeFacing(getFrontFacing(), getUpwardsFacing(),
+                isFlipped());
+
+
+
+        if(isStructureFormed()) {
+
+
+            for(int i=0;i<36;i++) {
+                RenderBufferHelper.renderRing(buffer,
+                        getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 3  + 0.5,
+                        getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 0.5+i,
+                        getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * 3 + 0.5,
+                        0.5, 0.2, 10, 20,
+                        r, g, b, a, Y);
+            }
+            for(int i=0;i<200;i++) {
+                RenderBufferHelper.renderRing(buffer,
+                        getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 3 + 0.5,
+                        getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+i,
+                        getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * 3 + 0.5,
+                        0.5, 0.5, 10, 20,
+                        r, g, b, a, Y);
+            }
+
+            RenderBufferHelper.renderCubeFrame(buffer,
+                    getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 10 + 0.5,
+                    getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
+                    getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * 10 + 0.5,
+
+                    getPos().getX() - context.cameraX() + relativeBack.getXOffset() * -4 + 0.5,
+                    getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
+                    getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * -4 + 0.5,
+
+                    r, g, b, a);
+
+            RenderBufferHelper.renderRing(buffer,
+                    getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 3 + 0.5,
+                    getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
+                    getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * 3 + 0.5,
+                    10, 0.5, 10, 20,
+                    r, g, b, a, Y);
+
+            RenderBufferHelper.renderRing(buffer,
+                    getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 3 + 0.5,
+                    getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
+                    getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * 3 + 0.5,
+                    15, 0.5, 10, 20,
+                    r, g, b, a, Y);
+
+            RenderBufferHelper.renderRing(buffer,
+                    getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 3 + 0.5,
+                    getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
+                    getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * 3 + 0.5,
+                    20, 0.5, 10, 20,
+                    r, g, b, a, Y);
+
+        }
+
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldRenderBloomEffect(EffectRenderContext context) {
+        return this.hasFusionRingColor();
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        EnumFacing relativeRight = RelativeDirection.RIGHT.getRelativeFacing(getFrontFacing(), getUpwardsFacing(),
+                isFlipped());
+        EnumFacing relativeBack = RelativeDirection.BACK.getRelativeFacing(getFrontFacing(), getUpwardsFacing(),
+                isFlipped());
+
+        return new AxisAlignedBB(
+                this.getPos().offset(relativeBack).offset(relativeRight, 6),
+                this.getPos().offset(relativeBack, 13).offset(relativeRight.getOpposite(), 6));
+    }
+
+    @Override
+    public boolean shouldRenderInPass(int pass) {
+        return pass == 0;
+    }
+
+    @Override
+    public boolean isGlobalRenderer() {
+        return true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static final class FusionBloomSetup implements IRenderSetup {
+
+        private static final FusionBloomSetup INSTANCE = new MetaTileEntitySpaceElevator.FusionBloomSetup();
+
+        float lastBrightnessX;
+        float lastBrightnessY;
+
+        @Override
+        public void preDraw(BufferBuilder buffer) {
+            BloomEffect.strength = (float) ConfigHolder.client.shader.fusionBloom.strength;
+            BloomEffect.baseBrightness = (float) ConfigHolder.client.shader.fusionBloom.baseBrightness;
+            BloomEffect.highBrightnessThreshold = (float) ConfigHolder.client.shader.fusionBloom.highBrightnessThreshold;
+            BloomEffect.lowBrightnessThreshold = (float) ConfigHolder.client.shader.fusionBloom.lowBrightnessThreshold;
+            BloomEffect.step = 1;
+
+            lastBrightnessX = OpenGlHelper.lastBrightnessX;
+            lastBrightnessY = OpenGlHelper.lastBrightnessY;
+            GlStateManager.color(1, 1, 1, 1);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+            GlStateManager.disableTexture2D();
+
+            buffer.begin(GL11.GL_QUAD_STRIP, DefaultVertexFormats.POSITION_COLOR);
+        }
+
+        @Override
+        public void postDraw(BufferBuilder buffer) {
+            Tessellator.getInstance().draw();
+
+            GlStateManager.enableTexture2D();
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lastBrightnessX, lastBrightnessY);
+        }
     }
 }

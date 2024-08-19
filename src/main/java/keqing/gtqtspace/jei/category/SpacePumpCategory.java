@@ -21,6 +21,8 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.Collections;
 import java.util.List;
 
+import static keqing.gtqtspace.GTQTSpace.MODID;
+
 public class SpacePumpCategory extends BasicRecipeCategory<SpacePumpInfo, SpacePumpInfo> {
     private static final int SLOT_CENTER = 79;
     private static final int TEXT_START_X = 5;
@@ -104,7 +106,7 @@ public class SpacePumpCategory extends BasicRecipeCategory<SpacePumpInfo, SpaceP
 
     @Override
     public  String getModName() {
-        return Tags.MODID;
+        return MODID;
     }
 }
 

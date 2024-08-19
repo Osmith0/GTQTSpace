@@ -39,43 +39,43 @@ public class SpaceMiningRecipes {
         addNewRecipesForDroneAndMaterial(1, material[0],
                 Arrays.asList(
                         //主世界
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400, Salt,20,Graphite, 20,Diamond,20,Coal,20,Lazurite,20,Lapis,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400,  Calcite,20,Sodalite,20,CassiteriteSand,20,Cassiterite,20,Alunite,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400,  Oilsands,20,Almandine,20,Pyrolusite,20,Tantalite,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400, Redstone,20,Ruby,20,Cinnabar,20,Kyanite,20,Mica,20,Trona,20,Calcite,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400,    Pollucite,20,Chalcopyrite,20,Magnesite,20,Talc,20,Soapstone,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400,  Barite,20,GlauconiteSand,20,Bentonite,20,Lepidolite,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400, Chalcopyrite,20,Iron,20,Copper,20,Bornite,20,BrownLimonite,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400,  Chromite,20,Gold,20,Nickel,20,Pentlandite,20,Lead,20),
-                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 2, 100, 50, 200, 100, 400,  Silver,20,Tin,20,VanadiumMagnetite,20,BandedIron,20,YellowLimonite,20)
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 0, 50, 50, 100, 100, 400, Salt,20,Graphite, 20,Diamond,20,Coal,20,Lazurite,20,Lapis,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 10, 60, 50, 100, 100, 400,  Calcite,20,Sodalite,20,CassiteriteSand,20,Cassiterite,20,Alunite,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 20, 70, 50, 100, 100, 400,  Oilsands,20,Almandine,20,Pyrolusite,20,Tantalite,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 30, 80, 50, 100, 100, 400, Redstone,20,Ruby,20,Cinnabar,20,Kyanite,20,Mica,20,Trona,20,Calcite,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 40, 90, 50, 100, 100, 400,    Pollucite,20,Chalcopyrite,20,Magnesite,20,Talc,20,Soapstone,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 50, 100, 50, 100, 100, 400,  Barite,20,GlauconiteSand,20,Bentonite,20,Lepidolite,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 60, 110, 50, 100, 100, 400, Chalcopyrite,20,Iron,20,Copper,20,Bornite,20,BrownLimonite,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 70, 120, 50, 100, 100, 400,  Chromite,20,Gold,20,Nickel,20,Pentlandite,20,Lead,20),
+                        makeSpaceMiningRecipePart(VA[HV], 1200, 1, 80, 130, 50, 100, 100, 400,  Silver,20,Tin,20,VanadiumMagnetite,20,BandedIron,20,YellowLimonite,20)
                         ));
 
 
         addNewRecipesForDroneAndMaterial(2, material[0],
                 Arrays.asList(
                         //地狱
-                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 2, 100, 50, 200, 100, 400, RockSalt,20,Sulfur, 20,Sphalerite,20,Wulfenite,20,Molybdenum,20,Molybdenite,20),
-                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 2, 100, 50, 200, 100, 400,  NetherQuartz,20,CertusQuartz,20,Stibnite,20,Tetrahedrite,20,Beryllium,20,Emerald,20),
+                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 100, 150, 40, 80, 100, 400, RockSalt,20,Sulfur, 20,Sphalerite,20,Wulfenite,20,Molybdenum,20,Molybdenite,20),
+                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 120, 170, 40, 80, 100, 400,  NetherQuartz,20,CertusQuartz,20,Stibnite,20,Tetrahedrite,20,Beryllium,20,Emerald,20),
                         //补充
-                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 2, 100, 50, 200, 100, 400, GreenSapphire,20,Garnierite,20,Galena,20,Saltpeter,20,Electrotine,20),
-                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 2, 100, 50, 200, 100, 400,  Diatomite,20,BlueTopaz,20,Cobaltite,20,Bauxite,20,FullersEarth,20)
+                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 140, 190, 40, 80, 100, 400, GreenSapphire,20,Garnierite,20,Galena,20,Saltpeter,20,Electrotine,20),
+                        makeSpaceMiningRecipePart(VA[EV], 1200, 1, 160, 210, 40, 80, 100, 400,  Diatomite,20,BlueTopaz,20,Cobaltite,20,Bauxite,20,FullersEarth,20)
 
                 ));
 
         addNewRecipesForDroneAndMaterial(3, material[0],
                 Arrays.asList(
                         //月球
-                        makeSpaceMiningRecipePart(VA[IV], 1200, 1, 2, 200, 100, 200, 200, 400, Bastnasite,20,Monazite,20,Neodymium,20,Ilmenite,20),
-                        makeSpaceMiningRecipePart(VA[IV], 1200, 1, 2, 200, 100, 200, 200, 400, Ilmenite,20,Rutile,20,Bauxite,20,Aluminium,20),
+                        makeSpaceMiningRecipePart(VA[IV], 1200, 1, 200, 250, 30, 60, 200, 400, Bastnasite,20,Monazite,20,Neodymium,20,Ilmenite,20),
+                        makeSpaceMiningRecipePart(VA[IV], 1200, 1, 220, 270, 30, 60, 200, 400, Ilmenite,20,Rutile,20,Bauxite,20,Aluminium,20),
                         //末地
-                        makeSpaceMiningRecipePart(VA[IV], 1200, 2, 2, 400, 150, 200, 400, 400, Scheelite, 20,Tungstate, 20,Spodumene,20,Thorium,20),
-                        makeSpaceMiningRecipePart(VA[IV], 1200, 2, 2, 400, 150, 200, 400, 400, Cooperite, 20,Uraninite, 20,Pitchblende,20,Arsenic,20)
+                        makeSpaceMiningRecipePart(VA[IV], 1200, 2, 240, 290, 30, 60, 400, 400, Scheelite, 20,Tungstate, 20,Spodumene,20,Thorium,20),
+                        makeSpaceMiningRecipePart(VA[IV], 1200, 2, 260, 310, 30, 60, 400, 400, Cooperite, 20,Uraninite, 20,Pitchblende,20,Arsenic,20)
                 ));
 
         addNewRecipesForDroneAndMaterial(4, material[0],
                 Arrays.asList(
-                        makeSpaceMiningRecipePart(VA[LuV], 1200, 2, 2, 600, 200, 200, 600, 400, Plutonium239, 20,Uranium235, 20,Thorium,20),
-                        makeSpaceMiningRecipePart(VA[LuV], 1200, 2, 2, 600, 200, 200, 600, 400, Naquadah, 20)
+                        makeSpaceMiningRecipePart(VA[LuV], 1200, 2, 300, 350, 20, 50, 600, 400, Plutonium239, 20,Uranium235, 20,Thorium,20),
+                        makeSpaceMiningRecipePart(VA[LuV], 1200, 2, 320, 370, 20, 50, 600, 400, Naquadah, 20)
                 ));
 
 
