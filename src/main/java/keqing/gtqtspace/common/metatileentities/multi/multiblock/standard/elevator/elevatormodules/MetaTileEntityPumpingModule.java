@@ -15,19 +15,24 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.pattern.TraceabilityPredicate;
+import gregtech.client.utils.TooltipHelper;
 import gregtech.common.ConfigHolder;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.MetaTileEntityModuleBase;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -253,5 +258,11 @@ public class MetaTileEntityPumpingModule extends MetaTileEntityModuleBase {
             return stack != null;
         }
         return false;
+    }
+    @Override
+    public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
+        tooltip.add(TooltipHelper.RAINBOW_SLOW + I18n.format("谁家虚空钻机", new Object[0]));
+        super.addInformation(stack, world, tooltip, advanced);
+        tooltip.add(I18n.format("舱室要求：输出仓"));
     }
 }

@@ -81,6 +81,20 @@ metaitem.solar_plate_v.name=Ultimate Satellite Solar Panel
 
 item.pos_binding_card.name=Position Binding Card
 #Blocks
+tile.update_core.update_core_vent.name=Blank Upgrade Core
+tile.update_core.update_core_cold.name=Overclock Upgrade Core
+tile.update_core.update_core_hot.name=Parallel Upgrade Core
+tile.update_core.update_core_ele.name=Efficiency Upgrade Core
+tile.update_core.update_core_eng.name=Energy Upgrade Core
+
+tile.casing_a.taz_casing.name=TAZ Alloy Casing
+tile.casing_a.taz_heat_vent.name=TAZ Alloy Heat Vent
+tile.casing_a.saz_casing.name=SAZ Alloy Casing
+tile.casing_a.saz_heat_vent.name=SAZ Alloy Heat Vent
+tile.casing_a.iaz_casing.name=IAZ Alloy Casing
+tile.casing_a.iaz_heat_vent.name=IAZ Alloy Heat Vent
+tile.casing_a.caz_casing.name=CAZ Alloy Casing
+tile.casing_a.caz_heat_vent.name=CAZ Alloy Heat Vent
 
 tile.space_elevator_casing.basic_casing.name=Cable Anchor Base Material
 tile.space_elevator_casing.internal_structure.name=Primary Structural Support

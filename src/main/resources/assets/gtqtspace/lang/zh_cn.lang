@@ -78,6 +78,20 @@ metaitem.solar_plate_v.name=终极卫星太阳能板
 
 item.pos_binding_card.name=坐标绑定卡
 #方块
+tile.update_core.update_core_vent.name=空白升级核心
+tile.update_core.update_core_cold.name=超频升级核心
+tile.update_core.update_core_hot.name=并行升级核心
+tile.update_core.update_core_ele.name=效率升级核心
+tile.update_core.update_core_eng.name=能量升级核心
+
+tile.casing_a.taz_casing.name=TAZ合金外壳
+tile.casing_a.taz_heat_vent.name=TAZ合金散热器
+tile.casing_a.saz_casing.name=SAZ合金外壳
+tile.casing_a.saz_heat_vent.name=SAZ合金散热器
+tile.casing_a.iaz_casing.name=IAZ合金外壳
+tile.casing_a.iaz_heat_vent.name=IAZ合金散热器
+tile.casing_a.caz_casing.name=CAZ合金外壳
+tile.casing_a.caz_heat_vent.name=CAZ合金散热器
 
 tile.space_elevator_casing.basic_casing.name=线缆锚定基材
 tile.space_elevator_casing.internal_structure.name=主结构支撑器

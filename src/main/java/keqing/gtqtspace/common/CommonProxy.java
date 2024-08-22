@@ -59,6 +59,8 @@ public class CommonProxy {
         在注册MetaBlock时用到
         */
 		registry.register(GTQTSMetaBlocks.SPACE_ELEVATOR);
+		registry.register(GTQTSMetaBlocks.UPDATE_CORE);
+		registry.register(GTQTSMetaBlocks.CASING_A);
 	}
 
 	@SubscribeEvent
@@ -72,6 +74,8 @@ public class CommonProxy {
         在注册MetaBlock时用到
         */
 		registry.register(createItemBlock(GTQTSMetaBlocks.SPACE_ELEVATOR, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.UPDATE_CORE, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.CASING_A, VariantItemBlock::new));
 	}
 
 	private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {

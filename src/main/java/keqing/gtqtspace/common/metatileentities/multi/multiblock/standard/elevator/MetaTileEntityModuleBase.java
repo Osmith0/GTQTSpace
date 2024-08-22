@@ -13,6 +13,7 @@ import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
+import gregtech.client.utils.TooltipHelper;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
@@ -283,5 +284,6 @@ public abstract class MetaTileEntityModuleBase extends MultiblockWithDisplayBase
     public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
         super.addInformation(stack, world, tooltip, advanced);
         tooltip.add(I18n.format("需要插入太空电梯插槽后才成型"));
+        tooltip.add(I18n.format("最多只能放置四仓"));
     }
 }

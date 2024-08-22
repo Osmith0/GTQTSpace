@@ -23,6 +23,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.TextComponentUtil;
+import gregtech.client.utils.TooltipHelper;
 import gregtech.common.ConfigHolder;
 import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
@@ -40,6 +41,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -48,6 +50,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.eclipse.xtext.xbase.lib.Pair;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -231,7 +234,6 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
 
             if (this.randomRecipe == null || this.randomOutput == null) {
                 progressTime = 0;
-                GTQTSLog.logger.info("deal null randomRecipe");
                 return;
             }
 
@@ -331,19 +333,15 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
                 if (this.moduleTier < recipe.getMinModuleTier()) {
                     continue;
                 }
-                GTQTSLog.logger.info("moduleTier success");
                 if (!(this.minDistance <= recipe.getMaxDistance() && recipe.getMinDistance() <= this.maxDistance)) {
                     continue;
                 }
-                GTQTSLog.logger.info("Distance success");
                 if (!drainEnergy(true, recipe.getEUt() * this.parallel)) {
                     continue;
                 }
-                GTQTSLog.logger.info("drainEnergy success");
                 if (this.computationProvider.requestCWUt(recipe.getComputation() * this.parallel, true) != recipe.getComputation() * this.parallel) {
                     continue;
                 }
-                GTQTSLog.logger.info("requestCWUt success");
 
                 recipesAfterCheck.add(recipe);
 
@@ -725,5 +723,11 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
         this.parallel = buf.readInt();
         this.cycleMode = buf.readBoolean();
         this.isWhitelist = buf.readBoolean();
+    }
+    @Override
+    public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
+        tooltip.add(TooltipHelper.RAINBOW_SLOW + I18n.format("谁家虚空矿机", new Object[0]));
+        super.addInformation(stack, world, tooltip, advanced);
+        tooltip.add(I18n.format("舱室要求：输入仓 输入总线 输出总线"));
     }
 }

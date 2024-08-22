@@ -43,7 +43,6 @@ public class GTQTSMetaTileEntities {
 		TRANSPORT = registerMetaTileEntity(5006, new MetaTileEntityCoreTower(gtqtspaceId("transport")));
 
 		SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevator(gtqtspaceId("space_elevator")));
-		if(view.viewMetaTileEntitySpaceElevator)VIEW_SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevatorExtendView(gtqtspaceId("view_space_elevator")));
 		PUMP_MODULE[0] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_1"), 9,1,2));
 		PUMP_MODULE[1] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_2"), 11,2,3));
 		PUMP_MODULE[2] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_3"), 13,3,4));

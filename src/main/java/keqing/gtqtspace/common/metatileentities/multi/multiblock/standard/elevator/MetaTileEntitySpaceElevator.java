@@ -39,6 +39,7 @@ import gregtech.client.utils.RenderBufferHelper;
 import gregtech.common.ConfigHolder;
 import keqing.gtqtcore.api.blocks.impl.WrappedIntTired;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.star.MetaTileEntityDimensionallyBiomimeticFactory;
+import keqing.gtqtspace.GTQTSConfig;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.api.predicate.TiredTraceabilityPredicate;
@@ -520,7 +521,9 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
     @Override
     public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
         super.addInformation(stack, world, tooltip, advanced);
-        tooltip.add(I18n.format("需要所有拓展槽都安装模块控制器后才成型"));
+        tooltip.add(I18n.format("需要所有拓展槽都安装模块控制器后才成型，插槽可使用 线缆锚定基材 代替空模块"));
+        tooltip.add(I18n.format("拓展模式：请在UI内打开拓展模式，shift右键控制器即可预览"));
+        tooltip.add(I18n.format("跃迁模式：可传送至空间站"));
     }
     protected static final int NO_COLOR = 0;
     private int fusionRingColor = NO_COLOR;
@@ -577,7 +580,7 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
 
 
 
-        if(isStructureFormed()) {
+        if(isStructureFormed()&& GTQTSConfig.View.MetaTileEntitySpaceElevatorBloom) {
 
 
             for(int i=0;i<36;i++) {

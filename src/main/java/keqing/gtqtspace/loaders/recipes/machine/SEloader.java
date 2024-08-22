@@ -51,10 +51,9 @@ public class SEloader {
                 .output(MINING_DRONE_LV)
                 .EUt(VA[IV])
                 .duration(2000)
-                .stationResearch(b -> b
-                        .researchStack(TELESCOPE.getStackForm())
-                        .EUt(VA[EV])
-                        .CWUt(CWT[EV]))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_9.getStackForm())
+                        .EUt(VA[EV]))
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
@@ -73,10 +72,9 @@ public class SEloader {
                 .output(MINING_DRONE_MV)
                 .EUt(VA[IV])
                 .duration(2000)
-                .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_LV.getStackForm())
-                        .EUt(VA[EV])
-                        .CWUt(CWT[EV]))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_9.getStackForm())
+                        .EUt(VA[EV]))
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
@@ -96,10 +94,9 @@ public class SEloader {
                 .output(MINING_DRONE_HV)
                 .EUt(VA[IV])
                 .duration(2000)
-                .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_MV.getStackForm())
-                        .EUt(VA[EV])
-                        .CWUt(CWT[EV]))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_9.getStackForm())
+                        .EUt(VA[EV]))
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
@@ -119,10 +116,9 @@ public class SEloader {
                 .output(MINING_DRONE_EV)
                 .EUt(VA[IV])
                 .duration(2000)
-                .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_HV.getStackForm())
-                        .EUt(VA[EV])
-                        .CWUt(CWT[EV]))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_10.getStackForm())
+                        .EUt(VA[EV]))
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
@@ -142,10 +138,9 @@ public class SEloader {
                 .output(MINING_DRONE_IV)
                 .EUt(VA[IV])
                 .duration(2000)
-                .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_EV.getStackForm())
-                        .EUt(VA[EV])
-                        .CWUt(CWT[EV]))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_10.getStackForm())
+                        .EUt(VA[EV]))
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
@@ -166,10 +161,9 @@ public class SEloader {
                 .output(MINING_DRONE_LuV)
                 .EUt(VA[LuV])
                 .duration(2000)
-                .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_IV.getStackForm())
-                        .EUt(VA[IV])
-                        .CWUt(CWT[IV]))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_10.getStackForm())
+                        .EUt(VA[EV]))
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
@@ -191,7 +185,7 @@ public class SEloader {
                 .EUt(VA[ZPM])
                 .duration(2000)
                 .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_LuV.getStackForm())
+                        .researchStack(DISK_10.getStackForm())
                         .EUt(VA[LuV])
                         .CWUt(CWT[LuV]))
                 .cleanroom(CleanroomType.CLEANROOM)
@@ -215,7 +209,7 @@ public class SEloader {
                 .EUt(VA[UV])
                 .duration(2000)
                 .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_ZPM.getStackForm())
+                        .researchStack(DISK_10.getStackForm())
                         .EUt(VA[ZPM])
                         .CWUt(CWT[ZPM]))
                 .cleanroom(CleanroomType.CLEANROOM)
@@ -239,7 +233,7 @@ public class SEloader {
                 .EUt(VA[UHV])
                 .duration(2000)
                 .stationResearch(b -> b
-                        .researchStack(MINING_DRONE_UV.getStackForm())
+                        .researchStack(DISK_10.getStackForm())
                         .EUt(VA[UV])
                         .CWUt(CWT[UV]))
                 .cleanroom(CleanroomType.CLEANROOM)
