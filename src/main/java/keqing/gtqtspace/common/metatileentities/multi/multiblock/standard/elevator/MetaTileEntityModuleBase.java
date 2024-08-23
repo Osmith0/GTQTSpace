@@ -65,11 +65,7 @@ public abstract class MetaTileEntityModuleBase extends MultiblockWithDisplayBase
 
     @Override
     public void checkStructurePattern() {
-        if(getSpaceElevator() != null) {
-            if(getSpaceElevator().getMotorTier() >= minMotorTier) {
-                super.checkStructurePattern();
-            }
-        }
+        if(getSpaceElevator() != null) super.checkStructurePattern();
     }
 
     protected abstract void initializeAbilities();
