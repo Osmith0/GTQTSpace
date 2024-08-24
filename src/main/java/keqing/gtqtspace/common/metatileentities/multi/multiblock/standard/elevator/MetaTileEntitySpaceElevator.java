@@ -600,17 +600,6 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                         r, g, b, a, Y);
             }
 
-            RenderBufferHelper.renderCubeFrame(buffer,
-                    getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 10 + 0.5,
-                    getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
-                    getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * 10 + 0.5,
-
-                    getPos().getX() - context.cameraX() + relativeBack.getXOffset() * -4 + 0.5,
-                    getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
-                    getPos().getZ() - context.cameraZ() + relativeBack.getZOffset() * -4 + 0.5,
-
-                    r, g, b, a);
-
             RenderBufferHelper.renderRing(buffer,
                     getPos().getX() - context.cameraX() + relativeBack.getXOffset() * 3 + 0.5,
                     getPos().getY() - context.cameraY() + relativeBack.getYOffset() + 40+updatetime*2,
