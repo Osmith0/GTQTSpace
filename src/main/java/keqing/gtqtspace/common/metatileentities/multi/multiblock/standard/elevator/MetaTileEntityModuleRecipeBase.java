@@ -15,9 +15,15 @@ import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public abstract class MetaTileEntityModuleRecipeBase extends RecipeMapMultiblockController implements ISpaceElevatorReceiver {
 
@@ -32,8 +38,8 @@ public abstract class MetaTileEntityModuleRecipeBase extends RecipeMapMultiblock
         this.moduleTier = moduleTier;
         this.minMotorTier = minMotorTier;
         this.tier = tier;
-        this.energyConsumption = (long) (Math.pow(4, this.tier + 2) / 2.0);
-        this.energyContainer = new EnergyContainerHandler(this, (long) (160008000L * Math.pow(4, this.tier - 9)), this.energyConsumption, 1, 0, 0);
+        this.energyConsumption = (long) (Math.pow(4, this.tier) / 2.0);
+        this.energyContainer = new EnergyContainerHandler(this, (long) (160008000L * Math.pow(4, this.tier - 6)), this.energyConsumption, 1, 0, 0);
     }
 
     @Override
@@ -125,6 +131,14 @@ public abstract class MetaTileEntityModuleRecipeBase extends RecipeMapMultiblock
     @Override
     public String getNameForDisplayCount() {
         return this.getMetaName() + ".display_count";
+    }
+    @Override
+    public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, world, tooltip, advanced);
+        tooltip.add(I18n.format("需要插入太空电梯插槽后才成型"));
+        tooltip.add(I18n.format("最多只能放置四仓"));
+        tooltip.add(I18n.format("最小磁轨加速器需求：%s",minMotorTier));
+        tooltip.add(I18n.format("耗能：%s",(long) (Math.pow(4, this.tier) / 2.0)));
     }
 
 }

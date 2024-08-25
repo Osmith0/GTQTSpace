@@ -145,12 +145,12 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
             }
             return;
         }
-
+        GTQTSLog.logger.info("drainEnergy SUCCESS...");
         if (progressTime == 0 && checkFluidInventory(true) == null) {
             setActive(false);
             return;
         }
-
+        GTQTSLog.logger.info("checkFluidInventory SUCCESS...");
         if (progressTime == 0 && checkRecipes(true) == null) {
             setActive(false);
             if (this.cycleMode) {
@@ -729,5 +729,9 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
         tooltip.add(TooltipHelper.RAINBOW_SLOW + I18n.format("谁家虚空矿机", new Object[0]));
         super.addInformation(stack, world, tooltip, advanced);
         tooltip.add(I18n.format("舱室要求：输入仓 输入总线 输出总线"));
+        tooltip.add(I18n.format("分别在范围 距离 步长内设置好参数后，在输入总线放入耗材与无人机便可工作"));
+        tooltip.add(I18n.format("也可在在范围 距离 步长内设置好参数后，使用循环模式自动分配"));
+        tooltip.add(I18n.format("可设置配方白名单黑名单"));
+        tooltip.add(I18n.format("并行数量：%s",parallel));
     }
 }

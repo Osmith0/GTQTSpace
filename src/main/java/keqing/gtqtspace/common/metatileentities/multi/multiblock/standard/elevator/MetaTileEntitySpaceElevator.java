@@ -524,6 +524,7 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
         tooltip.add(I18n.format("需要所有拓展槽都安装模块控制器后才成型，插槽可使用 线缆锚定基材 代替空模块"));
         tooltip.add(I18n.format("拓展模式：请在UI内打开拓展模式，shift右键控制器即可预览"));
         tooltip.add(I18n.format("跃迁模式：可传送至空间站"));
+        tooltip.add(I18n.format("请使用IV及其以上的的能源仓！"));
     }
     protected static final int NO_COLOR = 0;
     private int fusionRingColor = NO_COLOR;
