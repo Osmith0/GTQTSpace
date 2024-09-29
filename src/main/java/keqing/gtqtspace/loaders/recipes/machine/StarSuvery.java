@@ -12,7 +12,9 @@ import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.HULL;
 import static keqing.gtqtcore.api.unification.GTQTMaterials.Zylon;
+import static keqing.gtqtcore.api.utils.GTQTUtil.CWT;
 import static keqing.gtqtcore.common.items.GTQTMetaItems.DISK_8;
+import static keqing.gtqtcore.common.items.GTQTMetaItems.DISK_9;
 import static keqing.gtqtspace.api.recipes.GTQTScoreRecipeMaps.*;
 import static keqing.gtqtspace.common.items.GTQTSMetaItems.*;
 import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.*;
@@ -28,6 +30,10 @@ public class StarSuvery {
                 .input(OrePrefix.pipeSmallFluid, Aluminium, 4)
                 .input(OrePrefix.plate, StainlessSteel, 4)
                 .fluidInputs(Polyethylene.getFluid(GTValues.L * 4))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_8.getStackForm())
+                        .duration(1200)
+                        .EUt(VA[HV]))
                 .output(COSMIC_RAY_DETECTOR)
                 .duration(800).EUt(VA[HV]).buildAndRegister();
 
@@ -39,6 +45,10 @@ public class StarSuvery {
                 .input(OrePrefix.pipeSmallFluid, StainlessSteel, 4)
                 .input(OrePrefix.plate, Platinum, 4)
                 .fluidInputs(Polyethylene.getFluid(GTValues.L * 4))
+                .scannerResearch(b -> b
+                        .researchStack(DISK_8.getStackForm())
+                        .duration(1200)
+                        .EUt(VA[HV]))
                 .output(SATELLITE_SUVERY)
                 .duration(800).EUt(VA[EV]).buildAndRegister();
 
@@ -50,6 +60,10 @@ public class StarSuvery {
                 .input(OrePrefix.pipeSmallFluid, TungstenSteel, 4)
                 .input(OrePrefix.plate, NiobiumTitanium, 4)
                 .fluidInputs(Zylon.getFluid(GTValues.L * 4))
+                .stationResearch(b -> b
+                        .researchStack(DISK_9.getStackForm())
+                        .CWUt(CWT[EV])
+                        .EUt(VA[EV]))
                 .output(SATELLITE_STATION)
                 .duration(800).EUt(VA[IV]).buildAndRegister();
         //test
