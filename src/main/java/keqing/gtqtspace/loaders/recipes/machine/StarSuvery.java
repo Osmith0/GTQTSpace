@@ -33,9 +33,9 @@ public class StarSuvery {
                 .scannerResearch(b -> b
                         .researchStack(DISK_8.getStackForm())
                         .duration(1200)
-                        .EUt(VA[HV]))
+                        .EUt(VA[MV]))
                 .output(COSMIC_RAY_DETECTOR)
-                .duration(800).EUt(VA[HV]).buildAndRegister();
+                .duration(800).EUt(VA[MV]).buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(HULL[4],16)
@@ -50,7 +50,7 @@ public class StarSuvery {
                         .duration(1200)
                         .EUt(VA[HV]))
                 .output(SATELLITE_SUVERY)
-                .duration(800).EUt(VA[EV]).buildAndRegister();
+                .duration(800).EUt(VA[HV]).buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(HULL[5],16)
@@ -65,7 +65,7 @@ public class StarSuvery {
                         .CWUt(CWT[EV])
                         .EUt(VA[EV]))
                 .output(SATELLITE_STATION)
-                .duration(800).EUt(VA[IV]).buildAndRegister();
+                .duration(800).EUt(VA[EV]).buildAndRegister();
         //test
 
         STAR_SURVEY.recipeBuilder()
