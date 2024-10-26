@@ -330,6 +330,7 @@ public class MetaTileEntityCosmicRayDetector extends RecipeMapMultiblockControll
 		} else {
 			tooltip.add(I18n.format("gregtech.tooltip.hold_shift"));
 		}
+		tooltip.add(I18n.format("探测等级——1"));
 	}
 
 	protected class CosmicRayDetectorLogic extends ComputationRecipeLogic {

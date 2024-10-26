@@ -31,7 +31,7 @@ public class GTQTSSatelliteAssembler {
                 .fluidInputs(Polytetrafluoroethylene.getFluid(8000))
                 .fluidInputs(ReinforcedEpoxyResin.getFluid(4000))
                 .fluidInputs(StyreneButadieneRubber.getFluid(4000))
-                .outputs(BASIC_SATELLITE.getStackForm())
+                .outputs(TELESCOPE.getStackForm())
                 .scannerResearch(b -> b
                         .researchStack(COMPUTERTIER1.getStackForm())
                         .duration(1200)
@@ -52,7 +52,7 @@ public class GTQTSSatelliteAssembler {
                 .fluidInputs(UltraGlue.getFluid(L * 8))
                 .fluidInputs(Polybenzimidazole.getFluid(L * 4))
                 .fluidInputs(Zylon.getFluid(L * 2))
-                .outputs(TELESCOPE.getStackForm())
+                .outputs(BASIC_SATELLITE.getStackForm())
                 .scannerResearch(b -> b
                         .researchStack(COMPUTERTIER2.getStackForm())
                         .duration(1200)

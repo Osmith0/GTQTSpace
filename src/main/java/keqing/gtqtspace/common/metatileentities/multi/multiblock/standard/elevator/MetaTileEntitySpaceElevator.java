@@ -405,7 +405,7 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
     }
 
     private void transport(EntityPlayer entityPlayer) {
-        if(isStructureFormed()&&getWorld().provider.getDimension()== 0)
+        //if(isStructureFormed()&&getWorld().provider.getDimension()== 0)
         FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().transferPlayerToDimension((EntityPlayerMP) entityPlayer, 50, new WorldTeleporter(entityPlayer.getServer().getWorld(50),getPos()));
     }
 

@@ -8,7 +8,7 @@ import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
 
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
-import keqing.gtqtspace.world.VoidWorldProvider;
+import keqing.gtqtspace.world.SpaceStationdProvider;
 import net.minecraft.block.Block;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
@@ -52,7 +52,7 @@ public class GTQTSpace {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 
-		type = DimensionType.register("simplevoidworld", "void", 50, VoidWorldProvider.class, false);
+		type = DimensionType.register("SpaceStationWorld", "void", 50, SpaceStationdProvider.class, false);
 		DimensionManager.registerDimension(50, type);
 		GTQTSMetaTileEntities.initialization();
 		GTQTSLog.init(event.getModLog());

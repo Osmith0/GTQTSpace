@@ -57,11 +57,13 @@ public class GTQTSMetaItem1 extends StandardMetaItem {
 		GTQTSMetaItems.MINING_DRONE_MAX = this.addItem(63, "mining_drone.max").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 
 		GTQTSMetaItems.POS_BINDING_CARD = this.addItem(97, "pos_binding_card").setMaxStackSize(1).addComponents(new PosBindingCardBehaviors()).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+
 		//卫星 包括卫星升级构建
 		GTQTSMetaItems.TELESCOPE = this.addItem(98, "telescope").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 		GTQTSMetaItems.SATELLITE_ROCKET = this.addItem(99, "satellite_rocket").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 		//卫星本体
 		GTQTSMetaItems.BASIC_SATELLITE = this.addItem(100, "basic_satellite").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
+
 		//注册专业电路
 		GTQTSMetaItems.PLANETIDCHIP = this.addItem(101, "planetidchip").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);
 		GTQTSMetaItems.SATELLITEIDCHIP = this.addItem(102, "satelliteidchip").setMaxStackSize(1).setCreativeTabs(CommonProxy.GTQTSpace_TAB);

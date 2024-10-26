@@ -69,7 +69,7 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 		var slots = this.getInputInventory().getSlots();
 		for (int i = 0; i < slots; i++) {
 			ItemStack item = this.getInputInventory().getStackInSlot(i);
-			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.BASIC_SATELLITE.getMetaValue()) {
+			if (item.getItem() == GTQTSMetaItems.GTQTS_META_ITEM && item.getMetadata() == GTQTSMetaItems.TELESCOPE.getMetaValue()) {
 				this.getInputInventory().extractItem(i, 1, sim);
 				return true;
 			}
@@ -154,7 +154,8 @@ public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController
 	@Override
 	public void addInformation(ItemStack stack, World world, @Nonnull List<String> tooltip, boolean advanced) {
 		super.addInformation(stack, world, tooltip, advanced);
-		tooltip.add(I18n.format("塞入卫星开始工作"));
+		tooltip.add(I18n.format("塞入望远镜开始工作"));
+		tooltip.add(I18n.format("探测等级——2"));
 	}
 
 	protected class CosmicRayDetectorLogic extends ComputationRecipeLogic {
