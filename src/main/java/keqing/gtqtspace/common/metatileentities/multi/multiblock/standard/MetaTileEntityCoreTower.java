@@ -44,7 +44,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class MetaTileEntityCoreTower extends MetaTileEntityBaseWithControl {
+    /*
+    要实现的功能：
+    无线集成管理配套，联系太空基地复杂设备的唯一方法（可拓展附属结构-无人机管理平台）
 
+    与微波 超导矩阵的联动
+     */
     public MetaTileEntityCoreTower(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
     }
@@ -71,6 +76,7 @@ public class MetaTileEntityCoreTower extends MetaTileEntityBaseWithControl {
         builder.widget(new ClickButtonWidget(173, 155, 18, 18, "", data -> transport(entityPlayer))
                 .setButtonTexture(GTQTSTextures.BUTTON_DISABLE_STATIC)
                 .setTooltipText("返回地面基地"));
+
         builder.bindPlayerInventory(entityPlayer.inventory, 155);
         return builder;
     }
@@ -90,8 +96,6 @@ public class MetaTileEntityCoreTower extends MetaTileEntityBaseWithControl {
                 .where('S', selfPredicate())
                 .where('A', states(getIntakeState()))
                 .where('X', states(getCasingAState()).setMinGlobalLimited(15)
-                        .or(abilities(MultiblockAbility.MAINTENANCE_HATCH).setExactLimit(1))
-                        .or(abilities(MultiblockAbility.MUFFLER_HATCH).setExactLimit(1))
                         .or(abilities(MultiblockAbility.IMPORT_ITEMS).setExactLimit(1))
                         .or(abilities(MultiblockAbility.EXPORT_FLUIDS).setMaxGlobalLimited(1))
                         .or(abilities(MultiblockAbility.INPUT_ENERGY).setMaxGlobalLimited(2)))
@@ -105,7 +109,13 @@ public class MetaTileEntityCoreTower extends MetaTileEntityBaseWithControl {
     private IBlockState getCasingAState() {
         return MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.STEEL_SOLID);
     }
+    public boolean hasMaintenanceMechanics() {
+        return false;
+    }
 
+    public boolean hasMufflerMechanics() {
+        return false;
+    }
     @SideOnly(Side.CLIENT)
     public ICubeRenderer getBaseTexture(IMultiblockPart iMultiblockPart) {
         return Textures.SOLID_STEEL_CASING;
