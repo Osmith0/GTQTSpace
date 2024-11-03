@@ -1,25 +1,19 @@
 package keqing.gtqtspace.client;
 
-import java.util.Random;
-
 import keqing.gtqtspace.GTQTSConfig;
 import keqing.gtqtspace.GTQTSpace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.client.FMLClientHandler;
-
 import org.lwjgl.opengl.GL11;
+
+import java.util.Random;
 
 public class SkyProviderOrbit extends IRenderHandler
 {
@@ -36,10 +30,6 @@ public class SkyProviderOrbit extends IRenderHandler
     private static final ResourceLocation triangulumTexture = new ResourceLocation(GTQTSpace.MODID, "textures/environment/background/triangulum.png");
 
     protected static final ResourceLocation[] galaxyTextures = new ResourceLocation[6];
-
-
-
-
 
     public static boolean displayListsInitialized = false;
     public static int starGLCallList;
@@ -61,11 +51,64 @@ public class SkyProviderOrbit extends IRenderHandler
         this.renderMoon = renderMoon;
         this.renderSun = renderSun;
         this.renderStars=renderStars;
+
+        if (!displayListsInitialized)
+        {
+            initializeDisplayLists();
+        }
+
     }
-
-
     private final Minecraft minecraft = FMLClientHandler.instance().getClient();
     boolean displayGalaxyImg;
+    private void initializeDisplayLists()
+    {
+        if (GTQTSConfig.Render.StarsRender) {
+            starGLCallList = GLAllocation.generateDisplayLists(3);
+
+            GL11.glPushMatrix();
+            GL11.glNewList(SkyProviderOrbit.starGLCallList, GL11.GL_COMPILE);
+            this.renderStars();
+            GL11.glEndList();
+            GL11.glPopMatrix();
+            final Tessellator tessellator = Tessellator.getInstance();
+            BufferBuilder worldRenderer = tessellator.getBuffer();
+            SkyProviderOrbit.glSkyList = SkyProviderOrbit.starGLCallList + 1;
+            GL11.glNewList(SkyProviderOrbit.glSkyList, GL11.GL_COMPILE);
+            final byte byte2 = 64;
+            final int i = 256 / byte2 + 2;
+            float f = 16F;
+
+            for (int j = -byte2 * i; j <= byte2 * i; j += byte2) {
+                for (int l = -byte2 * i; l <= byte2 * i; l += byte2) {
+                    worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+                    worldRenderer.pos(j + 0, f, l + 0).endVertex();
+                    worldRenderer.pos(j + byte2, f, l + 0).endVertex();
+                    worldRenderer.pos(j + byte2, f, l + byte2).endVertex();
+                    worldRenderer.pos(j + 0, f, l + byte2).endVertex();
+                    tessellator.draw();
+                }
+            }
+
+            GL11.glEndList();
+            SkyProviderOrbit.glSkyList2 = SkyProviderOrbit.starGLCallList + 2;
+            GL11.glNewList(SkyProviderOrbit.glSkyList2, GL11.GL_COMPILE);
+            f = -16F;
+            worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+
+            for (int k = -byte2 * i; k <= byte2 * i; k += byte2) {
+                for (int i1 = -byte2 * i; i1 <= byte2 * i; i1 += byte2) {
+                    worldRenderer.pos(k + byte2, f, i1 + 0).endVertex();
+                    worldRenderer.pos(k + 0, f, i1 + 0).endVertex();
+                    worldRenderer.pos(k + 0, f, i1 + byte2).endVertex();
+                    worldRenderer.pos(k + byte2, f, i1 + byte2).endVertex();
+                }
+            }
+
+            tessellator.draw();
+            GL11.glEndList();
+        }
+        displayListsInitialized = true;
+    }
     @Override
     public void render(float partialTicks, WorldClient world, Minecraft mc)
     {
@@ -199,51 +242,7 @@ public class SkyProviderOrbit extends IRenderHandler
 
 
         ///////////////////////////////星星生成///////////////////////////////
-        if (this.renderStars&&GTQTSConfig.Render.StarsRender) {
-            starGLCallList = GLAllocation.generateDisplayLists(3);
 
-            GL11.glPushMatrix();
-            GL11.glNewList(SkyProviderOrbit.starGLCallList, GL11.GL_COMPILE);
-            this.renderStars();
-            GL11.glEndList();
-            GL11.glPopMatrix();
-            final Tessellator tessellator = Tessellator.getInstance();
-            BufferBuilder worldRenderer = tessellator.getBuffer();
-            SkyProviderOrbit.glSkyList = SkyProviderOrbit.starGLCallList + 1;
-            GL11.glNewList(SkyProviderOrbit.glSkyList, GL11.GL_COMPILE);
-            final byte byte2 = 64;
-            final int i = 256 / byte2 + 2;
-            float f = 16F;
-
-            for (int j = -byte2 * i; j <= byte2 * i; j += byte2) {
-                for (int l = -byte2 * i; l <= byte2 * i; l += byte2) {
-                    worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
-                    worldRenderer.pos(j + 0, f, l + 0).endVertex();
-                    worldRenderer.pos(j + byte2, f, l + 0).endVertex();
-                    worldRenderer.pos(j + byte2, f, l + byte2).endVertex();
-                    worldRenderer.pos(j + 0, f, l + byte2).endVertex();
-                    tessellator.draw();
-                }
-            }
-
-            GL11.glEndList();
-            SkyProviderOrbit.glSkyList2 = SkyProviderOrbit.starGLCallList + 2;
-            GL11.glNewList(SkyProviderOrbit.glSkyList2, GL11.GL_COMPILE);
-            f = -16F;
-            worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
-
-            for (int k = -byte2 * i; k <= byte2 * i; k += byte2) {
-                for (int i1 = -byte2 * i; i1 <= byte2 * i; i1 += byte2) {
-                    worldRenderer.pos(k + byte2, f, i1 + 0).endVertex();
-                    worldRenderer.pos(k + 0, f, i1 + 0).endVertex();
-                    worldRenderer.pos(k + 0, f, i1 + byte2).endVertex();
-                    worldRenderer.pos(k + byte2, f, i1 + byte2).endVertex();
-                }
-            }
-
-            tessellator.draw();
-            GL11.glEndList();
-        }
         ///////////////////////////////银河系背景生成///////////////////////////////
         if (GTQTSConfig.Render.BackgroundRender) {
             float x = 50.0F;
@@ -417,42 +416,41 @@ public class SkyProviderOrbit extends IRenderHandler
         // 恢复之前保存的GL状态
         GL11.glPopMatrix();
     }
-    private final Random random = new Random(10240);
-    private void renderStars() {
+    private void renderStars()
+    {
+        final Random var1 = new Random(10842L);
         final Tessellator var2 = Tessellator.getInstance();
-        var2.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        var2.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 
-        long worldTime = minecraft.world.getTotalWorldTime();
-
-        for (int var3 = 0; var3 < (GTQTSConfig.Render.moreStars ? 8000 : 4000); ++var3) {
-            double var4 = random.nextFloat() * 2.0F - 1.0F;
-            double var6 = random.nextFloat() * 2.0F - 1.0F;
-            double var8 = random.nextFloat() * 2.0F - 1.0F;
-            final double var10 = 0.07F + random.nextFloat() * 0.06F;
+        for (int var3 = 0; var3 < (GTQTSConfig.Render.moreStars ? 8000 : 2000); ++var3)
+        {
+            double var4 = var1.nextFloat() * 2.0F - 1.0F;
+            double var6 = var1.nextFloat() * 2.0F - 1.0F;
+            double var8 = var1.nextFloat() * 2.0F - 1.0F;
+            final double var10 = 0.07F + var1.nextFloat() * 0.06F;
             double var12 = var4 * var4 + var6 * var6 + var8 * var8;
 
-            if (var12 < 1.0D && var12 > 0.01D) {
-                double sqrtVar12 = 1.0D / Math.sqrt(var12);
-                var4 *= sqrtVar12;
-                var6 *= sqrtVar12;
-                var8 *= sqrtVar12;
-                final double var14 = var4 * (GTQTSConfig.Render.moreStars ? random.nextDouble() * 50D + 75D : 50.0D);
-                final double var16 = var6 * (GTQTSConfig.Render.moreStars ? random.nextDouble() * 50D + 75D : 50.0D);
-                final double var18 = var8 * (GTQTSConfig.Render.moreStars ? random.nextDouble() * 50D + 75D : 50.0D);
+            if (var12 < 1.0D && var12 > 0.01D)
+            {
+                var12 = 1.0D / Math.sqrt(var12);
+                var4 *= var12;
+                var6 *= var12;
+                var8 *= var12;
+                final double var14 = var4 * (GTQTSConfig.Render.moreStars ? var1.nextDouble() * 50D + 75D : 50.0D);
+                final double var16 = var6 * (GTQTSConfig.Render.moreStars ? var1.nextDouble() * 50D + 75D : 50.0D);
+                final double var18 = var8 * (GTQTSConfig.Render.moreStars ? var1.nextDouble() * 50D + 75D : 50.0D);
                 final double var20 = Math.atan2(var4, var8);
                 final double var22 = Math.sin(var20);
                 final double var24 = Math.cos(var20);
                 final double var26 = Math.atan2(Math.sqrt(var4 * var4 + var8 * var8), var6);
                 final double var28 = Math.sin(var26);
                 final double var30 = Math.cos(var26);
-                final double var32 = random.nextDouble() * Math.PI * 2.0D;
+                final double var32 = var1.nextDouble() * Math.PI * 2.0D;
                 final double var34 = Math.sin(var32);
                 final double var36 = Math.cos(var32);
 
-                float blinkFactor = (float) Math.sin((worldTime + var3) * 0.1) * 0.5F + 0.5F;
-                float rotationAngle = (float) ((worldTime + var3) * 0.01);
-
-                for (int var38 = 0; var38 < 4; ++var38) {
+                for (int var38 = 0; var38 < 4; ++var38)
+                {
                     final double var39 = 0.0D;
                     final double var41 = ((var38 & 2) - 1) * var10;
                     final double var43 = ((var38 + 1 & 2) - 1) * var10;
@@ -462,16 +460,11 @@ public class SkyProviderOrbit extends IRenderHandler
                     final double var55 = var39 * var28 - var47 * var30;
                     final double var57 = var55 * var22 - var49 * var24;
                     final double var61 = var49 * var22 + var55 * var24;
-
-                    double rotatedX = var57 * Math.cos(rotationAngle) - var61 * Math.sin(rotationAngle);
-                    double rotatedZ = var57 * Math.sin(rotationAngle) + var61 * Math.cos(rotationAngle);
-                    
-                    var2.getBuffer().pos(var14 + rotatedX, var16 + var53, var18 + rotatedZ)
-                            .color(blinkFactor, blinkFactor, blinkFactor, 1.0F)
-                            .endVertex();
+                    var2.getBuffer().pos(var14 + var57, var16 + var53, var18 + var61).endVertex();
                 }
             }
         }
+
         var2.draw();
     }
 }

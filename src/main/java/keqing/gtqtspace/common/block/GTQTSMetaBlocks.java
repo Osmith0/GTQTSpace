@@ -2,6 +2,7 @@ package keqing.gtqtspace.common.block;
 
 import gregtech.common.blocks.MetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSCasingA;
+import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
 import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
 import keqing.gtqtspace.common.block.blocks.GTQTUpdateCore;
 import net.minecraft.block.Block;
@@ -16,6 +17,7 @@ public class GTQTSMetaBlocks {
 	public static GTQTSpaceElevator SPACE_ELEVATOR;
 	public static GTQTUpdateCore UPDATE_CORE;
 	public static GTQTSCasingA CASING_A;
+	public static GTQTSSolarPlate SOLAT_PLATE;
 	private GTQTSMetaBlocks() {
 	}
 
@@ -28,6 +30,9 @@ public class GTQTSMetaBlocks {
 
 		CASING_A = new GTQTSCasingA();
 		CASING_A.setRegistryName("casing_a");
+
+		SOLAT_PLATE = new GTQTSSolarPlate();
+		SOLAT_PLATE.setRegistryName("solar_plate");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -35,6 +40,7 @@ public class GTQTSMetaBlocks {
 		registerItemModel(SPACE_ELEVATOR);
 		registerItemModel(UPDATE_CORE);
 		registerItemModel(CASING_A);
+		registerItemModel(SOLAT_PLATE);
 	}
 
 	@SideOnly(Side.CLIENT)
