@@ -145,12 +145,10 @@ public class MetaTileEntityMiningModule extends MetaTileEntityModuleBase impleme
             }
             return;
         }
-        GTQTSLog.logger.info("drainEnergy SUCCESS...");
         if (progressTime == 0 && checkFluidInventory(true) == null) {
             setActive(false);
             return;
         }
-        GTQTSLog.logger.info("checkFluidInventory SUCCESS...");
         if (progressTime == 0 && checkRecipes(true) == null) {
             setActive(false);
             if (this.cycleMode) {

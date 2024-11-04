@@ -272,7 +272,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
         textList.add(new TextComponentTranslation("矿脉总数：%s 矿脉距离：%s", Asteroid.getRateById(IDtoDeal[IDSwitch]),Asteroid.TimeToConsume(IDtoDeal[IDSwitch])));
         if(IDtoDeal[IDSwitch]>100000&&IDtoDeal[IDSwitch]<1000000) {
             for (int i = 0; i < 6; i++) {
-                textList.add(new TextComponentTranslation(">>%s %s", Asteroid.getMaterialByID(IDtoDeal[IDSwitch], i).getLocalizedName(), Asteroid.getOreNumByID(IDtoDeal[IDSwitch], i)));
+                textList.add(new TextComponentTranslation("*- %s %s", Asteroid.getMaterialByID(IDtoDeal[IDSwitch], i).getLocalizedName(), Asteroid.getOreNumByID(IDtoDeal[IDSwitch], i)));
             }
         }
     }

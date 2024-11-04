@@ -135,7 +135,6 @@ public class Asteroid {
         if(id==0)return 0;
         // 计算ID的模值，用于确定利率范围
         int modValue = id % 10;
-        GTQTSLog.logger.info("getRateById success");
         // 根据模值获取对应范围内的随机利率值
         return getRandomValueInInterval(modValue,id);
     }
@@ -149,7 +148,6 @@ public class Asteroid {
      * @throws IllegalArgumentException 如果模值不在预期范围内（0-9）
      */
     private static int getRandomValueInInterval(int modValue,int id) {
-        GTQTSLog.logger.info("getRandomValueInInterval start");
         int start, end;
 
         // 根据不同的模值选择相应的范围
@@ -252,16 +250,18 @@ public class Asteroid {
         String idStr = String.format("%06d", id);
         int[] results = new int[6];
         // 提取不同的子字符串
-        String sub1 = idStr.substring(0, 3);
-        String sub2 = idStr.substring(1, 4);
-        String sub3 = idStr.substring(2, 5);
+        int num1 = Integer.parseInt(idStr.substring(0, 3));
+        int num2 = Integer.parseInt(idStr.substring(1, 4));
+        int num3 = Integer.parseInt(idStr.substring(2, 5));
+        int num4 = Integer.parseInt(idStr.substring(3, 6));
+
         // 将子字符串转换为整数后取模，并将结果存储在数组中
-        results[0] = Integer.parseInt(sub1) % modValue;
-        results[1] = Integer.parseInt(sub2) % modValue;
-        results[2] = Integer.parseInt(sub3) % modValue;
-        results[3] = Integer.parseInt(sub1+sub2) % modValue;
-        results[4] = Integer.parseInt(sub2+sub3) % modValue;
-        results[5] = Integer.parseInt(sub1+sub3) % modValue;
+        results[0] = (num1 + num2) % modValue;
+        results[1] = (num1 + num3) % modValue;
+        results[2] = (num1 + num4) % modValue;
+        results[3] = (num2 + num3) % modValue;
+        results[4] = (num2 + num4) % modValue;
+        results[5] = (num3 + num4) % modValue;
         // 返回取模后的结果数组
         return results;
     }

@@ -120,7 +120,6 @@ public class DockManager extends MetaTileEntityBaseWithControl {
                     total = Asteroid.getRateById(IDtoDeal);
                     perTotal=Asteroid.getPerRateById(IDtoDeal);
                     materials=Asteroid.getMaterialListById(IDtoDeal);
-                    if(total==0) GTQTSLog.logger.info("非法的ID!!!");
                     deal=true;
                 }
                 else

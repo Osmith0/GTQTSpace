@@ -22,6 +22,7 @@ import gregtech.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
+import gregtech.api.unification.material.Materials;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
@@ -32,9 +33,11 @@ import keqing.gtqtcore.api.blocks.impl.WrappedIntTired;
 import keqing.gtqtcore.api.utils.GTQTUtil;
 import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
+import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -79,6 +82,7 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
         data.setInteger("IDtoDeal", IDtoDeal);
         data.setInteger("IDResolve", IDResolve);
         data.setInteger("totalTime", totalTime);
+        data.setInteger("time", time);
         // 写入 BlockPos
         if (ControlPos != null) {
             data.setInteger("ControlPosX", ControlPos.getX());
@@ -109,6 +113,7 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
         IDtoDeal = data.getInteger("IDtoDeal");
         IDResolve = data.getInteger("IDResolve");
         totalTime = data.getInteger("totalTime");
+        time=data.getInteger("time");
         // 读取 BlockPos
         if (data.hasKey("ControlPosX") && data.hasKey("ControlPosY") && data.hasKey("ControlPosZ")) {
             int posX = data.getInteger("ControlPosX");
@@ -136,32 +141,35 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
     @Override
     protected void addDisplayText (List<ITextComponent> textList) {
         super.addDisplayText(textList);
+        textList.add(new TextComponentTranslation("解析元计算器"));
         textList.add(new TextComponentTranslation("绑定状态：%s %s %s", ControlPos.getX(),ControlPos.getY(),ControlPos.getZ()));
         textList.add(new TextComponentTranslation("处理进度：%s / %s", time,totalTime));
         if(isWhitelist)textList.add(new TextComponentTranslation("白名单：%s", whitelist));
         else textList.add(new TextComponentTranslation("黑名单：%s", whitelist));
+        textList.add(new TextComponentTranslation("使用方法：使用材料的注册名（驼峰写法"));
+        textList.add(new TextComponentTranslation("例如Copper,Tin,TungstenCarbide"));
     }
 
     protected void addDisplayText1 (List<ITextComponent> textList) {
         super.addDisplayText(textList);
-        textList.add(new TextComponentTranslation("正在处理：%s", IDtoDeal));
+        textList.add(new TextComponentTranslation("》正在处理：%s", IDtoDeal));
         if(IDtoDeal!=0) {
-            textList.add(new TextComponentTranslation("矿脉总数：%s", Asteroid.getRateById(IDtoDeal)));
-            textList.add(new TextComponentTranslation("矿脉距离：%s", Asteroid.TimeToConsume(IDtoDeal)));
+            textList.add(new TextComponentTranslation("=矿脉总数：%s", Asteroid.getRateById(IDtoDeal)));
+            textList.add(new TextComponentTranslation("=矿脉距离：%s", Asteroid.TimeToConsume(IDtoDeal)));
             for (int i = 0; i < 6; i++) {
-                textList.add(new TextComponentTranslation(">>%s %s", Asteroid.getMaterialByID(IDtoDeal, i).getLocalizedName(), Asteroid.getOreNumByID(IDtoDeal, i)));
+                textList.add(new TextComponentTranslation("*- %s %s", Asteroid.getMaterialByID(IDtoDeal, i).getLocalizedName(), Asteroid.getOreNumByID(IDtoDeal, i)));
             }
         }
     }
 
     protected void addDisplayText2 (List<ITextComponent> textList) {
         super.addDisplayText(textList);
-        textList.add(new TextComponentTranslation("处理完毕：%s",IDResolve));
+        textList.add(new TextComponentTranslation("》处理完毕：%s",IDResolve));
         if(IDResolve!=0) {
-            textList.add(new TextComponentTranslation("矿脉总数：%s", Asteroid.getRateById(IDResolve)));
-            textList.add(new TextComponentTranslation("矿脉距离：%s", Asteroid.TimeToConsume(IDResolve)));
+            textList.add(new TextComponentTranslation("=矿脉总数：%s", Asteroid.getRateById(IDResolve)));
+            textList.add(new TextComponentTranslation("=矿脉距离：%s", Asteroid.TimeToConsume(IDResolve)));
             for (int i = 0; i < 6; i++) {
-                textList.add(new TextComponentTranslation(">>%s %s", Asteroid.getMaterialByID(IDResolve, i).getLocalizedName(), Asteroid.getOreNumByID(IDResolve, i)));
+                textList.add(new TextComponentTranslation("*- %s %s", Asteroid.getMaterialByID(IDResolve, i).getLocalizedName(), Asteroid.getOreNumByID(IDResolve, i)));
             }
         }
     }
@@ -171,9 +179,9 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
                 .addCustom(tl -> {
                     if (isStructureFormed()) {
                         tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "能源管理："));
-                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "能量存储上限： %s", this.energyContainer.getEnergyCapacity()));
-                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "能量缓存上限： %s", this.energyContainer.getEnergyStored()));
-                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "能量输入速率： %s", this.energyContainer.getInputPerSec()));
+                        tl.add(new TextComponentTranslation("能量存储上限： %s", this.energyContainer.getEnergyCapacity()));
+                        tl.add(new TextComponentTranslation("能量缓存上限： %s", this.energyContainer.getEnergyStored()));
+                        tl.add(new TextComponentTranslation("能量输入速率： %s", this.energyContainer.getInputPerSec()));
                     }
                 });
     }
@@ -185,10 +193,11 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
                         tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "解析管理："));
                         tl.add(new TextComponentTranslation("算力提供：%s", requestCWUt));
                         tl.add(new TextComponentTranslation("最大通量：%s", computationProvider.getMaxCWUt()));
-                        if(requestCWUt>=1024) tl.add(new TextComponentTranslation("解析速率：%s", 32));
-                        else if(requestCWUt>=896) tl.add(new TextComponentTranslation("解析速率：%s", 16));
-                        else if(requestCWUt>=640) tl.add(new TextComponentTranslation("解析速率：%s", 8));
-                        else if(requestCWUt>=512) tl.add(new TextComponentTranslation("解析速率：%s", 6));
+                        if(requestCWUt>=1024) tl.add(new TextComponentTranslation("解析速率：%s", 36));
+                        else if(requestCWUt>=896) tl.add(new TextComponentTranslation("解析速率：%s", 24));
+                        else if(requestCWUt>=768) tl.add(new TextComponentTranslation("解析速率：%s", 16));
+                        else if(requestCWUt>=640) tl.add(new TextComponentTranslation("解析速率：%s", 12));
+                        else if(requestCWUt>=512) tl.add(new TextComponentTranslation("解析速率：%s", 8));
                         else if(requestCWUt>=384) tl.add(new TextComponentTranslation("解析速率：%s", 4));
                         else if(requestCWUt>=256) tl.add(new TextComponentTranslation("解析速率：%s", 2));
                         else if(requestCWUt>=128) tl.add(new TextComponentTranslation("解析速率：%s", 1));
@@ -199,11 +208,11 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
     protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
         ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 380, 240);
         //1号 X=0
-        builder.image(4, 4, 96, 160, GuiTextures.DISPLAY);
+        builder.image(4, 4, 100, 160, GuiTextures.DISPLAY);
         builder.widget((new AdvancedTextWidget(8, 8, this::addDisplayText1, 16777215)).setMaxWidthLimit(100).setClickHandler(this::handleDisplayClick));
 
         //能源监控
-        builder.image(4, 164, 96, 76, GuiTextures.DISPLAY);
+        builder.image(4, 164, 100, 72, GuiTextures.DISPLAY);
         builder.widget((new AdvancedTextWidget(8, 168, this::addTotal1, 16777215)).setMaxWidthLimit(100).setClickHandler(this::handleDisplayClick));
 
         //2号 X=100
@@ -211,27 +220,27 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
         builder.widget((new AdvancedTextWidget(108, 8, this::addDisplayText2, 16777215)).setMaxWidthLimit(180).setClickHandler(this::handleDisplayClick));
 
         //算力监控
-        builder.image(104, 164, 96, 76, GuiTextures.DISPLAY);
+        builder.image(104, 164, 96, 72, GuiTextures.DISPLAY);
         builder.widget((new AdvancedTextWidget(108, 168, this::addTotal2, 16777215)).setMaxWidthLimit(100).setClickHandler(this::handleDisplayClick));
 
         //3号 X=200
         builder.image(200, 4, 176, 131, GuiTextures.DISPLAY);
-        builder.widget((new AdvancedTextWidget(208, 8, this::addDisplayText, 16777215)).setMaxWidthLimit(100).setClickHandler(this::handleDisplayClick));
+        builder.widget((new AdvancedTextWidget(204, 8, this::addDisplayText, 16777215)).setMaxWidthLimit(180).setClickHandler(this::handleDisplayClick));
         //按钮
-        builder.widget(new ClickButtonWidget(200, 135, 60, 20, "删除待处理", this::DeletToDeal));
-        builder.widget(new ClickButtonWidget(260, 135, 60, 20, "删除已处理", this::DeletToResolve));
+        builder.widget(new ClickButtonWidget(200, 137, 60, 20, "删除待处理", this::DeletToDeal));
+        builder.widget(new ClickButtonWidget(260, 137, 60, 20, "删除已处理", this::DeletToResolve));
 
         builder.widget(new TextFieldWidget2(220, 80, 40, 20, this::getBlankName, this::addToWhiteList).setMaxLength(25).setAllowedChars(TextFieldWidget2.LETTERS));
         builder.widget(new TextFieldWidget2(220, 100, 40, 20, this::getBlankRemoveName, this::removeFromWhitelist).setMaxLength(25).setAllowedChars(TextFieldWidget2.LETTERS));
 
         //clear or retrieve list //TODO change the texture of this
-        builder.widget(new ClickButtonWidget(325, 135, 20, 20, "", data -> printWhitelistOrClear(data, entityPlayer)).setButtonTexture(GuiTextures.BUTTON_CLEAR_GRID).setTooltipText("gtqtspace.gui.mining_module.print_whitelist_or_clear"));
+        builder.widget(new ClickButtonWidget(325, 136, 20, 20, "", data -> printWhitelistOrClear(data, entityPlayer)).setButtonTexture(GuiTextures.BUTTON_CLEAR_GRID).setTooltipText("gtqtspace.gui.mining_module.print_whitelist_or_clear"));
 
         //whitelist or blacklist
-        builder.widget(new ImageCycleButtonWidget(350, 135, 20, 20, GTQTSTextures.BUTTON_WHITE_BLACK_LIST, this::getWhitelistMode, this::setWhitelistMode).setTooltipHoverString("gtqtspace.gui.mining_module.change_whitelist_mode"));
+        builder.widget(new ImageCycleButtonWidget(350, 136, 20, 20, GTQTSTextures.BUTTON_WHITE_BLACK_LIST, this::getWhitelistMode, this::setWhitelistMode).setTooltipHoverString("gtqtspace.gui.mining_module.change_whitelist_mode"));
 
 
-        builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 200, 160);
+        builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 204, 160);
         return builder;
     }
     private void printWhitelistOrClear(Widget.ClickData data, EntityPlayer player) {
@@ -314,15 +323,16 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
                 totalTime=Asteroid.TimeToSolve(IDtoDeal);
                 requestCWUt=computationProvider.requestCWUt(1024, false);
 
-                if(requestCWUt>=1024) time+=32;
-                else if(requestCWUt>=896) time+=16;
-                else if(requestCWUt>=640) time+=8;
-                else if(requestCWUt>=512) time+=6;
+                if(requestCWUt>=1024) time+=36;
+                else if(requestCWUt>=896) time+=24;
+                else if(requestCWUt>=768) time+=16;
+                else if(requestCWUt>=640) time+=12;
+                else if(requestCWUt>=512) time+=8;
                 else if(requestCWUt>=384) time+=4;
                 else if(requestCWUt>=256) time+=2;
                 else if(requestCWUt>=128) time++;
 
-                if(time==totalTime&&totalTime!=0)
+                if(time>totalTime&&totalTime!=0)
                 {
                     totalTime=0;
                     IDResolve=IDtoDeal;
@@ -333,31 +343,36 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
         }
     }
     public int processID(int ID) {
+        if(!isWhitelist&&whitelist==null)return ID;
 
         boolean foundInWhitelist = false;
         boolean foundInBlacklist = false;
 
         for (int n = 0; n <= 5; n++) {
-            String oreName = Asteroid.getOreNameByID(ID, n);
+            String oreName = Asteroid.getMaterialByID(ID, n).toString();
 
             if (isWhitelist) {
-                if (whitelist.contains(oreName)) {
-                    foundInWhitelist = true;
-                    break;
+                for (String string : this.whitelist) {
+                    if (string.equals(oreName)) {
+                        foundInWhitelist = true;
+                        break;
+                    }
                 }
             } else {
-                if (!whitelist.contains(oreName)) {
-                    foundInBlacklist = true;
-                    break;
+                for (String string : this.whitelist) {
+                    if (string.equals(oreName)) {
+                        foundInBlacklist = true;
+                        break;
+                    }
                 }
             }
         }
 
         if ((isWhitelist && !foundInWhitelist) || (!isWhitelist && foundInBlacklist)) {
-            IDtoDeal = 0;
+            return 0;
         }
 
-        return IDtoDeal;
+        return ID;
     }
     public AsteroidController getMteFromPos(BlockPos pos)
     {
