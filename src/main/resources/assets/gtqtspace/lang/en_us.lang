@@ -238,5 +238,20 @@ tile.gtqtspace_elevator_casing_tiered.elevator_motor_2.name=Space Elevator Motor
 tile.gtqtspace_elevator_casing_tiered.elevator_motor_3.name=Space Elevator Motor MK-III
 tile.gtqtspace_elevator_casing_tiered.elevator_motor_4.name=Space Elevator Motor MK-IV
 tile.gtqtspace_elevator_casing_tiered.elevator_motor_5.name=Space Elevator Motor MK-V
+# 太阳能板相关
+gtqtspace.machine.solar_plate.name=太阳能板单元
+gtqtspace.machine.solar_plate_controller.name=太阳能板控制器
 
-itemGroup.gtqtspace_core=GTQT| Aerospace
+# 小行星相关
+gtqtspace.machine.asteroid_controller.name=小行星系统集成控制器
+gtqtspace.machine.asteroid_solve.name=解析元计算机
+gtqtspace.machine.asteroid_search.name=小行星探测阵列
+gtqtspace.machine.asteroid_drill.name=小行星开采管理器
+
+# 码头相关
+gtqtspace.machine.dock_manager.name=太空船坞管理器
+gtqtspace.machine.dock_builder.name=太空造船厂
+gtqtspace.machine.dock.name=太空船坞单元
+#
+itemGroup.gtqtspace_core=GTQT|Aerospace
+itemGroup.gtqtspace_core_ship=GTQT|SpaceCraft

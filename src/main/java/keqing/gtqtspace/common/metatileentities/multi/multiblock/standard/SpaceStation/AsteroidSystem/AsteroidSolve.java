@@ -18,26 +18,19 @@ import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.MultiblockDisplayText;
-import gregtech.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
-import gregtech.api.unification.material.Materials;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
-import keqing.gtqtcore.api.GTQTValue;
-import keqing.gtqtcore.api.blocks.impl.WrappedIntTired;
-import keqing.gtqtcore.api.utils.GTQTUtil;
 import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
-import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,7 +39,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.Constants;
@@ -65,7 +57,7 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
     private IOpticalComputationProvider computationProvider;
     int requestCWUt;
     private List<String> whitelist = new ArrayList<>();
-    private boolean isWhitelist = true;
+    private boolean isWhitelist = false;
     int totalTime;
     public boolean setIDtoDeal(int ID)
     {
@@ -154,10 +146,10 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
         super.addDisplayText(textList);
         textList.add(new TextComponentTranslation("》正在处理：%s", IDtoDeal));
         if(IDtoDeal!=0) {
-            textList.add(new TextComponentTranslation("=矿脉总数：%s", Asteroid.getRateById(IDtoDeal)));
-            textList.add(new TextComponentTranslation("=矿脉距离：%s", Asteroid.TimeToConsume(IDtoDeal)));
+            textList.add(new TextComponentTranslation("=矿脉总数：%s", AsteroidUtils.getRateById(IDtoDeal)));
+            textList.add(new TextComponentTranslation("=矿脉距离：%s", AsteroidUtils.TimeToConsume(IDtoDeal)));
             for (int i = 0; i < 6; i++) {
-                textList.add(new TextComponentTranslation("*- %s %s", Asteroid.getMaterialByID(IDtoDeal, i).getLocalizedName(), Asteroid.getOreNumByID(IDtoDeal, i)));
+                textList.add(new TextComponentTranslation("*- %s %s", AsteroidUtils.getMaterialByID(IDtoDeal, i).getLocalizedName(), AsteroidUtils.getOreNumByID(IDtoDeal, i)));
             }
         }
     }
@@ -166,10 +158,10 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
         super.addDisplayText(textList);
         textList.add(new TextComponentTranslation("》处理完毕：%s",IDResolve));
         if(IDResolve!=0) {
-            textList.add(new TextComponentTranslation("=矿脉总数：%s", Asteroid.getRateById(IDResolve)));
-            textList.add(new TextComponentTranslation("=矿脉距离：%s", Asteroid.TimeToConsume(IDResolve)));
+            textList.add(new TextComponentTranslation("=矿脉总数：%s", AsteroidUtils.getRateById(IDResolve)));
+            textList.add(new TextComponentTranslation("=矿脉距离：%s", AsteroidUtils.TimeToConsume(IDResolve)));
             for (int i = 0; i < 6; i++) {
-                textList.add(new TextComponentTranslation("*- %s %s", Asteroid.getMaterialByID(IDResolve, i).getLocalizedName(), Asteroid.getOreNumByID(IDResolve, i)));
+                textList.add(new TextComponentTranslation("*- %s %s", AsteroidUtils.getMaterialByID(IDResolve, i).getLocalizedName(), AsteroidUtils.getOreNumByID(IDResolve, i)));
             }
         }
     }
@@ -320,7 +312,7 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
             }
             if(IDResolve==0&&IDtoDeal!=0)
             {
-                totalTime=Asteroid.TimeToSolve(IDtoDeal);
+                totalTime= AsteroidUtils.TimeToSolve(IDtoDeal);
                 requestCWUt=computationProvider.requestCWUt(1024, false);
 
                 if(requestCWUt>=1024) time+=36;
@@ -349,7 +341,7 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
         boolean foundInBlacklist = false;
 
         for (int n = 0; n <= 5; n++) {
-            String oreName = Asteroid.getMaterialByID(ID, n).toString();
+            String oreName = AsteroidUtils.getMaterialByID(ID, n).toString();
 
             if (isWhitelist) {
                 for (String string : this.whitelist) {

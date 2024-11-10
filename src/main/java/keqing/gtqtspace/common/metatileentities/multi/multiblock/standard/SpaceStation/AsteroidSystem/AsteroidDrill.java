@@ -15,7 +15,6 @@ import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.MultiblockDisplayText;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
-import gregtech.api.unification.material.Material;
 import gregtech.api.util.GTTransferUtils;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.TextComponentUtil;
@@ -44,8 +43,6 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static gregtech.api.GTValues.VA;
 
 public class AsteroidDrill extends MetaTileEntityBaseWithControl {
     int[] IDtoDeal = new int[]{0, 0, 0, 0,0,0,0,0};
@@ -143,10 +140,10 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
         builder.widget((new AdvancedTextWidget(204, 4, this::addDisplayText, 16777215)).setMaxWidthLimit(180).setClickHandler(this::handleDisplayClick));
 
         //按钮
-        builder.widget(new ClickButtonWidget(200, 135, 40, 20, "自动分配", data ->autoTrans=true).setTooltipText("由系统自动将待处理的项目分配给空闲船坞"));
-        builder.widget(new ClickButtonWidget(240, 135, 40, 20, "手动均分", data ->autoTrans=false).setTooltipText("手动分配项目，需要指定对应解析元与船坞"));
-        builder.widget(new ClickButtonWidget(280, 135, 40, 20, "分配项目", this::Trans).setTooltipText("选定完毕对应解析元与船坞后进行项目分配"));
-        builder.widget(new ClickButtonWidget(320, 135, 40, 20, "删除目标", this::delet).setTooltipText("删除对应的解析元"));
+        builder.widget(new ClickButtonWidget(200, 137, 40, 20, "自动分配", data ->autoTrans=true).setTooltipText("由系统自动将待处理的项目分配给空闲船坞"));
+        builder.widget(new ClickButtonWidget(240, 137, 40, 20, "手动均分", data ->autoTrans=false).setTooltipText("手动分配项目，需要指定对应解析元与船坞"));
+        builder.widget(new ClickButtonWidget(280, 137, 40, 20, "分配项目", this::Trans).setTooltipText("选定完毕对应解析元与船坞后进行项目分配"));
+        builder.widget(new ClickButtonWidget(320, 137, 40, 20, "删除目标", this::delet).setTooltipText("删除对应的解析元"));
 
 
         builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 200, 160);
@@ -169,7 +166,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[0]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[0])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[0])));
                 });
     }
     protected void addInfoA2(List<ITextComponent> textList) {
@@ -177,7 +174,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[1]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[1])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[1])));
                 });
     }
     protected void addInfoA3(List<ITextComponent> textList) {
@@ -185,7 +182,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[2]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[2])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[2])));
                 });
     }
     protected void addInfoA4(List<ITextComponent> textList) {
@@ -193,7 +190,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[3]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[3])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[3])));
                 });
     }
     protected void addInfoA5(List<ITextComponent> textList) {
@@ -201,7 +198,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[4]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[4])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[4])));
                 });
     }
     protected void addInfoA6(List<ITextComponent> textList) {
@@ -209,7 +206,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[5]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[5])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[5])));
                 });
     }
     protected void addInfoA7(List<ITextComponent> textList) {
@@ -217,7 +214,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[6]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[6])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[6])));
                 });
     }
     protected void addInfoA8(List<ITextComponent> textList) {
@@ -225,7 +222,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
                 .addCustom(tl -> {
                     tl.add(TextComponentUtil.translationWithColor(TextFormatting.GOLD, ">>解析元：%s",IDtoDeal[7]));
-                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s",Asteroid.getRateById(IDtoDeal[7])));
+                    tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "总储量： %s", AsteroidUtils.getRateById(IDtoDeal[7])));
                 });
     }
 
@@ -267,12 +264,12 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
         super.addDisplayText(textList);
         textList.add(new TextComponentTranslation("开采管理器"));
         textList.add(new TextComponentTranslation("绑定状态：%s %s %s", ControlPos.getX(),ControlPos.getY(),ControlPos.getZ()));
-        textList.add(new TextComponentTranslation("已选定：%s %s", IDSwitch,DockSwitch));
+        textList.add(new TextComponentTranslation("已选定配对：解析元-%s 船坞-%s 自动分配-%s", IDSwitch,DockSwitch,autoTrans));
         textList.add(new TextComponentTranslation("正在预览待处理项目：%s",IDtoDeal[0]));
-        textList.add(new TextComponentTranslation("矿脉总数：%s 矿脉距离：%s", Asteroid.getRateById(IDtoDeal[IDSwitch]),Asteroid.TimeToConsume(IDtoDeal[IDSwitch])));
+        textList.add(new TextComponentTranslation("矿脉总数：%s 矿脉距离：%s", AsteroidUtils.getRateById(IDtoDeal[IDSwitch]), AsteroidUtils.TimeToConsume(IDtoDeal[IDSwitch])));
         if(IDtoDeal[IDSwitch]>100000&&IDtoDeal[IDSwitch]<1000000) {
             for (int i = 0; i < 6; i++) {
-                textList.add(new TextComponentTranslation("*- %s %s", Asteroid.getMaterialByID(IDtoDeal[IDSwitch], i).getLocalizedName(), Asteroid.getOreNumByID(IDtoDeal[IDSwitch], i)));
+                textList.add(new TextComponentTranslation("*- %s %s", AsteroidUtils.getMaterialByID(IDtoDeal[IDSwitch], i).getLocalizedName(), AsteroidUtils.getOreNumByID(IDtoDeal[IDSwitch], i)));
             }
         }
     }
@@ -320,6 +317,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 DockManagerList[DockListN][3]
         );
         if (checkSuitable(pos)) {
+            getMteFromPos(pos).setIDtoDeal(IDtoDeal[IDtoDealN]);
             IDtoDeal = IntArrayOperations.deleteAndAppendZero(IDtoDeal, IDtoDealN);
             return true;
         }

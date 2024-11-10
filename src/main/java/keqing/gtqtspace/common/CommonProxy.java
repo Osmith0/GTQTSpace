@@ -36,7 +36,12 @@ public class CommonProxy {
 			return GTQTSMetaItems.MINING_DRONE_MAX.getStackForm();
 		}
 	};
-
+	public static final CreativeTabs Ship_TAB = new CreativeTabs("gtqtspace_core_ship") {
+		@Override
+		public ItemStack createIcon() {
+			return GTQTSMetaItems.ENGIN_MODEL_I.getStackForm();
+		}
+	};
 	public void preLoad() {
 
 	}

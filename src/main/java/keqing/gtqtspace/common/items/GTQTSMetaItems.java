@@ -2,6 +2,8 @@ package keqing.gtqtspace.common.items;
 
 import gregtech.api.items.metaitem.MetaItem;
 import keqing.gtqtspace.GTQTSpace;
+import keqing.gtqtspace.common.CommonProxy;
+import keqing.gtqtspace.common.items.behaviors.ShipPart;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -61,6 +63,35 @@ public class GTQTSMetaItems {
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKIV;
 	public static MetaItem<?>.MetaValueItem SOLAR_PLATE_MKV;
 	public static MetaItem<?>.MetaValueItem POS_BINDING_CARD;
+
+	public static MetaItem<?>.MetaValueItem DRILL_SHIP;
+	public static MetaItem<?>.MetaValueItem TRANS_SHIP;
+
+	public static MetaItem<?>.MetaValueItem ENGIN_MODEL_I;
+	public static MetaItem<?>.MetaValueItem ENGIN_MODEL_II;
+	public static MetaItem<?>.MetaValueItem ENGIN_MODEL_III;
+	public static MetaItem<?>.MetaValueItem ENGIN_MODEL_IV;
+	public static MetaItem<?>.MetaValueItem ENGIN_MODEL_V;
+
+	public static MetaItem<?>.MetaValueItem GENERATOR_MODEL_I;
+	public static MetaItem<?>.MetaValueItem GENERATOR_MODEL_II;
+	public static MetaItem<?>.MetaValueItem GENERATOR_MODEL_III;
+	public static MetaItem<?>.MetaValueItem GENERATOR_MODEL_IV;
+	public static MetaItem<?>.MetaValueItem GENERATOR_MODEL_V;
+
+	public static MetaItem<?>.MetaValueItem COUNT_MODEL_I;
+	public static MetaItem<?>.MetaValueItem COUNT_MODEL_II;
+	public static MetaItem<?>.MetaValueItem COUNT_MODEL_III;
+	public static MetaItem<?>.MetaValueItem COUNT_MODEL_IV;
+	//public static MetaItem<?>.MetaValueItem COUNT_MODEL_V;
+
+	public static MetaItem<?>.MetaValueItem SENER_MODEL_I;
+	public static MetaItem<?>.MetaValueItem SENER_MODEL_II;
+	public static MetaItem<?>.MetaValueItem SENER_MODEL_III;
+	public static MetaItem<?>.MetaValueItem SENER_MODEL_IV;
+	//public static MetaItem<?>.MetaValueItem SENER_MODEL_V;
+
+
 	public static GTQTSMetaItem1 GTQTS_META_ITEM;
 
 

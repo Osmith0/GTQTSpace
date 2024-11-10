@@ -9,6 +9,9 @@ import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.MetaTi
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.MetaTileEntitySentryArray;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.SolarPlate.MetaTileEntitySolarPlate;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.SolarPlate.MetaTileEntitySolarPlateController;
+import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.SpaceDockSystem.Dock;
+import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.SpaceDockSystem.DockBuilder;
+import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.SpaceDockSystem.DockManager;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.MetaTileEntitySpaceElevator;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityAssemblerModule;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.elevator.elevatormodules.MetaTileEntityMiningModule;
@@ -35,6 +38,10 @@ public class GTQTSMetaTileEntities {
 	public static AsteroidSolve ASTEROID_SOLVE;
 	public static AsteroidSearch ASTEROID_SEARCH;
 	public static AsteroidDrill ASTEROID_DRILL;
+
+	public static DockManager DOCK_MANGER;
+	public static DockBuilder DOCK_BUILDER;
+	public static Dock DOCK;
 	///////////////////////////////////////////////////
 	public static MetaTileEntitySpaceElevator SPACE_ELEVATOR;
 	public static MetaTileEntityPumpingModule[] PUMP_MODULE = new MetaTileEntityPumpingModule[3];
@@ -49,6 +56,7 @@ public class GTQTSMetaTileEntities {
 		SATELLITE_ASSEMBLER = registerMetaTileEntity(5004, new MetaTileEntitySatelliteAssembler(gtqtspaceId("satellite_assembler")));
 		SENTRY_ARRAY = registerMetaTileEntity(5005, new MetaTileEntitySentryArray(gtqtspaceId("sentry_array")));
 		TRANSPORT = registerMetaTileEntity(5006, new MetaTileEntityCoreTower(gtqtspaceId("transport")));
+
 		SOLAR_PLATE = registerMetaTileEntity(5007, new MetaTileEntitySolarPlate(gtqtspaceId("solar_plate")));
 		SOLAR_PLATE_CONTROLLER = registerMetaTileEntity(5008, new MetaTileEntitySolarPlateController(gtqtspaceId("solar_plate_controller")));
 
@@ -56,6 +64,10 @@ public class GTQTSMetaTileEntities {
 		ASTEROID_SOLVE = registerMetaTileEntity(5021, new AsteroidSolve(gtqtspaceId("asteroid_solve")));
 		ASTEROID_SEARCH = registerMetaTileEntity(5022, new AsteroidSearch(gtqtspaceId("asteroid_search")));
 		ASTEROID_DRILL = registerMetaTileEntity(5023, new AsteroidDrill(gtqtspaceId("asteroid_drill")));
+
+		DOCK_MANGER = registerMetaTileEntity(5025, new DockManager(gtqtspaceId("dock_manager")));
+		DOCK_BUILDER = registerMetaTileEntity(5026, new DockBuilder(gtqtspaceId("dock_builder")));
+		DOCK = registerMetaTileEntity(5027, new Dock(gtqtspaceId("dock")));
 
 		SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevator(gtqtspaceId("space_elevator")));
 		PUMP_MODULE[0] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_1"), 6,1,2));

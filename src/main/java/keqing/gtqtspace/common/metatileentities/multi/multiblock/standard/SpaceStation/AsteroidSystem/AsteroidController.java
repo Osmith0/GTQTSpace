@@ -3,13 +3,19 @@ package keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.Space
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import gregtech.api.gui.GuiTextures;
+import gregtech.api.gui.ModularUI;
+import gregtech.api.gui.widgets.AdvancedTextWidget;
+import gregtech.api.gui.widgets.ClickButtonWidget;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
+import gregtech.api.metatileentity.multiblock.MultiblockDisplayText;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.util.GTTransferUtils;
+import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
@@ -18,6 +24,7 @@ import keqing.gtqtcore.common.items.GTQTMetaItems;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -25,6 +32,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -36,6 +44,8 @@ import java.util.List;
 public class AsteroidController extends MetaTileEntityBaseWithControl {
     int[] WaitToDeal = new int[]{0, 0, 0, 0};
     int[] WaitToDrill = new int[]{0, 0, 0, 0};
+    boolean autoDeal;
+    boolean autoDrill;
     @Override
     protected void addDisplayText(List<ITextComponent> textList) {
         super.addDisplayText(textList);
@@ -61,10 +71,116 @@ public class AsteroidController extends MetaTileEntityBaseWithControl {
             {0, 0, 0, 0},
             {0, 0, 0, 0}
     };
+    @Override
+    protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
+        ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 380, 240);
+        //代办项目预览
+        builder.image(4, 4, 76, 136, GuiTextures.DISPLAY);
+        builder.widget((new AdvancedTextWidget(8, 8, this::addWaitToDeal, 16777215)).setMaxWidthLimit(80).setClickHandler(this::handleDisplayClick));
+        //接入设备预览
+        builder.image(76, 4, 100, 136, GuiTextures.DISPLAY);
+        builder.widget((new AdvancedTextWidget(80, 8, this::addAsteroidSearchListView, 16777215)).setMaxWidthLimit(100).setClickHandler(this::handleDisplayClick));
+
+        builder.image(176, 4, 100, 136, GuiTextures.DISPLAY);
+        builder.widget((new AdvancedTextWidget(180, 8, this::addAsteroidSolveListView, 16777215)).setMaxWidthLimit(100).setClickHandler(this::handleDisplayClick));
+
+        builder.image(276, 4, 100, 136, GuiTextures.DISPLAY);
+        builder.widget((new AdvancedTextWidget(280, 8, this::addAsteroidDrillListView, 16777215)).setMaxWidthLimit(100).setClickHandler(this::handleDisplayClick));
+
+        //能源监控
+        builder.image(4, 140, 172, 96, GuiTextures.DISPLAY);
+        builder.widget((new AdvancedTextWidget(8, 144, this::addEnergyControl, 16777215)).setMaxWidthLimit(200).setClickHandler(this::handleDisplayClick));
+
+        builder.widget(new ClickButtonWidget(180, 160, 20, 20, "ADE", data ->autoDeal=!autoDeal).setTooltipText("自动分配解析"));
+
+        builder.widget(new ClickButtonWidget(180, 185, 20, 20, "ADR", data ->autoDrill=!autoDrill).setTooltipText("自动分配发配"));
+
+        builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 204, 160);
+        return builder;
+    }
+    protected void addAsteroidSearchListView(List<ITextComponent> textList) {
+        MultiblockDisplayText.builder(textList, isStructureFormed())
+                .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
+                .addCustom(tl -> {
+                    if (isStructureFormed()) {
+                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "观测器阵列："));
+                        for(int i=0;i<4;i++) {
+                            tl.add(new TextComponentTranslation("》阵列： %s", AsteroidSearchList[i][0] != 0));
+                            if (AsteroidSearchList[i][0] != 0)
+                                tl.add(new TextComponentTranslation("：%s %s %s", AsteroidSearchList[i][1], AsteroidSearchList[i][2], AsteroidSearchList[i][3]));
+                        }
+                    }
+                });
+    }
+    protected void addAsteroidSolveListView(List<ITextComponent> textList) {
+        MultiblockDisplayText.builder(textList, isStructureFormed())
+                .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
+                .addCustom(tl -> {
+                    if (isStructureFormed()) {
+                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "解析器阵列："));
+                        for(int i=0;i<4;i++) {
+                            tl.add(new TextComponentTranslation("》阵列： %s", AsteroidSolveList[i][0] != 0));
+                            if (AsteroidSolveList[i][0] != 0)
+                                tl.add(new TextComponentTranslation("：%s %s %s", AsteroidSolveList[i][1], AsteroidSolveList[i][2], AsteroidSolveList[i][3]));
+                        }
+                    }
+                });
+    }
+    protected void addAsteroidDrillListView(List<ITextComponent> textList) {
+        MultiblockDisplayText.builder(textList, isStructureFormed())
+                .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
+                .addCustom(tl -> {
+                    if (isStructureFormed()) {
+                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "处理器阵列："));
+                        for(int i=0;i<4;i++) {
+                            tl.add(new TextComponentTranslation("》阵列： %s", AsteroidDrillList[i][0] != 0));
+                            if (AsteroidDrillList[i][0] != 0)
+                                tl.add(new TextComponentTranslation("：%s %s %s", AsteroidDrillList[i][1], AsteroidDrillList[i][2], AsteroidDrillList[i][3]));
+                        }
+                    }
+                });
+    }
+    protected void addEnergyControl(List<ITextComponent> textList) {
+        MultiblockDisplayText.builder(textList, isStructureFormed())
+                .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
+                .addCustom(tl -> {
+                    if (isStructureFormed()) {
+                        tl.add(new TextComponentTranslation("中央集成控制器"));
+                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "能源管理："));
+                        tl.add(new TextComponentTranslation("能量存储上限： %s", this.energyContainer.getEnergyCapacity()));
+                        tl.add(new TextComponentTranslation("能量缓存上限： %s", this.energyContainer.getEnergyStored()));
+                        tl.add(new TextComponentTranslation("能量输入速率： %s", this.energyContainer.getInputPerSec()));
+                        tl.add(TextComponentUtil.translationWithColor(TextFormatting.GRAY, "操作管理："));
+                        tl.add(new TextComponentTranslation("自动分配解析： %s", autoDeal));
+                        tl.add(new TextComponentTranslation("自动分配发配： %s", autoDrill));
+                    }
+                });
+    }
+    protected void addWaitToDeal(List<ITextComponent> textList) {
+        MultiblockDisplayText.builder(textList, isStructureFormed())
+                .setWorkingStatus(true, isActive() && isWorkingEnabled()) // transform into two-state system for display
+                .addCustom(tl -> {
+                    if (isStructureFormed()) {
+                        tl.add(new TextComponentTranslation("待解析队列:"));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDeal[0]));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDeal[1]));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDeal[2]));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDeal[3]));
+                        tl.add(new TextComponentTranslation("待发配队列:"));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDrill[0]));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDrill[1]));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDrill[2]));
+                        tl.add(new TextComponentTranslation("队列：%s", WaitToDrill[3]));
+                    }
+                });
+    }
     public NBTTagCompound writeToNBT(NBTTagCompound data) {
         // 写入一维数组
         data.setIntArray("WaitToDeal", WaitToDeal);
         data.setIntArray("WaitToDrill", WaitToDrill);
+
+        data.setBoolean("autoDeal",autoDeal);
+        data.setBoolean("autoDrill",autoDrill);
 
         // 写入单个整数
         data.setInteger("x", x);
@@ -87,6 +203,8 @@ public class AsteroidController extends MetaTileEntityBaseWithControl {
         WaitToDeal = data.getIntArray("WaitToDeal");
         WaitToDrill = data.getIntArray("WaitToDrill");
 
+        autoDeal=data.getBoolean("autoDeal");
+        autoDrill=data.getBoolean("autoDrill");
         // 读取单个整数
         x = data.getInteger("x");
         y = data.getInteger("y");
@@ -250,8 +368,8 @@ public class AsteroidController extends MetaTileEntityBaseWithControl {
         //在这里完成：检查三个二维数组存入的坐标是否合法（及使用MachineCheck(int x, int y, int z)返回的值不为0），如果不合法则将这一列全部置为0
         checkAndResetInvalidCoordinates();
 
-        processWaitToDeal();
-        processWaitToDrill();
+        if(autoDeal)processWaitToDeal();
+        if(autoDrill)processWaitToDrill();
     }
 
     private void checkAndResetInvalidCoordinates() {
