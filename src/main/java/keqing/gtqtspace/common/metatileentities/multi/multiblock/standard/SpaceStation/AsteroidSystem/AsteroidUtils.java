@@ -27,8 +27,9 @@ public class AsteroidUtils {
     //铂系
     public static Material[]MaterialsPool5={Platinum,Palladium,Ruthenium,Rhodium,Iridium,Osmium,NetherQuartz,Plutonium239,Uranium235,Thorium};
     //镧系
-    public static Material[]MaterialsPool6={Lanthanum,Cerium,Praseodymium,Neodymium,Samarium,Europium,Gadolinium,Erbium,Lutetium,Naquadah};
-
+    public static Material[]MaterialsPool6={Lanthanum,Praseodymium,Cerium,Scandium,Europium,Gadolinium,Yttrium,Terbium,Dysprosium,Holmium,Erbium,Thulium,Ytterbium,Lutetium,Niobium,Palladium,Ruthenium,Naquadria,Praseodymium,Neodymium,Naquadah};
+    //流体类
+    public static Material[]MaterialsPoolFulid={Hydrogen,Helium,Oxygen,CarbonDioxide,CarbonMonoxide,Nitrogen,HydrogenSulfide,HydrochloricAcid,HydrofluoricAcid,SulfuricAcid,Methane,Ammonia};
     //丰度
     //矿种 100 000-999 999
 
@@ -218,6 +219,7 @@ public class AsteroidUtils {
      * @return 对应的材料池
      */
     public static Material[] getListByID(int ID) {
+        if(ID%7==0)return MaterialsPoolFulid;
         // 根据不同的ID范围返回不同的材料池
         if (ID >= 100000 && ID <= 133333) {
             return MaterialsPool6;
