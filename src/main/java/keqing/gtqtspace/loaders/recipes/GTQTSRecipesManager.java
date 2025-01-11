@@ -1,5 +1,6 @@
 package keqing.gtqtspace.loaders.recipes;
 
+import keqing.gtqtspace.loaders.GTQTSOreRecipeHandler;
 import keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes;
 import keqing.gtqtspace.loaders.recipes.categories.SpacePumpRecipes;
 import keqing.gtqtspace.loaders.recipes.machine.GTQTSSatelliteAssembler;
@@ -20,5 +21,6 @@ public class GTQTSRecipesManager {
 		SpacePumpRecipes.init();
 		SpaceMiningRecipes.init();
 		GTQTSSatelliteAssembler.init();
+		GTQTSOreRecipeHandler.init();
 	}
 }

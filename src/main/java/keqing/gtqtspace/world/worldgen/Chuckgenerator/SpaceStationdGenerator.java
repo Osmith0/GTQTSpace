@@ -1,4 +1,4 @@
-package keqing.gtqtspace.world;
+package keqing.gtqtspace.world.worldgen.Chuckgenerator;
 
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.math.BlockPos;

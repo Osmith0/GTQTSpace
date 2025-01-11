@@ -19,7 +19,7 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
+import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -84,7 +84,7 @@ public class MetaTileEntitySolarPlateController extends MultiblockWithDisplayBas
                 .aisle("CMC","CSC","CCC")
                 .where('M', abilities(MultiblockAbility.MAINTENANCE_HATCH))
                 .where('S', selfPredicate())
-                .where('C', states(GTQTSMetaBlocks.SOLAT_PLATE.getState(GTQTSSolarPlate.CasingType.SOLAR_PLATE_CASING))
+                .where('C', states(GTQTSMetaBlocks.multiblockCasing1.getState(GTQTSMultiblockCasing1.CasingType.SOLAR_PLATE_CASING))
                         .or(abilities(MultiblockAbility.OUTPUT_ENERGY).setMaxGlobalLimited(4)))
                 .build();
     }

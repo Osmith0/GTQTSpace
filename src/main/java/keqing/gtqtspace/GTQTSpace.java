@@ -8,7 +8,9 @@ import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
 
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
-import keqing.gtqtspace.world.SpaceStationdProvider;
+import keqing.gtqtspace.world.dims.SpaceStationdProvider;
+import keqing.gtqtspace.world.worldgen.GTQTSDimensionManager;
+import keqing.gtqtspace.world.worldgen.GTQTSDimensionType;
 import net.minecraft.block.Block;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
@@ -42,7 +44,7 @@ public class GTQTSpace {
 	)
 	public static CommonProxy proxy;
 	public static ClientProxy cproxy;
-	public static DimensionType type;
+
 	public static Block portal;
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IOException {
@@ -51,14 +53,15 @@ public class GTQTSpace {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-
-		type = DimensionType.register("SpaceStationWorld", "void", 50, SpaceStationdProvider.class, false);
-		DimensionManager.registerDimension(50, type);
 		GTQTSMetaTileEntities.initialization();
 		GTQTSLog.init(event.getModLog());
 		GTQTSMetaItems.initialization();
 		GTQTSMetaBlocks.init();
 		GTQTSAPI.init();
+
+		GTQTSDimensionType.init();
+		GTQTSDimensionManager.init();
+
 		proxy.preLoad();
 	}
 

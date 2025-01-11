@@ -6,19 +6,15 @@ import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.impl.EnergyContainerList;
-import gregtech.api.gui.GuiTextures;
-import gregtech.api.gui.resources.TextureArea;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
-import gregtech.api.metatileentity.multiblock.IProgressBarMultiblock;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.util.GTUtility;
-import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
@@ -27,13 +23,9 @@ import keqing.gtqtcore.api.GTQTValue;
 import keqing.gtqtcore.api.blocks.impl.WrappedIntTired;
 import keqing.gtqtcore.api.utils.GTQTUtil;
 import keqing.gtqtcore.client.textures.GTQTTextures;
-import keqing.gtqtcore.common.block.GTQTMetaBlocks;
-import keqing.gtqtcore.common.block.blocks.GTQTElectrobath;
-import keqing.gtqtspace.GTQTSpace;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
+import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
@@ -41,14 +33,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Random;
 
 import static gregtech.api.GTValues.*;
 import static keqing.gtqtspace.api.predicate.TiredTraceabilityPredicate.CP_SP_CASING;
@@ -106,7 +96,7 @@ public class MetaTileEntitySolarPlate extends MultiblockWithDisplayBase{
                 .aisle("CCXCC")
                 .where('X', selfPredicate())
                 .where('S', CP_SP_CASING.get())
-                .where('C', states(GTQTSMetaBlocks.SOLAT_PLATE.getState(GTQTSSolarPlate.CasingType.SOLAR_PLATE_CASING))
+                .where('C', states(GTQTSMetaBlocks.multiblockCasing1.getState(GTQTSMultiblockCasing1.CasingType.SOLAR_PLATE_CASING))
                         .or(abilities(MultiblockAbility.OUTPUT_ENERGY).setMaxGlobalLimited(1)))
                 .build();
     }

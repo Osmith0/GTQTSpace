@@ -1,4 +1,4 @@
-package keqing.gtqtspace.client;
+package keqing.gtqtspace.client.skyRender;
 
 import keqing.gtqtspace.GTQTSConfig;
 import keqing.gtqtspace.GTQTSpace;
@@ -15,10 +15,10 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
 
-public class SkyProviderOrbit extends IRenderHandler
+public class SkyProviderMoon extends IRenderHandler
 {
 
-    private static final ResourceLocation moonTexture = new ResourceLocation(GTQTSpace.MODID, "textures/gui/planets/moon.png");
+    private static final ResourceLocation earthTexture = new ResourceLocation(GTQTSpace.MODID, "textures/gui/planets/earth.png");
     private static final ResourceLocation sunTexture = new ResourceLocation(GTQTSpace.MODID, "textures/gui/planets/sun.png");
 
     private static final ResourceLocation barnardaloopTexture = new ResourceLocation(GTQTSpace.MODID, "textures/environment/background/barnardaloop.png");
@@ -36,21 +36,17 @@ public class SkyProviderOrbit extends IRenderHandler
     public static int glSkyList;
     public static int glSkyList2;
 
-    private final ResourceLocation planetToRender;
-    private final boolean renderMoon;
+    private final boolean renderEarth;
     private final boolean renderSun;
-    private final boolean renderStars;
     public float spinAngle = 0;
     public float spinDeltaPerTick = 0;
     private float prevPartialTicks = 0;
     private long prevTick;
 
-    public SkyProviderOrbit(ResourceLocation planet, boolean renderMoon, boolean renderSun,boolean renderStars)
+    public SkyProviderMoon(boolean renderMoon, boolean renderSun)
     {
-        this.planetToRender = planet;
-        this.renderMoon = renderMoon;
+        this.renderEarth = renderMoon;
         this.renderSun = renderSun;
-        this.renderStars=renderStars;
 
         if (!displayListsInitialized)
         {
@@ -66,14 +62,14 @@ public class SkyProviderOrbit extends IRenderHandler
             starGLCallList = GLAllocation.generateDisplayLists(3);
 
             GL11.glPushMatrix();
-            GL11.glNewList(SkyProviderOrbit.starGLCallList, GL11.GL_COMPILE);
+            GL11.glNewList(SkyProviderMoon.starGLCallList, GL11.GL_COMPILE);
             this.renderStars();
             GL11.glEndList();
             GL11.glPopMatrix();
             final Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder worldRenderer = tessellator.getBuffer();
-            SkyProviderOrbit.glSkyList = SkyProviderOrbit.starGLCallList + 1;
-            GL11.glNewList(SkyProviderOrbit.glSkyList, GL11.GL_COMPILE);
+            SkyProviderMoon.glSkyList = SkyProviderMoon.starGLCallList + 1;
+            GL11.glNewList(SkyProviderMoon.glSkyList, GL11.GL_COMPILE);
             final byte byte2 = 64;
             final int i = 256 / byte2 + 2;
             float f = 16F;
@@ -90,8 +86,8 @@ public class SkyProviderOrbit extends IRenderHandler
             }
 
             GL11.glEndList();
-            SkyProviderOrbit.glSkyList2 = SkyProviderOrbit.starGLCallList + 2;
-            GL11.glNewList(SkyProviderOrbit.glSkyList2, GL11.GL_COMPILE);
+            SkyProviderMoon.glSkyList2 = SkyProviderMoon.starGLCallList + 2;
+            GL11.glNewList(SkyProviderMoon.glSkyList2, GL11.GL_COMPILE);
             f = -16F;
             worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 
@@ -147,7 +143,7 @@ public class SkyProviderOrbit extends IRenderHandler
         GL11.glDepthMask(false);
         GL11.glEnable(GL11.GL_FOG);
         GL11.glColor3f(var3, var4, var5);
-        GL11.glCallList(SkyProviderOrbit.glSkyList);
+        GL11.glCallList(SkyProviderMoon.glSkyList);
         GL11.glDisable(GL11.GL_FOG);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_BLEND);
@@ -232,7 +228,7 @@ public class SkyProviderOrbit extends IRenderHandler
         // headroom for them to
         // look even brighter in outer dimensions (further from the sun)
         GL11.glColor4f(0.8F, 0.8F, 0.8F, 0.8F);
-        GL11.glCallList(SkyProviderOrbit.starGLCallList);
+        GL11.glCallList(SkyProviderMoon.starGLCallList);
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
@@ -293,7 +289,7 @@ public class SkyProviderOrbit extends IRenderHandler
             // 定义太阳本体的大小
             var12 = 28.0F;
             // 绑定太阳纹理，准备绘制太阳本体
-            this.minecraft.renderEngine.bindTexture(SkyProviderOrbit.sunTexture);
+            this.minecraft.renderEngine.bindTexture(SkyProviderMoon.sunTexture);
             // 开始绘制带有纹理的四边形，用于太阳本体
             worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldRenderer.pos(-var12*0.5, 100.0D, -var12*0.5).tex(0.0D, 0.0D).endVertex();
@@ -304,7 +300,7 @@ public class SkyProviderOrbit extends IRenderHandler
             var23.draw();
         }
         ///////////////////////////////月球生成///////////////////////////////
-        if (this.renderMoon)
+        if (this.renderEarth)
         {
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -321,7 +317,7 @@ public class SkyProviderOrbit extends IRenderHandler
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             var12 = 40.0F;
-            this.minecraft.renderEngine.bindTexture(SkyProviderOrbit.moonTexture);
+            this.minecraft.renderEngine.bindTexture(SkyProviderMoon.earthTexture);
             worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
             worldRenderer.pos(-var12*0.4, -100.0D, var12*0.4).tex(0, 0).endVertex();
@@ -333,34 +329,6 @@ public class SkyProviderOrbit extends IRenderHandler
 
         GL11.glPopMatrix();
         GL11.glDisable(GL11.GL_BLEND);
-        ///////////////////////////////地球生成///////////////////////////////
-        if (this.planetToRender != null)
-        {
-            GL11.glPushMatrix();
-            GL11.glTranslatef(0.0F, -var20 / 10, 0.0F);
-            float scale = 100 * (0.3F - var20 / 10000.0F);
-            scale = Math.max(scale, 0.2F);
-            GL11.glScalef(scale, 0.0F, scale);
-            GL11.glTranslatef(0.0F, -var20, 0.0F);
-            GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
-            this.minecraft.renderEngine.bindTexture(this.planetToRender);
-
-            var10 = 1.0F;
-            final float alpha = 0.5F;
-            GL11.glColor4f(Math.min(alpha, 1.0F), Math.min(alpha, 1.0F), Math.min(alpha, 1.0F), Math.min(alpha, 1.0F));
-            BufferBuilder worldRenderer = var23.getBuffer();
-            worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-            worldRenderer.pos(-var10*6, 0, var10*6).tex(0D, 1.0).endVertex();
-            worldRenderer.pos(var10*6, 0, var10*6).tex(1.0, 1.0).endVertex();
-            worldRenderer.pos(var10*6, 0, -var10*6).tex(1.0, 0D).endVertex();
-            worldRenderer.pos(-var10*6, 0, -var10*6).tex(0D, 0D).endVertex();
-            var23.draw();
-            GL11.glPopMatrix();
-        }
-
-
-
-
         /////////////////////////////////////////////////
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);

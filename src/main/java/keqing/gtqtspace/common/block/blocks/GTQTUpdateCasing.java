@@ -14,15 +14,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class GTQTSCasingA extends VariantBlock<GTQTSCasingA.CasingType> {
-	public GTQTSCasingA() {
+public class GTQTUpdateCasing extends VariantBlock<GTQTUpdateCasing.CoreType> {
+	public GTQTUpdateCasing() {
 		super(Material.IRON);
-		this.setTranslationKey("casing_a");
+		this.setTranslationKey("update_core");
 		this.setHardness(5.0F);
 		this.setResistance(10.0F);
 		this.setSoundType(SoundType.METAL);
 		this.setHarvestLevel("wrench", 4);
-		this.setDefaultState(this.getState(CasingType.TAZ_CASING));
+		this.setDefaultState(this.getState(CoreType.UPDATE_CORE_VENT));
 	}
 
 	public boolean canCreatureSpawn(@Nonnull IBlockState state,
@@ -32,22 +32,16 @@ public class GTQTSCasingA extends VariantBlock<GTQTSCasingA.CasingType> {
 		return false;
 	}
 
-	public enum CasingType implements IStringSerializable {
-		TAZ_CASING("taz_casing"),
-		TAZ_HEAT_VENT("taz_heat_vent"),
-
-		SAZ_CASING("saz_casing"),
-		SAZ_HEAT_VENT("saz_heat_vent"),
-
-		IAZ_CASING("iaz_casing"),
-		IAZ_HEAT_VENT("iaz_heat_vent"),
-
-		CAZ_CASING("caz_casing"),
-		CAZ_HEAT_VENT("caz_heat_vent");
+	public enum CoreType implements IStringSerializable {
+		UPDATE_CORE_VENT("update_core_vent"),
+		UPDATE_CORE_COLD("update_core_cold"),
+		UPDATE_CORE_HOT("update_core_hot"),
+		UPDATE_CORE_ELE("update_core_ele"),
+		UPDATE_CORE_ENG("update_core_eng");
 
 		private final String name;
 
-		CasingType(String name) {
+		CoreType(String name) {
 			this.name = name;
 		}
 

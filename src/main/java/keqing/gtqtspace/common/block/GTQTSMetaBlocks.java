@@ -1,10 +1,8 @@
 package keqing.gtqtspace.common.block;
 
 import gregtech.common.blocks.MetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSCasingA;
-import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
-import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
-import keqing.gtqtspace.common.block.blocks.GTQTUpdateCore;
+import keqing.gtqtcore.common.block.blocks.GTQTStoneVariantBlock;
+import keqing.gtqtspace.common.block.blocks.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -13,34 +11,50 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.EnumMap;
+
 public class GTQTSMetaBlocks {
-	public static GTQTSpaceElevator SPACE_ELEVATOR;
-	public static GTQTUpdateCore UPDATE_CORE;
-	public static GTQTSCasingA CASING_A;
-	public static GTQTSSolarPlate SOLAT_PLATE;
+	public static GTQTSpaceElevatorCasing spaceElevatorCasing;
+	public static GTQTUpdateCasing updateCasing;
+	public static GTQTSMultiblockCasing multiblockCasing;
+	public static GTQTSMultiblockCasing1 multiblockCasing1;
+	public static GTQTSMoonBlock moonBlock;
+
+	public static final EnumMap<GTQTSStoneVariantBlock.StoneVariant, GTQTSStoneVariantBlock> GTQTS_STONE_BLOCKS = new EnumMap<>(GTQTSStoneVariantBlock.StoneVariant.class);
 	private GTQTSMetaBlocks() {
 	}
 
 	public static void init() {
-		SPACE_ELEVATOR = new GTQTSpaceElevator();
-		SPACE_ELEVATOR.setRegistryName("space_elevator");
+		spaceElevatorCasing = new GTQTSpaceElevatorCasing();
+		spaceElevatorCasing.setRegistryName("space_elevator");
 
-		UPDATE_CORE = new GTQTUpdateCore();
-		UPDATE_CORE.setRegistryName("update_core");
+		updateCasing = new GTQTUpdateCasing();
+		updateCasing.setRegistryName("update_core");
 
-		CASING_A = new GTQTSCasingA();
-		CASING_A.setRegistryName("casing_a");
+		multiblockCasing = new GTQTSMultiblockCasing();
+		multiblockCasing.setRegistryName("multiblock_casing");
 
-		SOLAT_PLATE = new GTQTSSolarPlate();
-		SOLAT_PLATE.setRegistryName("solar_plate");
+		multiblockCasing1 = new GTQTSMultiblockCasing1();
+		multiblockCasing1.setRegistryName("multiblock_casing1");
+
+		moonBlock = new GTQTSMoonBlock();
+		moonBlock.setRegistryName("moon_block");
+
+		for (GTQTSStoneVariantBlock.StoneVariant shape : GTQTSStoneVariantBlock.StoneVariant.values()) {
+			GTQTS_STONE_BLOCKS.put(shape, new GTQTSStoneVariantBlock(shape));
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	public static void registerItemModels() {
-		registerItemModel(SPACE_ELEVATOR);
-		registerItemModel(UPDATE_CORE);
-		registerItemModel(CASING_A);
-		registerItemModel(SOLAT_PLATE);
+		registerItemModel(spaceElevatorCasing);
+		registerItemModel(updateCasing);
+		registerItemModel(multiblockCasing);
+		registerItemModel(multiblockCasing1);
+		registerItemModel(moonBlock);
+
+		for (GTQTSStoneVariantBlock block : GTQTS_STONE_BLOCKS.values())
+			registerItemModel(block);
 	}
 
 	@SideOnly(Side.CLIENT)

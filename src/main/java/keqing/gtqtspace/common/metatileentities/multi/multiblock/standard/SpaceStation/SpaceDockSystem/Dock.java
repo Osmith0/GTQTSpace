@@ -23,9 +23,7 @@ import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
-import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.AsteroidSystem.AsteroidController;
-import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.AsteroidSystem.AsteroidUtils;
+import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -167,7 +165,7 @@ public class Dock extends MetaTileEntityBaseWithControl {
                 .aisle("CMC","CSC","CCC")
                 .where('M', abilities(MultiblockAbility.MAINTENANCE_HATCH))
                 .where('S', selfPredicate())
-                .where('C', states(GTQTSMetaBlocks.SOLAT_PLATE.getState(GTQTSSolarPlate.CasingType.SOLAR_PLATE_CASING)))
+                .where('C', states(GTQTSMetaBlocks.multiblockCasing1.getState(GTQTSMultiblockCasing1.CasingType.SOLAR_PLATE_CASING)))
                 .build();
     }
     @Override

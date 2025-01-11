@@ -1,4 +1,5 @@
 package keqing.gtqtspace.common.block.blocks;
+
 import gregtech.api.block.VariantBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -9,18 +10,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-@ParametersAreNonnullByDefault
 
-public class GTQTSSolarPlate extends VariantBlock<GTQTSSolarPlate.CasingType> {
-    public GTQTSSolarPlate() {
+public class GTQTSMoonBlock extends VariantBlock<GTQTSMoonBlock.BlockType> {
+    public GTQTSMoonBlock() {
         super(Material.IRON);
-        this.setTranslationKey("solar_plate");
+        this.setTranslationKey("moon_block");
         this.setHardness(5.0F);
         this.setResistance(10.0F);
         this.setSoundType(SoundType.METAL);
         this.setHarvestLevel("wrench", 4);
-        this.setDefaultState(this.getState(CasingType.SOLAR_PLATE_CASING));
+        this.setDefaultState(this.getState(GTQTSMoonBlock.BlockType.MOON_TURF));
     }
 
     public boolean canCreatureSpawn(@Nonnull IBlockState state,
@@ -30,17 +29,13 @@ public class GTQTSSolarPlate extends VariantBlock<GTQTSSolarPlate.CasingType> {
         return false;
     }
 
-    public enum CasingType implements IStringSerializable {
-        SOLAR_PLATE_CASING("solar_plate_casing"),
-        SOLAR_PLATE_MKI("solar_plate_mki"),
-        SOLAR_PLATE_MKII("solar_plate_mkii"),
-        SOLAR_PLATE_MKIII("solar_plate_mkiii"),
-        SOLAR_PLATE_MKIV("solar_plate_mkiv"),
-        SOLAR_PLATE_MKV("solar_plate_mkv");
+    public enum BlockType implements IStringSerializable {
+        MOON_TURF("moon_turf"),
+        MOON_DIRT("moon_dirt");
 
         private final String name;
 
-        CasingType(String name) {
+        BlockType(String name) {
             this.name = name;
         }
 
@@ -51,3 +46,4 @@ public class GTQTSSolarPlate extends VariantBlock<GTQTSSolarPlate.CasingType> {
         }
     }
 }
+

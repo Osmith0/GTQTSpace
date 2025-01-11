@@ -14,8 +14,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class GTQTSpaceElevator extends VariantBlock<GTQTSpaceElevator.ElevatorCasingType> {
-	public GTQTSpaceElevator() {
+public class GTQTSpaceElevatorCasing extends VariantBlock<GTQTSpaceElevatorCasing.ElevatorCasingType> {
+	public GTQTSpaceElevatorCasing() {
 		super(Material.IRON);
 		this.setTranslationKey("space_elevator_casing");
 		this.setHardness(5.0F);

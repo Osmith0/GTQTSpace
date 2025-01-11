@@ -29,7 +29,7 @@ import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtcore.common.items.GTQTMetaItems;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
+import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.AsteroidSystem.AsteroidDrill;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.AsteroidSystem.AsteroidUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -347,7 +347,7 @@ public class DockManager extends MetaTileEntityBaseWithControl {
     @Nonnull
     @Override
     protected BlockPattern createStructurePattern() {
-        return FactoryBlockPattern.start().aisle("CCC", "CCC", "CCC").aisle("CCC", "CCC", "CCC").aisle("CMC", "CSC", "CCC").where('M', abilities(MultiblockAbility.MAINTENANCE_HATCH)).where('S', selfPredicate()).where('C', states(GTQTSMetaBlocks.SOLAT_PLATE.getState(GTQTSSolarPlate.CasingType.SOLAR_PLATE_CASING)).or(abilities(MultiblockAbility.EXPORT_ITEMS).setMaxGlobalLimited(2).setMinGlobalLimited(1)).or(abilities(MultiblockAbility.EXPORT_FLUIDS).setMaxGlobalLimited(2).setMinGlobalLimited(1)).or(abilities(MultiblockAbility.INPUT_ENERGY).setExactLimit(1))).build();
+        return FactoryBlockPattern.start().aisle("CCC", "CCC", "CCC").aisle("CCC", "CCC", "CCC").aisle("CMC", "CSC", "CCC").where('M', abilities(MultiblockAbility.MAINTENANCE_HATCH)).where('S', selfPredicate()).where('C', states(GTQTSMetaBlocks.multiblockCasing1.getState(GTQTSMultiblockCasing1.CasingType.SOLAR_PLATE_CASING)).or(abilities(MultiblockAbility.EXPORT_ITEMS).setMaxGlobalLimited(2).setMinGlobalLimited(1)).or(abilities(MultiblockAbility.EXPORT_FLUIDS).setMaxGlobalLimited(2).setMinGlobalLimited(1)).or(abilities(MultiblockAbility.INPUT_ENERGY).setExactLimit(1))).build();
     }
 
     @Override

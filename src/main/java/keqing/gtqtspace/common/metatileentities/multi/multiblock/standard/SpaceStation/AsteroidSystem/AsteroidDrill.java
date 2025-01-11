@@ -25,7 +25,7 @@ import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtcore.common.items.GTQTMetaItems;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
+import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.SpaceDockSystem.DockManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -484,7 +484,7 @@ public class AsteroidDrill extends MetaTileEntityBaseWithControl {
                 .aisle("CMC", "CSC", "CCC")
                 .where('M', abilities(MultiblockAbility.MAINTENANCE_HATCH))
                 .where('S', selfPredicate())
-                .where('C', states(GTQTSMetaBlocks.SOLAT_PLATE.getState(GTQTSSolarPlate.CasingType.SOLAR_PLATE_CASING))
+                .where('C', states(GTQTSMetaBlocks.multiblockCasing1.getState(GTQTSMultiblockCasing1.CasingType.SOLAR_PLATE_CASING))
                         .or(abilities(MultiblockAbility.IMPORT_ITEMS).setExactLimit(1))
                         .or(abilities(MultiblockAbility.EXPORT_ITEMS).setExactLimit(1))
                         .or(abilities(MultiblockAbility.INPUT_ENERGY).setExactLimit(1)))

@@ -30,7 +30,7 @@ import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSSolarPlate;
+import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -416,7 +416,7 @@ public class AsteroidSolve extends MetaTileEntityBaseWithControl implements IOpt
                 .where('M', abilities(MultiblockAbility.MAINTENANCE_HATCH))
                 .where('S', selfPredicate())
                 .where('X', abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION))
-                .where('C', states(GTQTSMetaBlocks.SOLAT_PLATE.getState(GTQTSSolarPlate.CasingType.SOLAR_PLATE_CASING))
+                .where('C', states(GTQTSMetaBlocks.multiblockCasing1.getState(GTQTSMultiblockCasing1.CasingType.SOLAR_PLATE_CASING))
                         .or(abilities(MultiblockAbility.INPUT_ENERGY).setExactLimit(1)))
                 .build();
     }

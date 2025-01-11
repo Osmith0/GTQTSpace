@@ -6,6 +6,7 @@ import keqing.gtqtspace.api.unifications.GTQTSpaceMaterials;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static gregtech.api.unification.material.info.MaterialFlags.GENERATE_SMALL_GEAR;
 import static gregtech.api.unification.material.info.MaterialIconSet.METALLIC;
+import static gregtech.api.unification.material.info.MaterialIconSet.ROUGH;
 import static gregtech.api.util.GTUtility.gregtechId;
 
 public class FirstDegreeMaterials {
@@ -35,6 +36,11 @@ public class FirstDegreeMaterials {
 				.ingot().dust().ore()
 				.color(0xFF7256).iconSet(METALLIC)
 				.flags(GENERATE_PLATE, GENERATE_DENSE, GENERATE_DOUBLE_PLATE, GENERATE_ROD, GENERATE_LONG_ROD, GENERATE_RING, GENERATE_ROUND, GENERATE_BOLT_SCREW, GENERATE_FRAME, GENERATE_GEAR, GENERATE_SMALL_GEAR)
+				.build();
+
+		GTQTSpaceMaterials.MoonStone= new Material.Builder(getMaterialsId(), gregtechId("moon"))
+				.dust()
+				.color(0xFF7256).iconSet(ROUGH)
 				.build();
 	}
 }

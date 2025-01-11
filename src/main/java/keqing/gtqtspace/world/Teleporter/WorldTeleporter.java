@@ -1,23 +1,12 @@
-package keqing.gtqtspace.world;
+package keqing.gtqtspace.world.Teleporter;
 
-import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
-import gregtech.api.util.GTUtility;
-import keqing.gtqtspace.GTQTSpace;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static keqing.gtqtspace.GTQTSpace.portal;
-import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.TRANSPORT;
 
 public class WorldTeleporter extends Teleporter {
 

@@ -13,12 +13,11 @@ import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
-import gregtech.client.utils.TooltipHelper;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
+import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevatorCasing;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -97,7 +96,7 @@ public abstract class MetaTileEntityModuleBase extends MultiblockWithDisplayBase
                 .aisle("C","C","C","C","C")
                 .aisle("C","C","C","S","C")
                 .where('S', selfPredicate())
-                .where('C', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                .where('C', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING))
                         .or(abilities().setPreviewCount(2).setMaxGlobalLimited(4)))
                 .build();
     }

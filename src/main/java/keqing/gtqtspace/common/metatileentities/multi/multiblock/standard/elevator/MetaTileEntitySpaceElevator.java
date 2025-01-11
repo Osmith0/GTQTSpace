@@ -24,7 +24,6 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
-import gregtech.api.util.Mods;
 import gregtech.api.util.RelativeDirection;
 import gregtech.api.util.TextComponentUtil;
 import gregtech.client.renderer.ICubeRenderer;
@@ -38,7 +37,6 @@ import gregtech.client.utils.IBloomEffect;
 import gregtech.client.utils.RenderBufferHelper;
 import gregtech.common.ConfigHolder;
 import keqing.gtqtcore.api.blocks.impl.WrappedIntTired;
-import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.star.MetaTileEntityDimensionallyBiomimeticFactory;
 import keqing.gtqtspace.GTQTSConfig;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
@@ -46,8 +44,8 @@ import keqing.gtqtspace.api.predicate.TiredTraceabilityPredicate;
 import keqing.gtqtspace.api.utils.GTQTSUtil;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
-import keqing.gtqtspace.world.WorldTeleporter;
+import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevatorCasing;
+import keqing.gtqtspace.world.Teleporter.WorldTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -71,7 +69,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
@@ -84,7 +81,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.util.RelativeDirection.*;
 import static net.minecraft.util.EnumFacing.Axis.*;
-import static net.minecraft.util.EnumFacing.Axis.Z;
 
 public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase implements ISpaceElevatorProvider, IBloomEffect, IFastRenderMetaTileEntity {
     protected IOpticalComputationProvider computationProvider;
@@ -184,18 +180,18 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                     .where(' ', any())
                     .where('-', air())
                     .where('~', selfPredicate())
-                    .where('D', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)))
-                    .where('F', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.INTERNAL_STRUCTURE)))
-                    .where('E', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.SUPPORT_STRUCTURE)))
-                    .where('A', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.FLOOR)))
-                    .where('B', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.CABLE_CASING)))
+                    .where('D', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING)))
+                    .where('F', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.INTERNAL_STRUCTURE)))
+                    .where('E', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.SUPPORT_STRUCTURE)))
+                    .where('A', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.FLOOR)))
+                    .where('B', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.CABLE_CASING)))
                     .where('H', frames(Naquadah))
-                    .where('X', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                    .where('X', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING))
                             .or(abilities(MultiblockAbility.INPUT_ENERGY, MultiblockAbility.INPUT_LASER).setExactLimit(1))
                             .or(abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1)))
                     .where('C', TiredTraceabilityPredicate.CP_SE_CASING.get())
                     .where('I', modulePredicate())
-                    .where('V', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                    .where('V', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING))
                             .or(abilities(MultiblockAbility.IMPORT_ITEMS,MultiblockAbility.IMPORT_FLUIDS,MultiblockAbility.EXPORT_FLUIDS,MultiblockAbility.EXPORT_ITEMS).setPreviewCount(0)))
                     .build();
         }
@@ -251,18 +247,18 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
                     .where(' ', any())
                     .where('-', air())
                     .where('~', selfPredicate())
-                    .where('D', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)))
-                    .where('F', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.INTERNAL_STRUCTURE)))
-                    .where('E', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.SUPPORT_STRUCTURE)))
-                    .where('A', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.FLOOR)))
-                    .where('B', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.CABLE_CASING)))
+                    .where('D', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING)))
+                    .where('F', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.INTERNAL_STRUCTURE)))
+                    .where('E', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.SUPPORT_STRUCTURE)))
+                    .where('A', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.FLOOR)))
+                    .where('B', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.CABLE_CASING)))
                     .where('H', frames(Naquadah))
-                    .where('X', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING))
+                    .where('X', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING))
                             .or(abilities(MultiblockAbility.INPUT_ENERGY, MultiblockAbility.INPUT_LASER).setExactLimit(1))
                             .or(abilities(MultiblockAbility.COMPUTATION_DATA_RECEPTION).setExactLimit(1)))
                     .where('C', TiredTraceabilityPredicate.CP_SE_CASING.get())
                     .where('I', modulePredicate())
-                    .where('V', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities(MultiblockAbility.IMPORT_ITEMS,MultiblockAbility.IMPORT_FLUIDS,MultiblockAbility.EXPORT_FLUIDS,MultiblockAbility.EXPORT_ITEMS).setPreviewCount(0)))
+                    .where('V', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING)).or(abilities(MultiblockAbility.IMPORT_ITEMS,MultiblockAbility.IMPORT_FLUIDS,MultiblockAbility.EXPORT_FLUIDS,MultiblockAbility.EXPORT_ITEMS).setPreviewCount(0)))
                     .build();
         }
     }
@@ -338,9 +334,9 @@ public class MetaTileEntitySpaceElevator extends MultiblockWithDisplayBase imple
         return new TraceabilityPredicate(blockWorldState -> {
             IBlockState blockState = blockWorldState.getBlockState();
             Block block = blockState.getBlock();
-            if(block instanceof GTQTSpaceElevator) {
-                GTQTSpaceElevator.ElevatorCasingType casingType = ((GTQTSpaceElevator) blockState.getBlock()).getState(blockState);
-                if(casingType == GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING) return true;
+            if(block instanceof GTQTSpaceElevatorCasing) {
+                GTQTSpaceElevatorCasing.ElevatorCasingType casingType = ((GTQTSpaceElevatorCasing) blockState.getBlock()).getState(blockState);
+                if(casingType == GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING) return true;
             }
 
             TileEntity tileEntity = blockWorldState.getTileEntity();

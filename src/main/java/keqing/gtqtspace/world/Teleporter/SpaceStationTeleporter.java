@@ -1,4 +1,4 @@
-package keqing.gtqtspace.world;
+package keqing.gtqtspace.world.Teleporter;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;

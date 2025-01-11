@@ -1,37 +1,39 @@
-package keqing.gtqtspace.world;
+package keqing.gtqtspace.world.dims;
 
 import keqing.gtqtspace.GTQTSpace;
-import keqing.gtqtspace.client.SkyProviderOrbit;
+import keqing.gtqtspace.client.skyRender.SkyProviderOrbit;
+import keqing.gtqtspace.world.worldgen.Chuckgenerator.SpaceStationdGenerator;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraftforge.client.CloudRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
+import static keqing.gtqtspace.world.worldgen.GTQTSDimensionType.SPACE_STATION_TYPE;
+
 public class SpaceStationdProvider extends WorldProvider {
     @Override
     public DimensionType getDimensionType() {
-        return GTQTSpace.type;
+        return SPACE_STATION_TYPE;
     }
 
     @Override
     public IChunkGenerator createChunkGenerator() {
         return new SpaceStationdGenerator(world);
     }
+
     @SideOnly(Side.CLIENT)
-    public float getCloudHeight()
-    {
+    public float getCloudHeight() {
         return -50;
     }
+
     @Override
-    public boolean canRespawnHere()
-    {
+    public boolean canRespawnHere() {
         return false;
     }
 
@@ -44,6 +46,7 @@ public class SpaceStationdProvider extends WorldProvider {
     public Vec3d getSkyColor(Entity cameraEntity, float partialTicks) {
         return new Vec3d(0, 0, 0);
     }
+
     @Override
     public long getWorldTime() {
 
@@ -55,16 +58,15 @@ public class SpaceStationdProvider extends WorldProvider {
 
         return super.isDaytime();
     }
+
     @Override
-    public void updateWeather()
-    {
-        return;
+    public void updateWeather() {
     }
+
     @Override
-    public void calculateInitialWeather()
-    {
-        return;
+    public void calculateInitialWeather() {
     }
+
     @Nullable
     @Override
     public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
@@ -72,15 +74,14 @@ public class SpaceStationdProvider extends WorldProvider {
         return super.calcSunriseSunsetColors(celestialAngle, partialTicks);
     }
 
-    public int getRespawnDimension(net.minecraft.entity.player.EntityPlayerMP player)
-    {
+    public int getRespawnDimension(net.minecraft.entity.player.EntityPlayerMP player) {
         return 50;
     }
+
     @Nullable
     @SideOnly(Side.CLIENT)
-    public net.minecraftforge.client.IRenderHandler getSkyRenderer()
-    {
-        super.setSkyRenderer(new SkyProviderOrbit(new ResourceLocation(GTQTSpace.MODID, "textures/gui/celestialbodies/earth.png"), true, true,true));
+    public net.minecraftforge.client.IRenderHandler getSkyRenderer() {
+        super.setSkyRenderer(new SkyProviderOrbit(new ResourceLocation(GTQTSpace.MODID, "textures/gui/celestialbodies/earth.png"), true, true, true));
         return super.getSkyRenderer();
     }
 }

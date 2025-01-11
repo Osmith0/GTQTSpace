@@ -20,7 +20,7 @@ import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
-import keqing.gtqtspace.world.SpaceStationTeleporter;
+import keqing.gtqtspace.world.Teleporter.SpaceStationTeleporter;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

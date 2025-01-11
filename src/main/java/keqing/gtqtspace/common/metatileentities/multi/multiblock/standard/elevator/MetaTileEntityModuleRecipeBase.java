@@ -14,7 +14,7 @@ import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
 import keqing.gtqtspace.api.multiblock.ISpaceElevatorReceiver;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
-import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevator;
+import keqing.gtqtspace.common.block.blocks.GTQTSpaceElevatorCasing;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -78,7 +78,7 @@ public abstract class MetaTileEntityModuleRecipeBase extends RecipeMapMultiblock
                 .aisle("C","C","C","C","C")
                 .aisle("C","C","C","S","C")
                 .where('S', selfPredicate())
-                .where('C', states(GTQTSMetaBlocks.SPACE_ELEVATOR.getState(GTQTSpaceElevator.ElevatorCasingType.BASIC_CASING)).or(abilities().setPreviewCount(0)))
+                .where('C', states(GTQTSMetaBlocks.spaceElevatorCasing.getState(GTQTSpaceElevatorCasing.ElevatorCasingType.BASIC_CASING)).or(abilities().setPreviewCount(0)))
                 .build();
     }
 

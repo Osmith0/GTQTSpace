@@ -7,7 +7,7 @@ public class GTQTSpaceMaterials {
 	public static Material MeteoricIron;
 
 	public static Material Desh;
-
+	public static Material MoonStone;
 	public GTQTSpaceMaterials() {
 	}
 

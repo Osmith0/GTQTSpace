@@ -19,7 +19,6 @@ public class EventLoader {
 	)
 	public static void registerMaterials(MaterialEvent event) {
 		GTQTSpaceMaterials.register();
-
 		//在此处注册材料
 	}
 }

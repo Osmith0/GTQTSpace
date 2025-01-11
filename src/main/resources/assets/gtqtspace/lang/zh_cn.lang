@@ -84,14 +84,14 @@ tile.update_core.update_core_hot.name=并行升级核心
 tile.update_core.update_core_ele.name=效率升级核心
 tile.update_core.update_core_eng.name=能量升级核心
 
-tile.casing_a.taz_casing.name=TAZ合金外壳
-tile.casing_a.taz_heat_vent.name=TAZ合金散热器
-tile.casing_a.saz_casing.name=SAZ合金外壳
-tile.casing_a.saz_heat_vent.name=SAZ合金散热器
-tile.casing_a.iaz_casing.name=IAZ合金外壳
-tile.casing_a.iaz_heat_vent.name=IAZ合金散热器
-tile.casing_a.caz_casing.name=CAZ合金外壳
-tile.casing_a.caz_heat_vent.name=CAZ合金散热器
+tile.multiblock_casing.taz_casing.name=TAZ合金外壳
+tile.multiblock_casing.taz_heat_vent.name=TAZ合金散热器
+tile.multiblock_casing.saz_casing.name=SAZ合金外壳
+tile.multiblock_casing.saz_heat_vent.name=SAZ合金散热器
+tile.multiblock_casing.iaz_casing.name=IAZ合金外壳
+tile.multiblock_casing.iaz_heat_vent.name=IAZ合金散热器
+tile.multiblock_casing.caz_casing.name=CAZ合金外壳
+tile.multiblock_casing.caz_heat_vent.name=CAZ合金散热器
 
 tile.space_elevator_casing.basic_casing.name=线缆锚定基材
 tile.space_elevator_casing.internal_structure.name=主结构支撑器

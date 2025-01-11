@@ -1,12 +1,16 @@
 package keqing.gtqtspace.common;
 
 import gregtech.api.block.VariantItemBlock;
+import keqing.gtqtcore.common.block.GTQTMetaBlocks;
+import keqing.gtqtcore.common.block.blocks.GTQTStoneVariantBlock;
 import keqing.gtqtspace.api.recipes.properties.SEProperty;
 import keqing.gtqtspace.api.recipes.properties.StarProperty;
+import keqing.gtqtspace.api.unifications.ore.GTQTSStoneTypes;
 import keqing.gtqtspace.api.utils.GTQTSLog;
-import keqing.gtqtspace.api.worldgen.WorldGenRegister;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
+import keqing.gtqtspace.common.block.blocks.GTQTSStoneVariantBlock;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
+import keqing.gtqtspace.loaders.OreDictionaryLoader;
 import keqing.gtqtspace.loaders.recipes.GTQTSRecipesManager;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,6 +19,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -22,8 +27,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.function.Function;
-
-import static keqing.gtqtspace.common.items.GTQTSMetaItems.POS_BINDING_CARD;
 
 @Mod.EventBusSubscriber(
 		modid = "gtqtspace"
@@ -43,11 +46,14 @@ public class CommonProxy {
 		}
 	};
 	public void preLoad() {
-
+		if (Loader.isModLoaded("pollution")) {
+			GTQTSStoneTypes.init(3);
+		}
+		else GTQTSStoneTypes.init(0);
 	}
 
 	public void init() throws IOException {
-		//WorldGenRegister.init();
+		OreDictionaryLoader.init();
 		GTQTSRecipesManager.init();
 
 
@@ -63,10 +69,13 @@ public class CommonProxy {
         registry.register(方块实例);
         在注册MetaBlock时用到
         */
-		registry.register(GTQTSMetaBlocks.SPACE_ELEVATOR);
-		registry.register(GTQTSMetaBlocks.UPDATE_CORE);
-		registry.register(GTQTSMetaBlocks.CASING_A);
-		registry.register(GTQTSMetaBlocks.SOLAT_PLATE);
+		registry.register(GTQTSMetaBlocks.spaceElevatorCasing);
+		registry.register(GTQTSMetaBlocks.updateCasing);
+		registry.register(GTQTSMetaBlocks.multiblockCasing);
+		registry.register(GTQTSMetaBlocks.multiblockCasing1);
+		registry.register(GTQTSMetaBlocks.moonBlock);
+
+		for (GTQTSStoneVariantBlock block : GTQTSMetaBlocks.GTQTS_STONE_BLOCKS.values()) registry.register(block);
 	}
 
 	@SubscribeEvent
@@ -79,10 +88,14 @@ public class CommonProxy {
         registry.register(createItemBlock(方块实例, VariantItemBlock::new));
         在注册MetaBlock时用到
         */
-		registry.register(createItemBlock(GTQTSMetaBlocks.SPACE_ELEVATOR, VariantItemBlock::new));
-		registry.register(createItemBlock(GTQTSMetaBlocks.UPDATE_CORE, VariantItemBlock::new));
-		registry.register(createItemBlock(GTQTSMetaBlocks.CASING_A, VariantItemBlock::new));
-		registry.register(createItemBlock(GTQTSMetaBlocks.SOLAT_PLATE, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.spaceElevatorCasing, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.updateCasing, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.multiblockCasing, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.multiblockCasing1, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.moonBlock, VariantItemBlock::new));
+
+		for (GTQTSStoneVariantBlock block : GTQTSMetaBlocks.GTQTS_STONE_BLOCKS.values())
+			registry.register(createItemBlock(block, VariantItemBlock::new));
 	}
 
 	private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {
