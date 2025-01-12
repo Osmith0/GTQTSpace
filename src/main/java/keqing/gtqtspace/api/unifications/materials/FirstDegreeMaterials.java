@@ -42,5 +42,10 @@ public class FirstDegreeMaterials {
 				.dust()
 				.color(0xFF7256).iconSet(ROUGH)
 				.build();
+
+		GTQTSpaceMaterials.MarsStone= new Material.Builder(getMaterialsId(), gregtechId("mars"))
+				.dust()
+				.color(0xFF7256).iconSet(ROUGH)
+				.build();
 	}
 }

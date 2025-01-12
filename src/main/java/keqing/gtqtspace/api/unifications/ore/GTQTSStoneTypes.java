@@ -11,12 +11,17 @@ import net.minecraft.block.state.IBlockState;
 
 public class GTQTSStoneTypes {
     public static StoneType MOON;
+    public static StoneType MARS;
 
     public GTQTSStoneTypes() {}
     public static void init(int addID) {
         MOON = new StoneType(21+addID, "moon", SoundType.STONE, OrePrefix.ore, GTQTSpaceMaterials.MoonStone,
                 () -> gtStoneState(GTQTSStoneVariantBlock.StoneType.MOON),
                 state -> gtStonePredicate(state, GTQTSStoneVariantBlock.StoneType.MOON), false);
+
+        MARS= new StoneType(22+addID, "mars", SoundType.STONE, OrePrefix.ore, GTQTSpaceMaterials.MarsStone,
+                () -> gtStoneState(GTQTSStoneVariantBlock.StoneType.MARS),
+                state -> gtStonePredicate(state, GTQTSStoneVariantBlock.StoneType.MARS), false);
     }
 
     private static IBlockState gtStoneState(GTQTSStoneVariantBlock.StoneType stoneType) {

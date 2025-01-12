@@ -9,6 +9,11 @@
         "textures" : {
           "all" : "gregtech:blocks/gtqts_stones/moon_cobble"
         }
+      },
+      "mars" : {
+        "textures" : {
+          "all" : "gregtech:blocks/gtqts_stones/mars_cobble"
+        }
       }
     }
   }

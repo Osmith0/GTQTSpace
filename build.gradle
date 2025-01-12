@@ -132,6 +132,9 @@ dependencies {
     }
     annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:1.0.0'
     compileOnly 'com.github.bsideup.jabel:jabel-javac-plugin:1.0.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24' // 请根据实际情况选择最新版本
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 // Adds Access Transformer files to tasks

@@ -19,6 +19,7 @@ public class GTQTSMetaBlocks {
 	public static GTQTSMultiblockCasing multiblockCasing;
 	public static GTQTSMultiblockCasing1 multiblockCasing1;
 	public static GTQTSMoonBlock moonBlock;
+	public static GTQTSMarsBlock marsBlock;
 
 	public static final EnumMap<GTQTSStoneVariantBlock.StoneVariant, GTQTSStoneVariantBlock> GTQTS_STONE_BLOCKS = new EnumMap<>(GTQTSStoneVariantBlock.StoneVariant.class);
 	private GTQTSMetaBlocks() {
@@ -40,6 +41,9 @@ public class GTQTSMetaBlocks {
 		moonBlock = new GTQTSMoonBlock();
 		moonBlock.setRegistryName("moon_block");
 
+		marsBlock = new GTQTSMarsBlock();
+		marsBlock.setRegistryName("mars_block");
+
 		for (GTQTSStoneVariantBlock.StoneVariant shape : GTQTSStoneVariantBlock.StoneVariant.values()) {
 			GTQTS_STONE_BLOCKS.put(shape, new GTQTSStoneVariantBlock(shape));
 		}
@@ -52,6 +56,7 @@ public class GTQTSMetaBlocks {
 		registerItemModel(multiblockCasing);
 		registerItemModel(multiblockCasing1);
 		registerItemModel(moonBlock);
+		registerItemModel(marsBlock);
 
 		for (GTQTSStoneVariantBlock block : GTQTS_STONE_BLOCKS.values())
 			registerItemModel(block);

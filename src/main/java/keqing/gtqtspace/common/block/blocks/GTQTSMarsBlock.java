@@ -11,15 +11,15 @@ import net.minecraft.world.IBlockAccess;
 
 import javax.annotation.Nonnull;
 
-public class GTQTSMoonBlock extends VariantBlock<GTQTSMoonBlock.BlockType> {
-    public GTQTSMoonBlock() {
+public class GTQTSMarsBlock extends VariantBlock<GTQTSMarsBlock.BlockType> {
+    public GTQTSMarsBlock() {
         super(Material.IRON);
-        this.setTranslationKey("moon_block");
+        this.setTranslationKey("mars_block");
         this.setHardness(5.0F);
         this.setResistance(10.0F);
         this.setSoundType(SoundType.SAND);
         this.setHarvestLevel("wrench", 4);
-        this.setDefaultState(this.getState(GTQTSMoonBlock.BlockType.MOON_TURF));
+        this.setDefaultState(this.getState(GTQTSMarsBlock.BlockType.MARS_TURF));
     }
 
     public boolean canCreatureSpawn(@Nonnull IBlockState state,
@@ -30,8 +30,8 @@ public class GTQTSMoonBlock extends VariantBlock<GTQTSMoonBlock.BlockType> {
     }
 
     public enum BlockType implements IStringSerializable {
-        MOON_TURF("moon_turf"),
-        MOON_DIRT("moon_dirt");
+        MARS_TURF("mars_turf"),
+        MARS_DIRT("mars_dirt");
 
         private final String name;
 
