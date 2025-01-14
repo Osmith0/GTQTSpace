@@ -75,6 +75,7 @@ public class CommonProxy {
 		registry.register(GTQTSMetaBlocks.multiblockCasing1);
 		registry.register(GTQTSMetaBlocks.moonBlock);
 		registry.register(GTQTSMetaBlocks.marsBlock);
+		registry.register(GTQTSMetaBlocks.venusBlock);
 
 		for (GTQTSStoneVariantBlock block : GTQTSMetaBlocks.GTQTS_STONE_BLOCKS.values()) registry.register(block);
 	}
@@ -95,6 +96,7 @@ public class CommonProxy {
 		registry.register(createItemBlock(GTQTSMetaBlocks.multiblockCasing1, VariantItemBlock::new));
 		registry.register(createItemBlock(GTQTSMetaBlocks.moonBlock, VariantItemBlock::new));
 		registry.register(createItemBlock(GTQTSMetaBlocks.marsBlock, VariantItemBlock::new));
+		registry.register(createItemBlock(GTQTSMetaBlocks.venusBlock, VariantItemBlock::new));
 
 		for (GTQTSStoneVariantBlock block : GTQTSMetaBlocks.GTQTS_STONE_BLOCKS.values())
 			registry.register(createItemBlock(block, VariantItemBlock::new));

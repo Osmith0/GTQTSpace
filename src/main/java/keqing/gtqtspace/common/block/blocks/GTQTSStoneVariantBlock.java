@@ -90,7 +90,8 @@ public class GTQTSStoneVariantBlock extends VariantBlock<GTQTSStoneVariantBlock.
 
     public enum StoneType implements IStringSerializable {
         MOON("moon", MapColor.GRAY),
-        MARS("mars", MapColor.RED_STAINED_HARDENED_CLAY);
+        MARS("mars", MapColor.RED_STAINED_HARDENED_CLAY),
+        VENUS("venus", MapColor.YELLOW_STAINED_HARDENED_CLAY);
 
         public final MapColor mapColor;
         private final String name;
@@ -107,7 +108,7 @@ public class GTQTSStoneVariantBlock extends VariantBlock<GTQTSStoneVariantBlock.
 
         public OrePrefix getOrePrefix() {
             return switch (this) {
-                case MOON, MARS -> OrePrefix.stone;
+                case MOON, MARS,VENUS -> OrePrefix.stone;
             };
         }
 
@@ -115,6 +116,7 @@ public class GTQTSStoneVariantBlock extends VariantBlock<GTQTSStoneVariantBlock.
             return switch (this) {
                 case MOON -> GTQTSpaceMaterials.MoonStone;
                 case MARS -> GTQTSpaceMaterials.MarsStone;
+                case VENUS -> GTQTSpaceMaterials.VenusStone;
             };
         }
     }

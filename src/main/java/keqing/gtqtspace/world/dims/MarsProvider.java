@@ -1,11 +1,8 @@
 package keqing.gtqtspace.world.dims;
 
 import keqing.gtqtspace.api.utils.GTQTSConstants;
-import keqing.gtqtspace.client.skyRender.SkyProviderMars;
 import keqing.gtqtspace.client.skyRender.SkyProviderMoon;
-import keqing.gtqtspace.world.biome.GTQTSBiomeHandler;
 import keqing.gtqtspace.world.worldgen.Chuckgenerator.ChunkProviderMars;
-import keqing.gtqtspace.world.worldgen.Chuckgenerator.ChunkProviderMoon;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;

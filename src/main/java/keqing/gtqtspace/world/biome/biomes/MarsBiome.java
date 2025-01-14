@@ -16,7 +16,11 @@ import static keqing.gtqtspace.common.block.blocks.GTQTSMarsBlock.BlockType.*;
 
 
 public class MarsBiome extends BiomeGenBaseGC {
-    public static final Biome marsFlat = new BiomeGenFlatMars(BiomeData.builder().biomeName("Mars Flat").baseHeight(2.5F).heightVariation(0.4F).build());
+    public static final Biome marsFlat = new BiomeGenFlatMars(BiomeData.builder()
+            .biomeName("Mars Flat")
+            .baseHeight(2.5F)
+            .heightVariation(0.4F)
+            .build());
 
 
     public static final IBlockState BLOCK_TOP = GTQTSMetaBlocks.marsBlock.getState(MARS_TURF);

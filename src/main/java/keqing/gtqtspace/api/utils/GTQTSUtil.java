@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 
 import javax.annotation.Nonnull;
 import java.util.BitSet;
@@ -76,5 +77,20 @@ public class GTQTSUtil {
 		return defaultValue;
 	}
 
+	public static String translate(String key)
+	{
+		String result = I18n.translateToLocal(key);
+		int comment = result.indexOf('#');
+		String ret = (comment > 0) ? result.substring(0, comment).trim() : result;
+		for (int i = 0; i < key.length(); ++i)
+		{
+			Character c = key.charAt(i);
+			if (Character.isUpperCase(c))
+			{
+				System.err.println(ret);
+			}
+		}
+		return ret;
+	}
 
 }

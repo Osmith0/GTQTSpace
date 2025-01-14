@@ -14,6 +14,11 @@
         "textures" : {
           "all" : "gregtech:blocks/gtqts_stones/mars_cobble"
         }
+      },
+      "venus" : {
+        "textures" : {
+          "all" : "gregtech:blocks/gtqts_stones/venus_cobble"
+        }
       }
     }
   }

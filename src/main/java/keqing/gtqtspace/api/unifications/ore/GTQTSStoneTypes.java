@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 public class GTQTSStoneTypes {
     public static StoneType MOON;
     public static StoneType MARS;
+    public static StoneType VENUS;
 
     public GTQTSStoneTypes() {}
     public static void init(int addID) {
@@ -22,6 +23,10 @@ public class GTQTSStoneTypes {
         MARS= new StoneType(22+addID, "mars", SoundType.STONE, OrePrefix.ore, GTQTSpaceMaterials.MarsStone,
                 () -> gtStoneState(GTQTSStoneVariantBlock.StoneType.MARS),
                 state -> gtStonePredicate(state, GTQTSStoneVariantBlock.StoneType.MARS), false);
+
+        VENUS= new StoneType(23+addID, "venus", SoundType.STONE, OrePrefix.ore, GTQTSpaceMaterials.VenusStone,
+                () -> gtStoneState(GTQTSStoneVariantBlock.StoneType.VENUS),
+                state -> gtStonePredicate(state, GTQTSStoneVariantBlock.StoneType.VENUS), false);
     }
 
     private static IBlockState gtStoneState(GTQTSStoneVariantBlock.StoneType stoneType) {
