@@ -38,8 +38,6 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 import static gregtech.api.util.RelativeDirection.*;
-import static keqing.gtqtcore.common.block.blocks.GTQTTurbineCasing1.TurbineCasingType.AL_TURBINE_CASING;
-
 public class MetaTileEntitySatelliteSuvery extends RecipeMapMultiblockController implements IOpticalComputationReceiver {
 	int tier = 2;
 	private IOpticalComputationProvider computationProvider;

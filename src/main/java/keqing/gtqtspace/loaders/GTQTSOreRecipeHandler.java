@@ -7,6 +7,8 @@ import keqing.gtqtspace.api.unifications.ore.GTQTSOrePrefix;
 public class GTQTSOreRecipeHandler {
     public static void init(){
         GTQTSOrePrefix.oreMoon.addProcessingHandler(PropertyKey.ORE, OreRecipeHandler::processOre);
+        GTQTSOrePrefix.oreMars.addProcessingHandler(PropertyKey.ORE, OreRecipeHandler::processOre);
+        GTQTSOrePrefix.oreVenus.addProcessingHandler(PropertyKey.ORE, OreRecipeHandler::processOre);
 
     }
 }
