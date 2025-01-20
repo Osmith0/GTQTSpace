@@ -1,9 +1,6 @@
 package keqing.gtqtspace.loaders.recipes.machine;
 
 import gregtech.api.unification.material.MarkerMaterials;
-import keqing.gtqtcore.common.block.GTQTMetaBlocks;
-import keqing.gtqtcore.common.block.blocks.GTQTNuclearFusion;
-
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.ASSEMBLY_LINE_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
