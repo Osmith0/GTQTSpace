@@ -129,12 +129,11 @@ public class DockUtils {
 
     public static String getTypeByID(int type) {
         return switch (type) {
-            case 0 -> "无";
             case 1 -> "工程船";
             case 2 -> "运输船";
             case 3 -> "驱逐舰";
             case 4 -> "巡洋舰";
-            default -> "战列舰";
+            default -> "无";
         };
     }
 }

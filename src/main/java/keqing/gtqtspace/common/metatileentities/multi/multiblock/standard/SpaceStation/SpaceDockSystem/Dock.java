@@ -8,6 +8,7 @@ import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.AdvancedTextWidget;
 import gregtech.api.gui.widgets.SlotWidget;
 import gregtech.api.items.itemhandlers.GTItemStackHandler;
+import gregtech.api.metatileentity.IFastRenderMetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -22,26 +23,35 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import keqing.gtqtcore.client.textures.GTQTTextures;
 import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
+import keqing.gtqtspace.api.multiblock.ISpaceElevatorProvider;
+import keqing.gtqtspace.client.objmodels.ObjModels;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Dock extends MetaTileEntityBaseWithControl {
+import static keqing.gtqtcore.client.objmodels.ObjModels.test_pic;
+
+public class Dock extends MetaTileEntityBaseWithControl implements  IFastRenderMetaTileEntity {
     BlockPos ControlPos = new BlockPos(0, 0, 0);
     public void setControlPos(BlockPos pos)
     {
@@ -112,7 +122,7 @@ public class Dock extends MetaTileEntityBaseWithControl {
     @Override
     protected ModularUI.Builder createUITemplate(EntityPlayer entityPlayer) {
         ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 180, 240);
-        builder.dynamicLabel(24, 8, () -> "太空船坞", 0xFFFFFF);
+        builder.dynamicLabel(28, 12, () -> "太空船坞", 0xFFFFFF);
         builder.widget(new SlotWidget(containerInventory, 0, 8, 8, !work, !work)
                 .setBackgroundTexture(GuiTextures.SLOT)
                 .setTooltipText("输入槽位"));
@@ -127,6 +137,11 @@ public class Dock extends MetaTileEntityBaseWithControl {
     @Override
     protected void updateFormedValid() {
         ItemStack item = this.containerInventory.getStackInSlot(0);
+        if(item==ItemStack.EMPTY)
+        {
+            Arrays.fill(part, 0);
+            return;
+        }
         NBTTagCompound compound = item.getTagCompound();
         int meta = this.containerInventory.getStackInSlot(0).getMetadata();
         part[0]=meta - 199;
@@ -160,20 +175,13 @@ public class Dock extends MetaTileEntityBaseWithControl {
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
-                .aisle("CCC","CCC","CCC")
-                .aisle("CCC","CCC","CCC")
-                .aisle("CMC","CSC","CCC")
+                .aisle("CMC","CSC")
                 .where('M', abilities(MultiblockAbility.MAINTENANCE_HATCH))
                 .where('S', selfPredicate())
                 .where('C', states(GTQTSMetaBlocks.multiblockCasing1.getState(GTQTSMultiblockCasing1.CasingType.SOLAR_PLATE_CASING)))
                 .build();
     }
-    @Override
-    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
-        super.renderMetaTileEntity(renderState, translation, pipeline);
-        getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(), this.isActive(),
-                this.isStructureFormed());
-    }
+
     @SideOnly(Side.CLIENT)
     @Nonnull
     @Override
@@ -196,5 +204,99 @@ public class Dock extends MetaTileEntityBaseWithControl {
     @Override
     public List<ITextComponent> getDataInfo() {
         return Collections.emptyList();
+    }
+
+    int tick;
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderMetaTileEntity(double x, double y, double z, float partialTicks) {
+        IFastRenderMetaTileEntity.super.renderMetaTileEntity(x, y, z, partialTicks);
+        //if (isStructureFormed() && GTQTCoreConfig.OBJRenderSwitch.EnableObj && GTQTCoreConfig.OBJRenderSwitch.EnableObjPrimitiveTreeFarmer) {
+        if (containerInventory.getStackInSlot(0)!=ItemStack.EMPTY) {
+            final int xDir = this.getFrontFacing().getOpposite().getXOffset();
+            final int zDir = this.getFrontFacing().getOpposite().getZOffset();
+            //机器开启才会进行渲染
+            //这是一些opengl的操作,GlStateManager是mc自身封装的一部分方法  前四条详情请看 https://turou.fun/minecraft/legacy-render-tutor/
+            //opengl方法一般需要成对出现，实际上他是一个状态机，改装状态后要还原  一般情况按照我这些去写就OK
+            GlStateManager.pushAttrib(); //保存变换前的位置和角度
+            GlStateManager.pushMatrix();
+            GlStateManager.disableLighting();
+            GlStateManager.disableCull();
+            FMLClientHandler.instance().getClient().getTextureManager().bindTexture(ObjModels.Ship_pic); //自带的材质绑定 需要传递一个ResourceLocation
+            GlStateManager.translate(x, y, z);//translate是移动方法 这个移动到xyz是默认的 不要动
+            if(!work)GlStateManager.translate(xDir * 11 + 0.5, 0, zDir * 11 + 0.5);//translate是移动方法 这个移动到xyz是默认的 不要动
+            else
+            {
+                tick++;
+                GlStateManager.translate(xDir * (11+tick) + 0.5, 0, zDir * (11+tick) + 0.5);
+            }
+            if (this.frontFacing == EnumFacing.WEST) {
+                GlStateManager.rotate(180, 0F, 1F, 0F);
+            } else if (this.frontFacing == EnumFacing.EAST) {
+                GlStateManager.rotate(0, 0F, 1F, 0F);
+            } else if (this.frontFacing == EnumFacing.NORTH) {
+                GlStateManager.rotate(90, 0F, 1F, 0F);
+            } else if (this.frontFacing == EnumFacing.SOUTH) {
+                GlStateManager.rotate(-90, 0F, 1F, 0F);
+            }
+
+            GlStateManager.scale(0.05, 0.05, 0.05);
+            // ObjModels.Tree_Model.renderAllWithMtl(); //这个是模型加载器的渲染方法  这是带MTL的加载方式
+            ObjModels.Ship.renderAll(); //这个是模型加载器的渲染方法  这是不带MTL的加载方式
+            GlStateManager.popMatrix();//读取变换前的位置和角度(恢复原状) 下面都是还原状态机的语句
+            GlStateManager.enableLighting();
+            GlStateManager.popAttrib();
+            GlStateManager.enableCull();
+
+
+            //机器开启才会进行渲染
+            //这是一些opengl的操作,GlStateManager是mc自身封装的一部分方法  前四条详情请看 https://turou.fun/minecraft/legacy-render-tutor/
+            //opengl方法一般需要成对出现，实际上他是一个状态机，改装状态后要还原  一般情况按照我这些去写就OK
+            GlStateManager.pushAttrib(); //保存变换前的位置和角度
+            GlStateManager.pushMatrix();
+            GlStateManager.disableLighting();
+            GlStateManager.disableCull();
+            FMLClientHandler.instance().getClient().getTextureManager().bindTexture(test_pic); //自带的材质绑定 需要传递一个ResourceLocation
+            GlStateManager.translate(x, y, z);//translate是移动方法 这个移动到xyz是默认的 不要动
+            GlStateManager.translate(xDir*1+0.5, 0, zDir*1+0.5);//translate是移动方法 这个移动到xyz是默认的 不要动
+
+            if (this.frontFacing == EnumFacing.WEST) {
+                GlStateManager.rotate(0, 0F, 1F, 0F);
+            } else if (this.frontFacing == EnumFacing.EAST) {
+                GlStateManager.rotate(180, 0F, 1F, 0F);
+            } else if (this.frontFacing == EnumFacing.NORTH) {
+                GlStateManager.rotate(-90, 0F, 1F, 0F);
+            } else if (this.frontFacing == EnumFacing.SOUTH) {
+                GlStateManager.rotate(90, 0F, 1F, 0F);
+            }
+
+            GlStateManager.scale(1, 1, 1);
+            // ObjModels.Tree_Model.renderAllWithMtl(); //这个是模型加载器的渲染方法  这是带MTL的加载方式
+            ObjModels.dock.renderAll(); //这个是模型加载器的渲染方法  这是不带MTL的加载方式
+            GlStateManager.popMatrix();//读取变换前的位置和角度(恢复原状) 下面都是还原状态机的语句
+            GlStateManager.enableLighting();
+            GlStateManager.popAttrib();
+            GlStateManager.enableCull();
+        }
+
+    }
+
+    //渲染模型的位置
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        //这个影响模型的可视范围，正常方块都是 1 1 1，长宽高各为1，当这个方块离线玩家视线后，obj模型渲染会停止，所以可以适当放大这个大小能让模型有更多角度的可视
+        return new AxisAlignedBB(getPos().add(-10, -10, -10), getPos().add(10, 10, 10));
+    }
+
+    @Override
+    public void renderMetaTileEntity(CCRenderState renderState, Matrix4 translation, IVertexOperation[] pipeline) {
+        super.renderMetaTileEntity(renderState, translation, pipeline);
+        this.getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(), true, true);
+    }
+    @Override
+    public boolean isGlobalRenderer()
+    {
+        return true;
     }
 }

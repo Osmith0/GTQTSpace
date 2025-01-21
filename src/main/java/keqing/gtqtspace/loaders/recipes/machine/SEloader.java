@@ -3,6 +3,7 @@ package keqing.gtqtspace.loaders.recipes.machine;
 import gregtech.api.metatileentity.multiblock.CleanroomType;
 import gregtech.api.unification.material.MarkerMaterials;
 import keqing.gtqtcore.api.unification.MaterialHelper;
+import keqing.gtqtcore.common.items.GTQTMetaItems;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 
 import static gregicality.multiblocks.api.unification.GCYMMaterials.*;
@@ -11,11 +12,15 @@ import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.*;
+import static gregtech.common.items.MetaItems.ELECTRIC_PUMP_UHV;
 import static gregtech.common.metatileentities.MetaTileEntities.*;
 import static keqing.gtqtcore.api.unification.GCYSMaterials.*;
 import static keqing.gtqtcore.api.unification.GTQTMaterials.*;
+import static keqing.gtqtcore.api.utils.GTQTUniversUtil.MINUTE;
 import static keqing.gtqtcore.api.utils.GTQTUtil.CWT;
 import static keqing.gtqtcore.common.items.GTQTMetaItems.*;
+import static keqing.gtqtcore.common.metatileentities.GTQTMetaTileEntities.EXTREME_LARGE_MINER;
+import static keqing.gtqtcore.common.metatileentities.GTQTMetaTileEntities.INFINITY_FLUID_DRILL_RIG;
 import static keqing.gtqtspace.common.block.blocks.GTQTSpaceElevatorCasing.ElevatorCasingType.*;
 import static keqing.gtqtspace.common.items.GTQTSMetaItems.*;
 import static keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities.*;
@@ -299,143 +304,146 @@ public class SEloader {
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(CIRCUIT_GOOD_I)
                 .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .input(VOLTAGE_COIL_IV, 2)
+                .input(VOLTAGE_COIL_ZPM, 2)
                 .input(wireGtSingle, IVSuperconductor, 32)
                 .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK1))
-                .fluidInputs(Polybenzimidazole.getFluid(L*2))
-                .fluidInputs(Zylon.getFluid(L * 4))
-                .fluidInputs(NiobiumTitanium.getFluid(L * 4))
-                .duration(800).EUt(VA[IV]).buildAndRegister();
-
-        ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_II)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .input(VOLTAGE_COIL_LuV, 2)
-                .input(wireGtSingle, LuVSuperconductor, 32)
-                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK2))
-                .fluidInputs(Polybenzimidazole.getFluid(L*2))
-                .fluidInputs(Zylon.getFluid(L * 4))
-                .fluidInputs(NiobiumTitanium.getFluid(L * 4))
-                .duration(800).EUt(VA[LuV]).buildAndRegister();
-
-        ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_III)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .input(VOLTAGE_COIL_ZPM, 2)
-                .input(wireGtSingle, ZPMSuperconductor, 32)
-                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK3))
                 .fluidInputs(Polybenzimidazole.getFluid(L*2))
                 .fluidInputs(Zylon.getFluid(L * 4))
                 .fluidInputs(NiobiumTitanium.getFluid(L * 4))
                 .duration(800).EUt(VA[ZPM]).buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_IV)
+                .input(CIRCUIT_GOOD_II)
                 .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .input(VOLTAGE_COIL_UV, 2)
-                .input(wireGtSingle, UVSuperconductor, 32)
-                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK4))
+                .input(VOLTAGE_COIL_UV,2)
+                .input(wireGtSingle, LuVSuperconductor, 32)
+                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK2))
                 .fluidInputs(Polybenzimidazole.getFluid(L*2))
                 .fluidInputs(Zylon.getFluid(L * 4))
                 .fluidInputs(NiobiumTitanium.getFluid(L * 4))
                 .duration(800).EUt(VA[UV]).buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_V)
+                .input(CIRCUIT_GOOD_III)
                 .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
                 .input(VOLTAGE_COIL_UHV, 2)
+                .input(wireGtSingle, ZPMSuperconductor, 32)
+                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK3))
+                .fluidInputs(Polybenzimidazole.getFluid(L*2))
+                .fluidInputs(Zylon.getFluid(L * 4))
+                .fluidInputs(NiobiumTitanium.getFluid(L * 4))
+                .duration(800).EUt(VA[UHV]).buildAndRegister();
+
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_IV)
+                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
+                .input(VOLTAGE_COIL_UEV, 2)
+                .input(wireGtSingle, UVSuperconductor, 32)
+                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK4))
+                .fluidInputs(Polybenzimidazole.getFluid(L*2))
+                .fluidInputs(Zylon.getFluid(L * 4))
+                .fluidInputs(NiobiumTitanium.getFluid(L * 4))
+                .duration(800).EUt(VA[UEV]).buildAndRegister();
+
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(CIRCUIT_GOOD_V)
+                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
+                .input(VOLTAGE_COIL_UIV, 2)
                 .input(wireGtSingle, UHVSuperconductor, 32)
                 .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(MOTOR_CASING_MK5))
                 .fluidInputs(Polybenzimidazole.getFluid(L*2))
                 .fluidInputs(Zylon.getFluid(L * 4))
                 .fluidInputs(NiobiumTitanium.getFluid(L * 4))
-                .duration(800).EUt(VA[UHV]).buildAndRegister();
+                .duration(800).EUt(VA[UIV]).buildAndRegister();
     }
     private static void casing() {
         //控制器
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_I,64)
                 .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,32))
-                .input(ELECTRIC_PISTON_IV, 64)
-                .input(ELECTRIC_MOTOR_IV, 64)
-                .input(frameGt, Naquadah, 64)
-                .input(frameGt, Naquadah, 64)
-                .input(plate, HSSS, 64)
-                .input(ring, HSSS, 64)
-                .input(stickLong,HSSE,64)
-                .input(stickLong,Samarium,64)
-                .input(foil,PPB,64)
-                .input(foil,PPB,64)
+                .input(ELECTRIC_PISTON_UV, 64)
+                .input(ELECTRIC_MOTOR_UV, 64)
+                .input(FIELD_GENERATOR_UV, 64)
+                .input(CIRCUIT_GOOD_III,64)
+                .input(NANO_POWER_IC, 64)
+                .input(frameGt, Tritanium, 32)
+                .input(plate, Europium, 32)
+                .input(plate,HY1301,32)
+                .input(ring, Darmstadtium, 64)
+                .input(gear,Pikyonium64B,4)
+                .input(stickLong,Naquadria,64)
                 .input(wireFine,NiobiumTitanium,64)
-                .input(wireFine,NiobiumTitanium,64)
-                .input(wireGtSingle, IVSuperconductor, 64)
-                .input(wireGtSingle, IVSuperconductor, 64)
+                .input(wireGtSingle, UVSuperconductor, 64)
                 .output(SPACE_ELEVATOR)
-                .fluidInputs(Polybenzimidazole.getFluid(L * 32))
-                .fluidInputs(Zylon.getFluid(L * 64))
-                .fluidInputs(TitaniumTungstenCarbide.getFluid(L * 64))
-                .fluidInputs(UltraGlue.getFluid(L * 64))
-                .scannerResearch(b -> b
+                .fluidInputs(Duranium.getFluid(L * 32))
+                .fluidInputs(Lutetium.getFluid(L * 64))
+                .fluidInputs(UUMatter.getFluid(16000))
+                .fluidInputs(KaptonE.getFluid(L * 64))
+                .stationResearch(b -> b
                         .researchStack(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING))
-                        .EUt(VA[IV]))
-                .duration(2000).EUt(VA[IV]).buildAndRegister();
+                        .CWUt(CWT[ZPM])
+                        .EUt(VA[UV]))
+                .duration(2000).EUt(VA[UV]).buildAndRegister();
 
         //
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_I)
-                .input(HULL[IV],8)
-                .input(frameGt, Naquadah, 2)
-                .input(plate, RhodiumPlatedPalladium, 8)
-                .input(gearSmall,HSSS,8)
-                .input(screw,NanometerBariumTitanate,8)
-                .input(foil,Ruridit,8)
-                .input(wireFine, Platinum, 16)
+                .input(CIRCUIT_GOOD_III)
+                .input(HULL[UV],8)
+                .input(frameGt, Europium, 4)
+                .input(plate,HY1301,8)
+                .input(plate, Tritanium, 8)
+                .input(gearSmall,Pikyonium64B,16)
+                .input(screw,Naquadria,16)
+                .input(wireFine, Americium, 16)
                 .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .fluidInputs(Polybenzimidazole.getFluid(L*2))
-                .fluidInputs(Zylon.getFluid(L * 4))
+                .fluidInputs(Lutetium.getFluid(L * 4))
                 .fluidInputs(NiobiumTitanium.getFluid(L * 4))
-                .duration(800).EUt(VA[IV]).buildAndRegister();
+                .fluidInputs(Polybenzimidazole.getFluid(L*2))
+                .fluidInputs(KaptonK.getFluid(L * 2))
+                .duration(800).EUt(VA[UV]).buildAndRegister();
 
         //
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .input(CIRCUIT_GOOD_I)
-                .input(frameGt,PPB,2)
-                .input(plate, RhodiumPlatedPalladium, 4)
-                .input(gearSmall,HSSS,8)
-                .input(foil,Ruridit,8)
-                .input(screw,NanometerBariumTitanate,8)
-                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(INTERNAL_STRUCTURE,4))
-                .fluidInputs(Polybenzimidazole.getFluid(L))
-                .fluidInputs(Zylon.getFluid(L * 2))
-                .fluidInputs(NiobiumTitanium.getFluid(L * 2))
-                .duration(1000).EUt(VA[EV]).buildAndRegister();
+                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING))
+                .input(CIRCUIT_GOOD_III)
+                .input(frameGt,Europium,4)
+                .input(plate,HY1301,8)
+                .input(plate, Tritanium, 8)
+                .input(gearSmall,Pikyonium64B,16)
+                .input(screw,Naquadria,16)
+                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(INTERNAL_STRUCTURE,2))
+                .fluidInputs(Lutetium.getFluid(L * 4))
+                .fluidInputs(NiobiumTitanium.getFluid(L * 4))
+                .fluidInputs(Polybenzimidazole.getFluid(L*2))
+                .fluidInputs(KaptonK.getFluid(L * 2))
+                .duration(1000).EUt(VA[UV]).buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .input(CIRCUIT_GOOD_I)
-                .input(frameGt,HSSS,2)
-                .input(plate, RhodiumPlatedPalladium, 4)
-                .input(gearSmall,PPB,8)
-                .input(foil,Ruridit,8)
-                .input(screw,NanometerBariumTitanate,8)
-                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(SUPPORT_STRUCTURE,4))
-                .fluidInputs(Polybenzimidazole.getFluid(L))
-                .fluidInputs(Zylon.getFluid(L * 2))
-                .fluidInputs(NiobiumTitanium.getFluid(L * 2))
-                .duration(1000).EUt(VA[EV]).buildAndRegister();
+                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING))
+                .input(CIRCUIT_GOOD_III)
+                .input(frameGt,Europium,4)
+                .input(plate,HY1301,8)
+                .input(plate, Tritanium, 8)
+                .input(gearSmall,Pikyonium64B,8)
+                .input(screw,Naquadria,16)
+                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(SUPPORT_STRUCTURE,2))
+                .fluidInputs(Lutetium.getFluid(L * 4))
+                .fluidInputs(NiobiumTitanium.getFluid(L * 4))
+                .fluidInputs(Polybenzimidazole.getFluid(L*2))
+                .fluidInputs(KaptonK.getFluid(L * 2))
+                .duration(1000).EUt(VA[UV]).buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,4))
-                .input(CIRCUIT_GOOD_I)
+                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING))
+                .input(CIRCUIT_GOOD_III)
+                .input(plate,HY1301,8)
                 .input(FIELD_GENERATOR_IV, 1)
-                .input(plate, RhodiumPlatedPalladium, 4)
-                .input(foil,PPB,2)
-                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(FLOOR,4))
-                .fluidInputs(Polybenzimidazole.getFluid(L))
-                .fluidInputs(Zylon.getFluid(L * 2))
-                .fluidInputs(NiobiumTitanium.getFluid(L * 2))
-                .duration(1000).EUt(VA[EV]).buildAndRegister();
+                .input(plate, Europium, 4)
+                .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(FLOOR,2))
+                .fluidInputs(Lutetium.getFluid(L * 4))
+                .fluidInputs(NiobiumTitanium.getFluid(L * 4))
+                .fluidInputs(Polybenzimidazole.getFluid(L*2))
+                .fluidInputs(KaptonK.getFluid(L * 2))
+                .duration(1000).EUt(VA[UV]).buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(stickLong, CarbonNanotube, 64)
@@ -451,121 +459,146 @@ public class SEloader {
                 .input(stickLong, CarbonNanotube, 64)
                 .input(stickLong, CarbonNanotube, 64)
                 .outputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(CABLE_CASING,16))
+                .fluidInputs(Lutetium.getFluid(L *64))
+                .fluidInputs(NiobiumTitanium.getFluid(L * 64))
                 .fluidInputs(Polybenzimidazole.getFluid(L*32))
-                .fluidInputs(Zylon.getFluid(L*32))
-                .fluidInputs(UltraGlue.getFluid(L*32))
-                .duration(1000).EUt(VA[EV]).buildAndRegister();
+                .fluidInputs(KaptonK.getFluid(L * 23))
+                .duration(1000).EUt(VA[UV]).buildAndRegister();
     }
 
     private static void mining() {
+        // Space Mining Module MK1
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_I,8)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,8))
-                .input(LARGE_MINER)
-                .input(ELECTRIC_MOTOR_IV,8)
-                .input(plate, NaquadahAlloy, 16)
-                .input(foil,PPB,64)
-                .input(wireGtSingle, IVSuperconductor, 32)
-                .output(MINING_MODULE[0])
-                .fluidInputs(Polybenzimidazole.getFluid(L * 16))
-                .fluidInputs(Zylon.getFluid(L * 8))
-                .fluidInputs(TitaniumTungstenCarbide.getFluid(L * 8))
-                .fluidInputs(UltraGlue.getFluid(L * 8))
-                .scannerResearch(b -> b
-                        .researchStack(LARGE_MINER.getStackForm())
-                        .EUt(VA[IV]))
-                .duration(2000).EUt(VA[IV]).buildAndRegister();
-
-        ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_II,8)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,8))
-                .input(ADVANCED_LARGE_MINER)
-                .input(ELECTRIC_MOTOR_LuV,8)
-                .input(plate, NaquadahAlloy, 16)
-                .input(foil,PPB,64)
-                .input(wireGtSingle, LuVSuperconductor, 32)
-                .output(MINING_MODULE[1])
-                .fluidInputs(Polybenzimidazole.getFluid(L * 16))
-                .fluidInputs(Zylon.getFluid(L * 8))
-                .fluidInputs(TitaniumTungstenCarbide.getFluid(L * 8))
-                .fluidInputs(UltraGlue.getFluid(L * 8))
-                .scannerResearch(b -> b
-                        .researchStack(MINING_MODULE[0].getStackForm())
-                        .EUt(VA[LuV]))
-                .duration(2000).EUt(VA[LuV]).buildAndRegister();
-
-        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(EXTREME_LARGE_MINER)
                 .input(CIRCUIT_GOOD_III,8)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,8))
+                .input(ROBOT_ARM_UV, 8)
+                .input(FIELD_GENERATOR_UV, 4)
+                .input(circuit, MarkerMaterials.Tier.UV, 16)
+                .input(SENSOR_UV, 16)
+                .input(wireGtQuadruple, EnrichedNaquadahTriniumEuropiumDuranide, 32)
+                .input(frameGt, Tritanium, 16)
+                .fluidInputs(Lutetium.getFluid(L * 20))
+                .fluidInputs(KaptonK.getFluid(8000))
+                .fluidInputs(Naquadria.getFluid(L * 10))
+                .output(MINING_MODULE[0])
+                .EUt(VA[UV])
+                .duration(2 * MINUTE)
+                .stationResearch(r -> r
+                        .researchStack(EXTREME_LARGE_MINER.getStackForm())
+                        .EUt(VA[UV])
+                        .CWUt(CWT[ZPM]))
+                .buildAndRegister();
+
+        // Space Mining Module MK2
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(MINING_MODULE[0])
+                .input(CIRCUIT_GOOD_IV,8)
+                .input(ROBOT_ARM_UHV, 8)
+                .input(FIELD_GENERATOR_UHV, 4)
+                .input(circuit, MarkerMaterials.Tier.UHV, 16)
+                .input(SENSOR_UHV, 16)
+                .input(wireGtQuadruple, RutheniumTriniumAmericiumNeutronate, 32)
+                .input(frameGt, Vibranium, 16)
+                .fluidInputs(Lutetium.getFluid(L * 40))
+                .fluidInputs(KaptonK.getFluid(16000))
+                .fluidInputs(Adamantium.getFluid(L * 20))
+                .output(MINING_MODULE[1])
+                .EUt(VA[UHV])
+                .duration(2 * MINUTE)
+                .stationResearch(r -> r
+                        .researchStack(MINING_MODULE[0].getStackForm())
+                        .EUt(VA[UHV])
+                        .CWUt(CWT[UV]))
+                .buildAndRegister();
+
+        // Space Mining Module MK3
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(MINING_MODULE[1])
-                .input(ELECTRIC_MOTOR_ZPM,8)
-                .input(plate, NaquadahAlloy, 16)
-                .input(foil,PPB,64)
-                .input(wireGtSingle, ZPMSuperconductor, 32)
+                .input(CIRCUIT_GOOD_V,8)
+                .input(ROBOT_ARM_UEV, 8)
+                .input(FIELD_GENERATOR_UEV, 4)
+                .input(circuit, MarkerMaterials.Tier.UEV, 16)
+                .input(SENSOR_UEV, 16)
+                .input(wireGtQuadruple, PedotTMA, 32)
+                .input(frameGt, Neutronium, 16)
+                .fluidInputs(Lutetium.getFluid(L * 80))
+                .fluidInputs(KaptonK.getFluid(64000))
+                .fluidInputs(Infinity.getFluid(L * 40))
                 .output(MINING_MODULE[2])
-                .fluidInputs(Polybenzimidazole.getFluid(L * 16))
-                .fluidInputs(Zylon.getFluid(L * 8))
-                .fluidInputs(TitaniumTungstenCarbide.getFluid(L * 8))
-                .fluidInputs(UltraGlue.getFluid(L * 8))
-                .scannerResearch(b -> b
+                .EUt(VA[UEV])
+                .duration(2 * MINUTE)
+                .stationResearch(r -> r
                         .researchStack(MINING_MODULE[1].getStackForm())
-                        .EUt(VA[ZPM]))
-                .duration(2000).EUt(VA[ZPM]).buildAndRegister();
+                        .EUt(VA[UEV])
+                        .CWUt(CWT[UHV]))
+                .buildAndRegister();
     }
 
     private static void drilling() {
+        // Space Mining Module MK1
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_I,8)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,8))
-                .input(FLUID_DRILLING_RIG)
-                .input(ELECTRIC_PUMP_IV,8)
-                .input(plate, NaquadahAlloy, 16)
-                .input(foil,PPB,64)
-                .input(wireGtSingle, IVSuperconductor, 32)
-                .output(PUMP_MODULE[0])
-                .fluidInputs(Polybenzimidazole.getFluid(L * 16))
-                .fluidInputs(Zylon.getFluid(L * 8))
-                .fluidInputs(TitaniumTungstenCarbide.getFluid(L * 8))
-                .fluidInputs(UltraGlue.getFluid(L * 8))
-                .scannerResearch(b -> b
-                        .researchStack(FLUID_DRILLING_RIG.getStackForm())
-                        .EUt(VA[IV]))
-                .duration(2000).EUt(VA[IV]).buildAndRegister();
-
-        ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(CIRCUIT_GOOD_II,8)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,8))
-                .input(ADVANCED_FLUID_DRILLING_RIG)
-                .input(ELECTRIC_PUMP_LuV,8)
-                .input(plate, NaquadahAlloy, 16)
-                .input(foil,PPB,64)
-                .input(wireGtSingle, LuVSuperconductor, 32)
-                .output(PUMP_MODULE[1])
-                .fluidInputs(Polybenzimidazole.getFluid(L * 16))
-                .fluidInputs(Zylon.getFluid(L * 8))
-                .fluidInputs(TitaniumTungstenCarbide.getFluid(L * 8))
-                .fluidInputs(UltraGlue.getFluid(L * 8))
-                .scannerResearch(b -> b
-                        .researchStack(PUMP_MODULE[0].getStackForm())
-                        .EUt(VA[LuV]))
-                .duration(2000).EUt(VA[LuV]).buildAndRegister();
-
-        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(INFINITY_FLUID_DRILL_RIG)
                 .input(CIRCUIT_GOOD_III,8)
-                .inputs(GTQTSMetaBlocks.spaceElevatorCasing.getItemVariant(BASIC_CASING,8))
+                .input(ELECTRIC_PUMP_UV, 8)
+                .input(FIELD_GENERATOR_UV, 4)
+                .input(circuit, MarkerMaterials.Tier.UV, 16)
+                .input(SENSOR_UV, 16)
+                .input(wireGtQuadruple, EnrichedNaquadahTriniumEuropiumDuranide, 32)
+                .input(frameGt, Tritanium, 16)
+                .fluidInputs(Lutetium.getFluid(L * 20))
+                .fluidInputs(KaptonK.getFluid(8000))
+                .fluidInputs(Naquadria.getFluid(L * 10))
+                .output(PUMP_MODULE[0])
+                .EUt(VA[UV])
+                .duration(2 * MINUTE)
+                .stationResearch(r -> r
+                        .researchStack(INFINITY_FLUID_DRILL_RIG.getStackForm())
+                        .EUt(VA[UV])
+                        .CWUt(CWT[ZPM]))
+                .buildAndRegister();
+
+        // Space Mining Module MK2
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
+                .input(PUMP_MODULE[0])
+                .input(CIRCUIT_GOOD_IV,8)
+                .input(ELECTRIC_PUMP_UHV, 8)
+                .input(FIELD_GENERATOR_UHV, 4)
+                .input(circuit, MarkerMaterials.Tier.UHV, 16)
+                .input(SENSOR_UHV, 16)
+                .input(wireGtQuadruple, RutheniumTriniumAmericiumNeutronate, 32)
+                .input(frameGt, Vibranium, 16)
+                .fluidInputs(Lutetium.getFluid(L * 40))
+                .fluidInputs(KaptonK.getFluid(16000))
+                .fluidInputs(Adamantium.getFluid(L * 20))
+                .output(PUMP_MODULE[1])
+                .EUt(VA[UHV])
+                .duration(2 * MINUTE)
+                .stationResearch(r -> r
+                        .researchStack(PUMP_MODULE[0].getStackForm())
+                        .EUt(VA[UHV])
+                        .CWUt(CWT[UV]))
+                .buildAndRegister();
+
+        // Space Mining Module MK3
+        ASSEMBLY_LINE_RECIPES.recipeBuilder()
                 .input(PUMP_MODULE[1])
-                .input(ELECTRIC_PUMP_ZPM,8)
-                .input(plate, NaquadahAlloy, 16)
-                .input(foil,PPB,64)
-                .input(wireGtSingle, ZPMSuperconductor, 32)
+                .input(CIRCUIT_GOOD_V,8)
+                .input(ELECTRIC_PUMP_UEV, 8)
+                .input(FIELD_GENERATOR_UEV, 4)
+                .input(circuit, MarkerMaterials.Tier.UEV, 16)
+                .input(SENSOR_UEV, 16)
+                .input(wireGtQuadruple, PedotTMA, 32)
+                .input(frameGt, Neutronium, 16)
+                .fluidInputs(Lutetium.getFluid(L * 80))
+                .fluidInputs(KaptonK.getFluid(64000))
+                .fluidInputs(Infinity.getFluid(L * 40))
                 .output(PUMP_MODULE[2])
-                .fluidInputs(Polybenzimidazole.getFluid(L * 16))
-                .fluidInputs(Zylon.getFluid(L * 8))
-                .fluidInputs(TitaniumTungstenCarbide.getFluid(L * 8))
-                .fluidInputs(UltraGlue.getFluid(L * 8))
-                .scannerResearch(b -> b
+                .EUt(VA[UEV])
+                .duration(2 * MINUTE)
+                .stationResearch(r -> r
                         .researchStack(PUMP_MODULE[1].getStackForm())
-                        .EUt(VA[ZPM]))
-                .duration(2000).EUt(VA[ZPM]).buildAndRegister();
+                        .EUt(VA[UEV])
+                        .CWUt(CWT[UHV]))
+                .buildAndRegister();
     }
 }
