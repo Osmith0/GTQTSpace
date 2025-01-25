@@ -8,6 +8,8 @@ import keqing.gtqtspace.common.block.blocks.GTQTSStoneVariantBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 
+import static keqing.gtqtspace.api.unifications.ore.GTQTSOrePrefix.*;
+
 
 public class GTQTSStoneTypes {
     public static StoneType MOON;
@@ -16,15 +18,15 @@ public class GTQTSStoneTypes {
 
     public GTQTSStoneTypes() {}
     public static void init(int addID) {
-        MOON = new StoneType(21+addID, "moon", SoundType.STONE, OrePrefix.ore, GTQTSpaceMaterials.MoonStone,
+        MOON = new StoneType(21+addID, "moon", SoundType.STONE, oreMoon, GTQTSpaceMaterials.MoonStone,
                 () -> gtStoneState(GTQTSStoneVariantBlock.StoneType.MOON),
                 state -> gtStonePredicate(state, GTQTSStoneVariantBlock.StoneType.MOON), false);
 
-        MARS= new StoneType(22+addID, "mars", SoundType.STONE, OrePrefix.ore, GTQTSpaceMaterials.MarsStone,
+        MARS= new StoneType(22+addID, "mars", SoundType.STONE, oreMars, GTQTSpaceMaterials.MarsStone,
                 () -> gtStoneState(GTQTSStoneVariantBlock.StoneType.MARS),
                 state -> gtStonePredicate(state, GTQTSStoneVariantBlock.StoneType.MARS), false);
 
-        VENUS= new StoneType(23+addID, "venus", SoundType.STONE, OrePrefix.ore, GTQTSpaceMaterials.VenusStone,
+        VENUS= new StoneType(23+addID, "venus", SoundType.STONE, oreVenus, GTQTSpaceMaterials.VenusStone,
                 () -> gtStoneState(GTQTSStoneVariantBlock.StoneType.VENUS),
                 state -> gtStonePredicate(state, GTQTSStoneVariantBlock.StoneType.VENUS), false);
     }
