@@ -18,7 +18,7 @@ import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.BlockBoilerCasing;
 import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
-import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
+import keqing.gtqtcore.api.metaileentity.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.world.Teleporter.SpaceStationTeleporter;
 import net.minecraft.block.state.IBlockState;

@@ -27,7 +27,7 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
 import keqing.gtqtcore.client.textures.GTQTTextures;
-import keqing.gtqtcore.common.metatileentities.multi.multiblock.standard.MetaTileEntityBaseWithControl;
+import keqing.gtqtcore.api.metaileentity.MetaTileEntityBaseWithControl;
 import keqing.gtqtspace.client.textures.GTQTSTextures;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.block.blocks.GTQTSMultiblockCasing1;
