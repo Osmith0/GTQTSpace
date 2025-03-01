@@ -1,10 +1,12 @@
 package keqing.gtqtspace.loaders.recipes.categories;
 
+import gregtech.api.fluids.store.FluidStorageKeys;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import keqing.gtqtspace.GTQTSConfig;
 import net.minecraftforge.fluids.FluidStack;
 
+import static gregtech.api.GTValues.L;
 import static gregtech.api.unification.material.Materials.*;
 import static keqing.gtqtcore.api.unification.GCYSMaterials.*;
 import static keqing.gtqtcore.api.unification.GTQTMaterials.*;
@@ -52,10 +54,10 @@ public class SpacePumpRecipes {
         addSpacePumpRecipe(6,3, Tritium.getFluid(500));
         addSpacePumpRecipe(6,4, Oil.getFluid(500));
 
-        addSpacePumpRecipe(7,1, LiquidHelium.getFluid(2000));
-        addSpacePumpRecipe(7,2, LiquidHydrogen.getFluid(2000));
-        addSpacePumpRecipe(7,3, LiquidNitrogen.getFluid(2000));
-        addSpacePumpRecipe(7,4, LiquidRadon.getFluid(2000));
+        addSpacePumpRecipe(7,1, Helium.getFluid(FluidStorageKeys.LIQUID, 2000));
+        addSpacePumpRecipe(7,2, Hydrogen.getFluid(FluidStorageKeys.LIQUID, 2000));
+        addSpacePumpRecipe(7,3, Nitrogen.getFluid(FluidStorageKeys.LIQUID, 2000));
+        addSpacePumpRecipe(7,4, Radon.getFluid(FluidStorageKeys.LIQUID, 2000));
     }
 
     private static void initSpacePumpPlanets() {

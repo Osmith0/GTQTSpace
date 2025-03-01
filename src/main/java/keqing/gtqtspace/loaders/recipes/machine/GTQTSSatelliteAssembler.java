@@ -45,7 +45,7 @@ public class GTQTSSatelliteAssembler {
                 .input(plate, Platinum, 6)
                 .input(gear, StainlessSteel, 6)
                 .input(foil, Titanium, 6)
-                .fluidInputs(LiquidHelium.getFluid(L * 8))
+                .fluidInputs(Helium.getFluid(L * 8))
                 .fluidInputs(UltraGlue.getFluid(L * 8))
                 .fluidInputs(Polybenzimidazole.getFluid(L * 4))
                 .fluidInputs(Zylon.getFluid(L * 2))
