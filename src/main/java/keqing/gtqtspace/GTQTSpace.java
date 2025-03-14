@@ -1,22 +1,29 @@
 package keqing.gtqtspace;
 
 import keqing.gtqtspace.api.GTQTSAPI;
+import keqing.gtqtspace.api.utils.Datas;
 import keqing.gtqtspace.api.utils.GTQTSLog;
 import keqing.gtqtspace.api.world.BiomeGenBaseGC;
 import keqing.gtqtspace.client.ClientProxy;
+import keqing.gtqtspace.command.CommandTeleportDimension;
 import keqing.gtqtspace.common.CommonProxy;
 import keqing.gtqtspace.common.block.GTQTSMetaBlocks;
 import keqing.gtqtspace.common.entity.MetaEntities;
 import keqing.gtqtspace.common.items.GTQTSMetaItems;
 
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
+import keqing.gtqtspace.network.SyncInit;
 import keqing.gtqtspace.world.worldgen.GTQTSDimensionManager;
 import keqing.gtqtspace.world.worldgen.GTQTSDimensionType;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -52,6 +59,8 @@ public class GTQTSpace {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IOException {
 		proxy.init();
+		Datas.init();
+		SyncInit.init();
 	}
 	@Mod.EventHandler
 	@SideOnly(Side.CLIENT)
@@ -63,6 +72,11 @@ public class GTQTSpace {
 	public void Clientinit(FMLInitializationEvent event) {
 		MetaEntities.initRenderers();
 
+	}
+
+	@Mod.EventHandler
+	public void serverStarting(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandTeleportDimension());
 	}
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

@@ -36,7 +36,11 @@ public class VenusProvider extends WorldProvider {
         float nightColB = 21.0F / 255.0F;
         return new Vec3d(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
     }
-
+    @SideOnly(Side.CLIENT)
+    public float getCloudHeight()
+    {
+        return 0.0F;
+    }
     @Override
     public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
         float night = this.getStarBrightness(1.0F);

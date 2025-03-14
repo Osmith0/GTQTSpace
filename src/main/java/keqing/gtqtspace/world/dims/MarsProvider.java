@@ -35,7 +35,11 @@ public class MarsProvider extends WorldProvider {
         float f = 1.0F - this.getStarBrightness(1.0F);
         return new Vec3d(154 / 255.0F * f, 114 / 255.0F * f, 66 / 255.0F * f);
     }
-
+    @SideOnly(Side.CLIENT)
+    public float getCloudHeight()
+    {
+        return 0.0F;
+    }
     @Override
     public long getWorldTime() {
 

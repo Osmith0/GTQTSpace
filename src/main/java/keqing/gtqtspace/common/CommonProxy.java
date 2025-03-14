@@ -55,8 +55,6 @@ public class CommonProxy {
 	public void init() throws IOException {
 		OreDictionaryLoader.init();
 		GTQTSRecipesManager.init();
-
-
 	}
 
 	@SubscribeEvent

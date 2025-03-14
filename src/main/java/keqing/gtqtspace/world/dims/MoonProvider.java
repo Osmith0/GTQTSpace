@@ -9,6 +9,7 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,12 +39,26 @@ public class MoonProvider extends WorldProvider {
         return super.getWorldTime();
     }
 
+    @SideOnly(Side.CLIENT)
+    public float getCloudHeight()
+    {
+        return 0.0F;
+    }
+
     @Override
     public boolean isDaytime() {
 
         return super.isDaytime();
     }
+    @Override
+    public boolean canDoRainSnowIce(net.minecraft.world.chunk.Chunk chunk) {
+        return false; // 关闭下雨、下雪和结冰
+    }
 
+    @Override
+    public boolean canSnowAt(net.minecraft.util.math.BlockPos pos, boolean checkLight) {
+        return false; // 关闭下雪
+    }
     @Override
     protected void init() {
         this.hasSkyLight = true; // 如果你的维度应该有天空光照，设为true

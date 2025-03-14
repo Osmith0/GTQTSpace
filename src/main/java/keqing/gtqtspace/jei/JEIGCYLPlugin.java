@@ -3,7 +3,6 @@ package keqing.gtqtspace.jei;
 import keqing.gtqtspace.common.metatileentities.GTQTSMetaTileEntities;
 import keqing.gtqtspace.jei.category.SpaceMiningCategory;
 import keqing.gtqtspace.jei.category.SpacePumpCategory;
-import keqing.gtqtspace.jei.category.VoidMinerCategory;
 import keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
@@ -22,7 +21,6 @@ import static keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes.HAS
 import static keqing.gtqtspace.loaders.recipes.categories.SpaceMiningRecipes.SPACE_MINING_RECIPES;
 import static keqing.gtqtspace.loaders.recipes.categories.SpacePumpRecipes.GAS_SIPHON_RECIPES;
 import static keqing.gtqtspace.loaders.recipes.categories.SpacePumpRecipes.getPlanetNameByID;
-import static keqing.gtqtspace.loaders.recipes.categories.VoidMinerHandler.*;
 
 
 @JEIPlugin
@@ -38,7 +36,6 @@ public class JEIGCYLPlugin implements IModPlugin {
 
         registry.addRecipeCategories(new SpaceMiningCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new SpacePumpCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new VoidMinerCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
 
@@ -46,22 +43,6 @@ public class JEIGCYLPlugin implements IModPlugin {
     public void register(IModRegistry registry) {
         itemBlacklist = registry.getJeiHelpers().getIngredientBlacklist();
         iItemRegistry = registry.getIngredientRegistry();
-
-        /*
-        //VIRTUAL ORES
-        List<VirtualOreDepositDefinition> virtualVeins = WorldGenRegister.getVirtualOreDepositDefinitions();
-        List<VirtualOresInfo> virtualOresInfos = new ArrayList<>();
-        for(VirtualOreDepositDefinition definition : virtualVeins) {
-            virtualOresInfos.add(new VirtualOresInfo(definition));
-        }
-
-        String virtualVeinSpawnID = Tags.MODID + ":" + "virtual_ores";
-        registry.addRecipes(virtualOresInfos, virtualVeinSpawnID);
-        registry.addRecipeCatalyst(MetaItems.PROSPECTOR_LV.getStackForm(), virtualVeinSpawnID);
-        registry.addRecipeCatalyst(MetaItems.PROSPECTOR_HV.getStackForm(), virtualVeinSpawnID);
-        registry.addRecipeCatalyst(MetaItems.PROSPECTOR_LUV.getStackForm(), virtualVeinSpawnID);
-*/
-
 
         String spaceMineID = MODID + ":" + "space_mining";
         List<SpaceMiningInfo> spaceMiningInfo1 = new ArrayList<>();
@@ -125,19 +106,5 @@ public class JEIGCYLPlugin implements IModPlugin {
         registry.addRecipeCatalyst(GTQTSMetaTileEntities.PUMP_MODULE[0].getStackForm(), spacePumpID);
         registry.addRecipeCatalyst(GTQTSMetaTileEntities.PUMP_MODULE[1].getStackForm(), spacePumpID);
         registry.addRecipeCatalyst(GTQTSMetaTileEntities.PUMP_MODULE[2].getStackForm(), spacePumpID);
-
-
-        String voidMinerID = MODID + ":" + "void_miner_ores";
-        List<VoidMinerInfo> voidMinerInfo1 = new ArrayList<>();
-        List<VoidMinerInfo> voidMinerInfo2 = new ArrayList<>();
-        List<VoidMinerInfo> voidMinerInfo3 = new ArrayList<>();
-
-        voidMinerInfo1.add(new VoidMinerInfo(ORES, 0));
-        voidMinerInfo2.add(new VoidMinerInfo(ORES_2, 1));
-        voidMinerInfo3.add(new VoidMinerInfo(ORES_3, 2));
-        registry.addRecipes(voidMinerInfo1, voidMinerID);
-        registry.addRecipes(voidMinerInfo2, voidMinerID);
-        registry.addRecipes(voidMinerInfo3, voidMinerID);
-
     }
 }

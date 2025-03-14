@@ -1,5 +1,7 @@
 package keqing.gtqtspace.common.metatileentities;
 
+import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.MetaTileEntityRocketLaunchPad;
+import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.MetaTileEntityWindGenerator;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.AsteroidSystem.AsteroidController;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.AsteroidSystem.AsteroidDrill;
 import keqing.gtqtspace.common.metatileentities.multi.multiblock.standard.SpaceStation.AsteroidSystem.AsteroidSearch;
@@ -39,6 +41,8 @@ public class GTQTSMetaTileEntities {
     public static MetaTileEntityPumpingModule[] PUMP_MODULE = new MetaTileEntityPumpingModule[3];
     public static MetaTileEntityMiningModule[] MINING_MODULE = new MetaTileEntityMiningModule[3];
     public static MetaTileEntityAssemblerModule[] ASSEMBLER_MODULE = new MetaTileEntityAssemblerModule[3];
+    public static MetaTileEntityRocketLaunchPad ROCKET_LAUNCH_PAD;
+    public static MetaTileEntityWindGenerator WIND_GENERATOR;
 
     public static int id = 5100;
 
@@ -55,6 +59,9 @@ public class GTQTSMetaTileEntities {
         DOCK_MANGER = registerMetaTileEntity(5025, new DockManager(gtqtspaceId("dock_manager")));
         DOCK_BUILDER = registerMetaTileEntity(5026, new DockBuilder(gtqtspaceId("dock_builder")));
         DOCK = registerMetaTileEntity(5027, new Dock(gtqtspaceId("dock")));
+
+        ROCKET_LAUNCH_PAD = registerMetaTileEntity(5030, new MetaTileEntityRocketLaunchPad(gtqtspaceId("rocket_launch_pad")));
+        WIND_GENERATOR = registerMetaTileEntity(5031, new MetaTileEntityWindGenerator(gtqtspaceId("wind_generator")));
 
         SPACE_ELEVATOR = registerMetaTileEntity(++id, new MetaTileEntitySpaceElevator(gtqtspaceId("space_elevator")));
         PUMP_MODULE[0] = registerMetaTileEntity(++id, new MetaTileEntityPumpingModule(gtqtspaceId("pump_module_1"), 6, 1, 2));
