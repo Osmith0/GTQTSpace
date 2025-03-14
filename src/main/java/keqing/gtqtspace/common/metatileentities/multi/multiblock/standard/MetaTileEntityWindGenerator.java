@@ -166,16 +166,15 @@ public class MetaTileEntityWindGenerator extends MultiblockWithDisplayBase imple
             FMLClientHandler.instance().getClient().getTextureManager().bindTexture(ObjModels.wind_generator_pic); //自带的材质绑定 需要传递一个ResourceLocation
             GlStateManager.translate(x, y, z);//translate是移动方法 这个移动到xyz是默认的 不要动
             GlStateManager.translate(xDir * 2 + 0.5, 3.2, zDir * 2 + 0.5);//translate是移动方法 这个移动到xyz是默认的 不要动
-
-
+            ObjModels.darius_wind_generator.renderAllExcept("torus","torus.001");
             float angle = (System.currentTimeMillis() % 36000) / 10.0f; //我写的随时间变化旋转的角度
-            //GlStateManager.rotate(90, 0F, 1F, 0F);//rotate是旋转模型的方法  DNA的初始位置不太对 我旋转了一下   四个参数为：旋转角度，xyz轴，可以控制模型围绕哪个轴旋转
             GlStateManager.rotate(angle, 0F, 1F, 0F);//我让dna围绕z轴旋转，角度是实时变化的
 
 
             GlStateManager.scale(1.5, 1.5, 1.5);
             // ObjModels.Tree_Model.renderAllWithMtl(); //这个是模型加载器的渲染方法  这是带MTL的加载方式
-            ObjModels.darius_wind_generator.renderAll(); //这个是模型加载器的渲染方法  这是不带MTL的加载方式
+            ObjModels.darius_wind_generator.renderPart("torus");
+            ObjModels.darius_wind_generator.renderPart("torus.001");
             GlStateManager.popMatrix();//读取变换前的位置和角度(恢复原状) 下面都是还原状态机的语句
             GlStateManager.enableLighting();
             GlStateManager.popAttrib();
